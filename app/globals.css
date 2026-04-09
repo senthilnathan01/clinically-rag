@@ -1,0 +1,61 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --background: 32 38% 96%;
+  --foreground: 262 39% 15%;
+  --panel: 0 0% 100%;
+  --panel-foreground: 262 39% 15%;
+  --primary: 8 93% 65%;
+  --primary-foreground: 0 0% 100%;
+  --secondary: 34 38% 92%;
+  --secondary-foreground: 262 39% 18%;
+  --accent: 14 84% 64%;
+  --accent-foreground: 0 0% 100%;
+  --muted: 30 23% 93%;
+  --muted-foreground: 262 15% 40%;
+  --border: 28 18% 84%;
+  --input: 28 18% 84%;
+  --ring: 8 93% 65%;
+}
+
+.dark {
+  --background: 252 24% 10%;
+  --foreground: 30 33% 94%;
+  --panel: 250 19% 14%;
+  --panel-foreground: 30 33% 94%;
+  --primary: 8 93% 67%;
+  --primary-foreground: 0 0% 100%;
+  --secondary: 250 17% 19%;
+  --secondary-foreground: 30 33% 94%;
+  --accent: 10 86% 66%;
+  --accent-foreground: 0 0% 100%;
+  --muted: 251 14% 18%;
+  --muted-foreground: 25 16% 76%;
+  --border: 251 13% 24%;
+  --input: 251 13% 24%;
+  --ring: 8 93% 67%;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  min-height: 100vh;
+  background:
+    radial-gradient(circle at top left, rgba(255, 105, 82, 0.08), transparent 28%),
+    radial-gradient(circle at bottom right, rgba(73, 44, 112, 0.08), transparent 28%),
+    hsl(var(--background));
+  color: hsl(var(--foreground));
+  font-family: var(--font-sans), system-ui, sans-serif;
+}
+
+a {
+  color: inherit;
+}
+
+::selection {
+  background: hsla(var(--primary), 0.2);
+}

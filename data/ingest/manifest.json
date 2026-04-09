@@ -1,0 +1,349 @@
+{
+  "generatedAt": "2026-04-09T19:38:44.642Z",
+  "articleCount": 21,
+  "chunkCount": 808,
+  "indexedArticles": [
+    {
+      "articleNumber": 1,
+      "badge": "MARKET",
+      "title": "2025: The State of AI in Healthcare",
+      "publication": "Menlo Ventures",
+      "date": "Oct 2025",
+      "cluster": "Market & Adoption",
+      "url": "https://menlovc.com/perspective/2025-the-state-of-ai-in-healthcare/",
+      "questionRefs": [
+        "Q01"
+      ],
+      "isLive": false,
+      "summary": "Healthcare is setting the pace for enterprise AI adoption. Long dismissed as a digital laggard that trailed years behind every major innovation wave, healthcare has flipped the script. The $4.9 trillion industry,1 which represents one-fifth of the U.S.",
+      "extractionMethod": "html-readability",
+      "extractedTextLength": 27747,
+      "status": "indexed"
+    },
+    {
+      "articleNumber": 2,
+      "badge": "MARKET",
+      "title": "AI in Healthcare Market Size & Share — Industry Report 2033",
+      "publication": "Grand View Research",
+      "date": "2025",
+      "cluster": "Market & Adoption",
+      "url": "https://www.grandviewresearch.com/industry-analysis/artificial-intelligence-ai-healthcare-market",
+      "questionRefs": [],
+      "isLive": false,
+      "summary": "The global artificial intelligence in healthcare market size was estimated at USD 36.67 billion in 2025 and is projected to reach USD 505.59 billion by 2033, growing at a CAGR of 38.90% from 2026 to 2033. The key factor driving market growth is the increasing demand in the healthcare sector for enhanced efficiency, accuracy, and better patient outcomes. Key Market Trends & Insights\n\nNorth America AI in healthcare market accounted for the largest revenue share of over 54% in 2025.",
+      "extractionMethod": "html-readability",
+      "extractedTextLength": 24778,
+      "status": "indexed"
+    },
+    {
+      "articleNumber": 3,
+      "badge": "MARKET",
+      "title": "AI in Healthcare Market Rises 37.66% CAGR by 2035",
+      "publication": "Toward Healthcare",
+      "date": "Dec 2025",
+      "cluster": "Market & Adoption",
+      "url": "https://www.towardshealthcare.com/insights/ai-in-healthcare-market",
+      "questionRefs": [],
+      "isLive": false,
+      "summary": "Revenue, 2025\n 37.98 Billion\n \n \n \n \n \n \n \n Forecast, 2035\n 928.18 Billion\n \n \n \n \n \n \n \n CAGR, 2026-2035\n 37.66%\n \n \n \n \n \n \n \n Report Coverage\n Global\n \n \n \n \n AI in Healthcare Market Size, Transforming Medical Imaging and Early Disease DetectionThe AI in healthcare market is projected to reach USD 928.18 billion by 2035, growing from USD 37.98 billion in 2025, at a CAGR of 37.66% during the forecast period from 2026 to 2035, as a result of the increasing adoption of advanced technology, innovation in clinical research and rising demand for customized healthcare.According to a current newsletter article of the National Institute of Health, a remarkable 99% accuracy achieved in evaluating mammograms, leading to quicker Breast cancer diagnosis, has driven market growth in the Healthcare Industry.Key Takeaways\nAI in healthcare sector pushed the market to USD 52.28 billion by 2026. Long-term projections show USD 928.18 billion valuation by 2035Growth is expected at a steady CAGR of 37.66% in between 2026 to 2035\nNorth America dominated the market in 2024. Asia-Pacific is anticipated to grow at the fastest rate in the market during the forecast period.",
+      "extractionMethod": "html-readability",
+      "extractedTextLength": 32335,
+      "status": "indexed"
+    },
+    {
+      "articleNumber": 4,
+      "badge": "SURVEY",
+      "title": "Adoption of AI in Healthcare: Survey of Health System Priorities",
+      "publication": "PMC / Scottsdale Inst.",
+      "date": "Fall 2024",
+      "cluster": "Market & Adoption",
+      "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC12202002/",
+      "questionRefs": [
+        "Q02",
+        "Q09"
+      ],
+      "isLive": false,
+      "summary": "Abstract\nImportance\nThe US healthcare system faces significant challenges, including clinician burnout, operational inefficiencies, and concerns about patient safety. Artificial intelligence (AI), particularly generative AI, has the potential to address these challenges, but its adoption, effectiveness, and barriers to implementation are not well understood.Objective\nTo evaluate the current state of AI adoption in US healthcare systems, assess successes and barriers to implementation during the early generative AI era.Design, setting, and participants\nThis cross-sectional survey was conducted in Fall 2024, and included 67 health systems members of the Scottsdale Institute, a collaborative of US non-profit healthcare organizations. Forty-three health systems completed the survey (64% response rate).",
+      "extractionMethod": "html-readability",
+      "extractedTextLength": 34724,
+      "status": "indexed"
+    },
+    {
+      "articleNumber": 5,
+      "badge": "MARKET",
+      "title": "AI Agents in Healthcare Market Report 2025–2030",
+      "publication": "MarketsandMarkets",
+      "date": "2025",
+      "cluster": "Market & Adoption",
+      "url": "https://www.marketsandmarkets.com/Market-Reports/ai-agents-in-healthcare-market-231362627.html",
+      "questionRefs": [],
+      "isLive": false,
+      "summary": "DESCRIPTION\n \n \n TABLE OF CONTENTS\n \n \n METHODOLOGY\n\nAI Agents in Healthcare Market by Function (Scheduling, Billing, Diagnostic, Treatment, RPM, Telehealth), Offering (Multi-Agent), Architecture (Contextual, Conversational), End User (Hospital, ACS, Imaging Center), Trends, Growth - Global Forecast to 2030\n \n \n \n \n USD 6.92 BN\n \n MARKET SIZE, 2030\n \n \n \n \n \n CAGR 44.1%\n \n (2025-2030)\n \n \n \n \n \n 530\n \n REPORT PAGES\n \n \n \n \n \n 550\n \n MARKET TABLES\n\nOVERVIEW\n \n Source: Secondary Research, Interviews with Experts, MarketsandMarkets Analysis\n \n The global AI Agents in Healthcare market, valued at US$0.76 billion in 2024, stood at US$1.11 billion in 2025 and is projected to advance at a resilient CAGR of 44.1% from 2025 to 2030, culminating in a forecasted valuation of US$6.92 billion by the end of the period. Advances in generative AI, natural language processing, and seamless integration with electronic health records (EHRs) are enabling AI agents to handle a range of tasks, from patient engagement and appointment scheduling to clinical decision support and documentation assistance. KEY TAKEAWAYS\n \n \n \n BY REGION\n \n North America dominates the market, with a share of 45.1% in 2024.",
+      "extractionMethod": "html-readability",
+      "extractedTextLength": 36370,
+      "status": "indexed"
+    },
+    {
+      "articleNumber": 6,
+      "badge": "MARKET",
+      "title": "Artificial Intelligence in Healthcare Market — MarketsandMarkets",
+      "publication": "MarketsandMarkets",
+      "date": "2025",
+      "cluster": "Market & Adoption",
+      "url": "https://www.marketsandmarkets.com/Market-Reports/artificial-intelligence-healthcare-market-54679303.html",
+      "questionRefs": [],
+      "isLive": false,
+      "summary": "DESCRIPTION\n \n \n TABLE OF CONTENTS\n \n \n METHODOLOGY\n\nArtificial Intelligence (AI) in Healthcare Market by Offering (Integrated), Function (Diagnosis, Genomic, Precision Medicine, Radiation, Immunotherapy, Pharmacy, Supply Chain), Application (Clinical), End User (Hospitals), Region - Global Forecast to 2030\n \n \n \n \n USD 110.61 BN\n \n MARKET SIZE, 2030\n \n \n \n \n \n CAGR 38.6%\n \n (2025-2030)\n \n \n \n \n \n 713\n \n REPORT PAGES\n \n \n \n \n \n 878\n \n MARKET TABLES\n\nOVERVIEW\n \n Source: Secondary Research, Interviews with Experts, MarketsandMarkets Analysis\n \n The global Artificial Intelligence (AI) in healthcare market is projected to reach USD 110.61 billion by 2030 from USD 21.66 billion in 2025, at a high CAGR of 38.6% during the forecast period. The Artificial Intelligence (AI) healthcare market, is driven by a rising demand for advanced health services that leverage artificial intelligence (AI), machine learning (ML), and data analytics. KEY TAKEAWAYS\n \n \n \n BY REGION\n \n The North America Artificial Intelligence (AI) in healthcare market dominated, with a share of 42.6% in 2024.",
+      "extractionMethod": "html-readability",
+      "extractedTextLength": 139874,
+      "status": "indexed"
+    },
+    {
+      "articleNumber": 7,
+      "badge": "CLINICAL",
+      "title": "7 Ways AI Is Transforming Healthcare",
+      "publication": "World Economic Forum",
+      "date": "Aug 2025",
+      "cluster": "Clinical AI",
+      "url": "https://www.weforum.org/stories/2025/08/ai-transforming-global-health/",
+      "questionRefs": [],
+      "isLive": false,
+      "summary": "This article has been updated.With 4.5 billion people lacking access to essential healthcare services, artificial intelligence could help bridge that gap.AI technologies are already helping doctors spot fractures, triage patients and detect early signs of disease.Yet healthcare is \"below average\" in its adoption of AI compared to other industries, according to the World Economic Forum's white paper, The Future of AI-Enabled Health: Leading the Way.With 4.5 billion people currently without access to essential healthcare services and a health worker shortage of 11 million expected by 2030, AI has the potential to help bridge that gap and revolutionize global healthcare. It could even get us back on track to meet the United Nations' Sustainable Development Goal of achieving universal health coverage by 2030.As the chart below shows, levels of private investment in AI in the healthcare sector vary. And yet, \"AI digital health solutions hold the potential to enhance efficiency, reduce costs and improve health outcomes globally,\" says the white paper.",
+      "extractionMethod": "html-readability",
+      "extractedTextLength": 9581,
+      "status": "indexed"
+    },
+    {
+      "articleNumber": 8,
+      "badge": "CLINICAL",
+      "title": "2025 Watch List: Artificial Intelligence in Health Care",
+      "publication": "NCBI / Canada Health",
+      "date": "2024",
+      "cluster": "Clinical AI",
+      "url": "https://www.ncbi.nlm.nih.gov/books/NBK613808/",
+      "questionRefs": [],
+      "isLive": false,
+      "summary": "Key MessagesWhat Is the 2025 Watch List?•The Watch List is an annual Horizon Scan report from Canada’s Drug Agency that presents emerging technologies and issues that have the potential to shape the future of health care in Canada.•The 2025 Watch List focuses on the use of artificial intelligence (AI) technologies in health care and the issues that may arise with the implementation of these technologies.•AI technologies have the potential to significantly transform health care systems. These technologies could increase efficiency by reducing administrative burden, improve patient outcomes, and enhance patient experience by creating more access points to the health care system. However, there are also legal, ethical, environmental, and social implications with the rollout of these technologies.Why Is This an Issue?•Substantial public and private investments are being made in AI technologies for health care.",
+      "extractionMethod": "html-readability",
+      "extractedTextLength": 115822,
+      "status": "indexed"
+    },
+    {
+      "articleNumber": 9,
+      "badge": "CLINICAL",
+      "title": "AI Scribes in Health Care: Balancing Transformative Potential",
+      "publication": "PMC / JMIR Med Inform",
+      "date": "2025",
+      "cluster": "Clinical AI",
+      "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC12316405/",
+      "questionRefs": [
+        "Q03"
+      ],
+      "isLive": false,
+      "summary": "Abstract\nThe administrative burden of clinical documentation contributes to health care practitioner burnout and diverts valuable time away from direct patient care. Ambient artificial intelligence (AI) scribes—also called “digital scribes” or “AI scribes”—are emerging as a promising solution, given their potential to automate clinical note generation and reduce clinician workload, and those specifically built on a large language model (LLM) are emerging as technologies for facilitating real-time clinical documentation tasks. This potentially transformative development has a foundation on longer-standing, AI-based transcription software, which uses automated speech recognition and/or natural language processing.",
+      "extractionMethod": "html-readability",
+      "extractedTextLength": 32091,
+      "status": "indexed"
+    },
+    {
+      "articleNumber": 10,
+      "badge": "CLINICAL",
+      "title": "AI Medical Devices: 2025 Status, Regulation & Challenges",
+      "publication": "IntuitionLabs",
+      "date": "Oct 2025",
+      "cluster": "Clinical AI",
+      "url": "https://intuitionlabs.ai/articles/ai-medical-devices-regulation-2025",
+      "questionRefs": [
+        "Q04"
+      ],
+      "isLive": false,
+      "summary": "Executive Summary\nThe field of AI-enabled medical devices has expanded dramatically in recent years, transforming many areas of healthcare while raising regulatory, technical, and ethical challenges. By late 2025, sensing and imaging systems powered by machine learning (from radiology scanners to wearable monitors) and intelligent clinical software (from diagnostic tools to decision support) are widely used in practice. Tens of thousands of AI-driven devices have been cleared worldwide – for example, the US Food and Drug Administration (FDA) reports on the order of ~950 FDA-cleared AI/ML devices by mid-2024 ([1]) (with roughly 100 new approvals each year), spanning hundreds of companies and clinical specialties.",
+      "extractionMethod": "html-readability",
+      "extractedTextLength": 65300,
+      "status": "indexed"
+    },
+    {
+      "articleNumber": 11,
+      "badge": "RESEARCH",
+      "title": "Leading AI-Driven Drug Discovery Platforms: 2025 Landscape",
+      "publication": "ScienceDirect",
+      "date": "Nov 2025",
+      "cluster": "Drug Discovery",
+      "url": "https://www.sciencedirect.com/science/article/abs/pii/S0031699725075118",
+      "questionRefs": [],
+      "isLive": false,
+      "summary": "This manual fallback note covers Article 11, \"Leading AI-Driven Drug Discovery Platforms: 2025 Landscape,\" and is used only when the publisher blocks direct extraction. The article frames 2025 as a competitive landscape review of AI-first drug discovery platforms. It emphasizes that leading platforms are differentiating through proprietary wet-lab feedback loops, multimodal biological data, and increasingly integrated chemistry plus automation stacks rather than standalone model performance claims.",
+      "extractionMethod": "manual-override",
+      "extractedTextLength": 1179,
+      "status": "indexed"
+    },
+    {
+      "articleNumber": 12,
+      "badge": "RESEARCH",
+      "title": "AI-Driven Drug Discovery: A Comprehensive Review (2019–2024)",
+      "publication": "ACS Omega",
+      "date": "2025",
+      "cluster": "Drug Discovery",
+      "url": "https://pubs.acs.org/doi/10.1021/acsomega.5c00549",
+      "questionRefs": [],
+      "isLive": false,
+      "summary": "This manual fallback note covers Article 12, \"AI-Driven Drug Discovery: A Comprehensive Review (2019–2024),\" and is used only when the publisher blocks direct extraction. The review surveys AI applications across the full drug discovery lifecycle, from target identification and screening through lead optimization, toxicity prediction, and translational validation. It presents the field as meaningfully faster and more selective than traditional purely manual workflows, but repeatedly warns that real-world progress remains bottlenecked by data quality, reproducibility, and the gap between in silico promise and clinical validation.",
+      "extractionMethod": "manual-override",
+      "extractedTextLength": 1253,
+      "status": "indexed"
+    },
+    {
+      "articleNumber": 13,
+      "badge": "RESEARCH",
+      "title": "Transformative Role of AI in Drug Discovery and Translational Medicine",
+      "publication": "PMC",
+      "date": "2025",
+      "cluster": "Drug Discovery",
+      "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC12406033/",
+      "questionRefs": [
+        "Q05"
+      ],
+      "isLive": false,
+      "summary": "Abstract\nIntroduction\nThe use of Artificial intelligence in drug discovery is changing the field of Medicine across the world today positively. In this review, the role of AI in each focus area for the improvement of the drug development process, and its relevance in translational medicine is discussed.Materials and Method\nA systematic review was conducted by searching databases such as PubMed and Scopus, employing key terms like “AI” “drug discovery” “machine learning” “clinical trials” and “translational medicine.” Inclusion criteria focused on peer-reviewed studies published between 2014 and 2024 that specifically addressed the role of AI in drug development. Data extraction involved categorizing findings based on different phases of drug discovery.Results\nThe findings reveal that the use of AI lowers costs, shortens the time required for drug development, and enhances the predictive capability.",
+      "extractionMethod": "html-readability",
+      "extractedTextLength": 44203,
+      "status": "indexed"
+    },
+    {
+      "articleNumber": 14,
+      "badge": "RESEARCH",
+      "title": "Unlocking the Potential: Multimodal AI in Biotechnology",
+      "publication": "npj Digital Medicine",
+      "date": "Oct 2025",
+      "cluster": "Drug Discovery",
+      "url": "https://www.nature.com/articles/s41746-025-01992-6",
+      "questionRefs": [],
+      "isLive": false,
+      "summary": "IntroductionIn recent years, the pharmaceutical and biotechnology industries have experienced a significant surge in data digitization. This digital transformation, while promising, presents challenges in collecting, analyzing, and applying vast and complex datasets to solve intricate clinical and biological problems1. Although AI has transformed sectors such as finance and transportation, its full potential in life sciences is only beginning to be realized.",
+      "extractionMethod": "html-readability",
+      "extractedTextLength": 87015,
+      "status": "indexed"
+    },
+    {
+      "articleNumber": 15,
+      "badge": "RESEARCH",
+      "title": "ML-Enabled Medical Devices Authorized by the FDA in 2024",
+      "publication": "PMC / Harvard & Stanford",
+      "date": "Dec 2025",
+      "cluster": "Regulation & Ethics",
+      "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC12730494/",
+      "questionRefs": [
+        "Q04",
+        "Q08",
+        "Q09"
+      ],
+      "isLive": false,
+      "summary": "Abstract\nBackground: The US Food and Drug Administration (FDA) authorized over 690 machine learning (ML)-enabled medical devices between 1995 and 2023. In 2024, new guidance enabled the inclusion of Predetermined Change Control Plans (PCCPs), raising expectations for transparency, equity, and safety under the Good Machine Learning Practice (GMLP) framework. Objective: The objective was to assess regulatory pathways, predicate lineage, demographic transparency, performance reporting, and PCCP uptake among ML-enabled devices approved by the FDA in 2024.",
+      "extractionMethod": "html-readability",
+      "extractedTextLength": 56699,
+      "status": "indexed"
+    },
+    {
+      "articleNumber": 16,
+      "badge": "ETHICS",
+      "title": "Ethical Challenges and Evolving Strategies in AI Integration",
+      "publication": "PLOS Digital Health",
+      "date": "Apr 2025",
+      "cluster": "Regulation & Ethics",
+      "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC11977975/",
+      "questionRefs": [
+        "Q06",
+        "Q10"
+      ],
+      "isLive": false,
+      "summary": "Abstract\nArtificial intelligence (AI) has rapidly transformed various sectors, including healthcare, where it holds the potential to transform clinical practice and improve patient outcomes. However, its integration into medical settings brings significant ethical challenges that need careful consideration. This paper examines the current state of AI in healthcare, focusing on five critical ethical concerns: justice and fairness, transparency, patient consent and confidentiality, accountability, and patient-centered and equitable care.",
+      "extractionMethod": "html-readability",
+      "extractedTextLength": 40714,
+      "status": "indexed"
+    },
+    {
+      "articleNumber": 17,
+      "badge": "ETHICS",
+      "title": "Framework for Bias Evaluation in LLMs in Healthcare Settings",
+      "publication": "npj Digital Medicine",
+      "date": "Jul 2025",
+      "cluster": "Regulation & Ethics",
+      "url": "https://www.nature.com/articles/s41746-025-01786-w",
+      "questionRefs": [
+        "Q08"
+      ],
+      "isLive": false,
+      "summary": "IntroductionThe widespread adoption of large language models (LLMs) has revealed significant challenges found in clinical settings, particularly around accuracy, bias, and patient privacy1. While some tools exist to help address bias on an algorithmic level2, there is no comprehensive approach available for new users to identify and mitigate these harms in clinical settings. Even so, studies to date have explored myriad applications ranging including aiding differential diagnosis, answering medical exam questions from the US Medical Licensing Examination (USMLE), providing accurate medical advice, and extracting patient information from electronic medical records1,3.",
+      "extractionMethod": "html-readability",
+      "extractedTextLength": 67469,
+      "status": "indexed"
+    },
+    {
+      "articleNumber": 18,
+      "badge": "ETHICS",
+      "title": "Pathways to Trustworthy AI: Ethical Clinical Challenges",
+      "publication": "PMC / MDPI",
+      "date": "Mar 2025",
+      "cluster": "Regulation & Ethics",
+      "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC11900311/",
+      "questionRefs": [
+        "Q10"
+      ],
+      "isLive": false,
+      "summary": "Abstract\nBackground/Objectives: Artificial intelligence (AI) is transforming healthcare, enabling advances in diagnostics, treatment optimization, and patient care. Yet, its integration raises ethical, regulatory, and societal challenges. Key concerns include data privacy risks, algorithmic bias, and regulatory gaps that struggle to keep pace with AI advancements.",
+      "extractionMethod": "html-readability",
+      "extractedTextLength": 114766,
+      "status": "indexed"
+    },
+    {
+      "articleNumber": 19,
+      "badge": "ETHICS",
+      "title": "AI in Healthcare — Hastings Center Bioethics Briefing Book",
+      "publication": "Hastings Center",
+      "date": "2025",
+      "cluster": "Regulation & Ethics",
+      "url": "https://www.thehastingscenter.org/briefingbook/ai-in-healthcare/",
+      "questionRefs": [
+        "Q07"
+      ],
+      "isLive": false,
+      "summary": "From Bioethics Briefings \n \n Highlights The use of medical AI and large language models has become part of our healthcare system, raising the prospect of benefits, such as increased access to care, as well as ethical concerns. Ethical concerns include risks to patients’ privacy from data collected by AI, a lack of understanding by patients about the use of AI in their care, and bias against underrepresented groups. There are safety concerns when AI diagnoses or advice are inaccurate and a lack of accountability about who is responsible.",
+      "extractionMethod": "html-readability",
+      "extractedTextLength": 22974,
+      "status": "indexed"
+    },
+    {
+      "articleNumber": 20,
+      "badge": "RESEARCH",
+      "title": "Impact of AI on Healthcare: Diagnostics, Treatment & Operations",
+      "publication": "Health Science Reports",
+      "date": "Jan 2025",
+      "cluster": "Regulation & Ethics",
+      "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC11702416/",
+      "questionRefs": [],
+      "isLive": false,
+      "summary": "ABSTRACT\nBackground and Aims\nArtificial Intelligence (AI) beginning to integrate in healthcare, is ushering in a transformative era, impacting diagnostics, altering personalized treatment, and significantly improving operational efficiency. The study aims to describe AI in healthcare, including important technologies like robotics, machine learning (ML), deep learning (DL), and natural language processing (NLP), and to investigate how these technologies are used in patient interaction, predictive analytics, and remote monitoring. The goal of this review is to present a thorough analysis of AI's effects on healthcare while providing stakeholders with a road map for navigating this changing environment.Methods\nThis review analyzes the impact of AI on healthcare using data from the Web of Science (2014–2024), focusing on keywords like AI, ML, and healthcare applications.",
+      "extractionMethod": "html-readability",
+      "extractedTextLength": 86563,
+      "status": "indexed"
+    },
+    {
+      "articleNumber": 21,
+      "badge": "BREAKING",
+      "title": "AI in the Mental Health Care Workforce: Fear, Pushback & Enthusiasm",
+      "publication": "NPR",
+      "date": "Apr 7 2026",
+      "cluster": "Live",
+      "url": "https://www.npr.org/2026/04/07/nx-s1-5771707/mental-health-care-workforce-artificial-intelligence-ai",
+      "questionRefs": [
+        "Q11"
+      ],
+      "isLive": true,
+      "summary": "Artificial intelligence has arrived in the field of mental health. Large health systems and independent therapists alike have begun to adopt different AI tools to manage the delivery of mental health treatment. The speed of the adoption — alongside disturbing incidents of individuals using general-use AI chatbots with catastrophic consequences — is causing some concern among practitioners and researchers.",
+      "extractionMethod": "html-readability",
+      "extractedTextLength": 7487,
+      "status": "indexed"
+    }
+  ],
+  "failedArticles": []
+}

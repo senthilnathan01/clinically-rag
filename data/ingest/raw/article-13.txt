@@ -1,0 +1,247 @@
+Abstract
+Introduction
+The use of Artificial intelligence in drug discovery is changing the field of Medicine across the world today positively. In this review, the role of AI in each focus area for the improvement of the drug development process, and its relevance in translational medicine is discussed.Materials and Method
+A systematic review was conducted by searching databases such as PubMed and Scopus, employing key terms like “AI” “drug discovery” “machine learning” “clinical trials” and “translational medicine.” Inclusion criteria focused on peer-reviewed studies published between 2014 and 2024 that specifically addressed the role of AI in drug development. Data extraction involved categorizing findings based on different phases of drug discovery.Results
+The findings reveal that the use of AI lowers costs, shortens the time required for drug development, and enhances the predictive capability. AI technologies play an essential role in molecular modeling, drug design and screening, and the efficient design of clinical trials. However, some of the issues that remain include the quality of available data, issues of interpretability of the models, and the more critical issue of ethical considerations that need collective efforts on the development of associate regulatory policies.Conclusion
+AI holds immense potential to dramatically change and transform the process of drug discovery and translational medicine while promoting accurate prevention and cures. However, it is also important to understand how to work with existing problems to make the best use of AI in healthcare. The roles of AI technologies are likely to grow in the development of the medical future, provide patients with better results, and stimulate the innovations in the field of the drug creation.Keywords: artificial intelligence, drug development, machine learning, translational medicine, clinical trials, personalized treatmentIntroduction
+The waiting period from drug discovery to development is getting longer per day since the search for various active compounds is becoming more time consuming and challenging owing to the expansion of chemical space. In order to reduce this waiting period, experts in the field of medicinal chemistry are now introducing the use of artificial intelligence (AI) to transform the pharmaceutical industry.1,2 The traditional process of drug discovery is a stressful and time-consuming task that involves labor-intensive methods including high-throughput screening and trial-and-error research.3,4 However, the ability of AI techniques to accurately analyze big data within a short period will potentially accelerate the medication discovery process. Hence, introducing the use of AI in different stages of drug discovery (such as identifying potential drug targets, screening through large chemical libraries, preclinical testing, and clinical trials) is crucial for significantly reducing the waiting period from drug discovery to development.5,6
+Pharmaceutical industries are commonly associated with rather long and expensive processes of drugs’ creation. In a research work on drug development,7 it reports that the process of developing new drugs will cost about $ 4 billion and that it will take more than 10 years to complete. This financial burden and delay resulting from drug discovery can be prevented by the companies that build their discovery processes on the foundation of AI. Besides accelerating the discovery of drugs, AI also makes it possible to precise medication, with the use of genes and characteristics of a patient.5 It is noteworthy that AI systems can find numerous biomarkers and outline specific reactions of various patients to various treatments – one of the objectives of translational medicine.8
+It can be seen that the application of AI is not limited only to drug discovery. Its importance can be summarized in the fact that it plays an active part in translational medicine, the branch of medicine that focuses on the translation of research discoveries into clinical practice.9 Translational medicine aims to fill a gap between the laboratory and the patient, to make it possible for scientific discoveries to be translated into clinical practice in terms of therapies.10 Machine learning (ML), deep learning (DL), and natural language processing (NLP) are used for the discovery of biomarkers and their application in predicting drug interactions and patient treatment plans based on patient characteristics10 which are the basics of translational medicine.
+The main objective of this review paper is to provide a structured outlook and apperception of AI in drug discovery, development, and translations. This systematic review seeks to discuss how AI is being utilized in an aspect of drug development; from target identification, compound selection, and drug design to clinical trials, and how these advances supplement the concept of personalized medicine. Moreover, this review will present ideas about the integration of AI into other areas of healthcare and the benefits of AI in decreasing costs, accelerating the process of approval for new drugs, and increasing the accuracy of patients’ results.Methodology
+Search Strategy
+This systematic review followed PRISMA guidelines (Figure 1) to ensure precision and transparency. The search strategy involved querying multiple databases, including PubMed, Scopus, Web of Science, and IEEE Xplore, as well as gray literature from Google Scholar. Key terms such as “Artificial Intelligence” “Drug Discovery” “Machine Learning” “Deep Learning” “Translational Medicine” and “Clinical Trials” were combined using Boolean operators (AND, OR) to refine search results.
+
+PRISMA flow diagram showing identification, screening, eligibility, and inclusion of studies (2014–2024).Materials
+The materials for this review consist of peer-reviewed journal articles, conference papers, regulatory guidelines, and technical reports. Additional sources were included from the reference lists of key studies to ensure comprehensive coverage. The review also incorporated guidelines and regulatory perspectives from organizations such as: the Food and Drug Administration (FDA), European Medicines Agency (EMA), and World Health Organization (WHO). The selected studies provided insights into AI’s role in different stages of drug discovery, preclinical development, and translational medicine. Notably, real-world applications, such as AlphaFold for protein folding and Insilico Medicine’s AI platform, were used as case studies to illustrate AI’s practical impact on drug development.Inclusion and Exclusion Criteria
+Inclusion Criteria Include
+
+Studies published between 2014 and 2024.
+Articles focusing on AI in drug discovery, development, or translational medicine (Figure 2).
+Peer-reviewed publications and conference papers.
+Studies discussing AI in both preclinical and clinical phases.
+Relevant regulatory or technical reports.
+
+Inclusion and exclusion criteria.Exclusion Criteria
+
+Articles not addressing AI or machine learning in drug discovery.
+Non-English publications.
+Opinion pieces, editorials, or commentaries lacking empirical data.
+Data Extraction
+Relevant data were extracted from selected studies, focusing on key AI techniques used (eg, machine learning, deep learning), the phase of drug development discussed (eg, discovery, preclinical, clinical), and specific outcomes (eg, increased efficiency, cost reduction, prediction accuracy). Data were tabulated to identify recurring themes, emerging trends, and notable outliers.Data Synthesis and Analysis
+A thematic analysis was employed to categorize data according to AI techniques and their applications across different stages of drug development. Studies were grouped into three main categories: AI in drug discovery, AI in preclinical/clinical development, and AI in translational medicine. This approach enabled a comparative analysis of how AI is impacting each phase, identifying key challenges and potential areas for future research.Main Findings
+AI in Drug Discovery
+Molecular Modeling and Drug Design
+Artificial Intelligence and ML are notably transforming the early stages of drug discovery, especially molecular modeling and drug design.11 As mentioned in the study of Selvaraj et al,12 DL and reinforcement learning techniques have the potential to accurately forecast the physicochemical properties as well as biological activities of new chemical entities. While, Jiménez-Luna et al13 disclosed that by learning from big data of already familiar molecular structures, the use of ML models is capable of predicting the binding affinities of these molecules, which shortens the process of identifying drug prospects. They include the application of generative adversarial networks (GANs) in generating new compounds that meet particular biological properties to speed up the slow and costly drug design process.8
+The traditional ML techniques are also being utilized to model the molecular activity and provide the structural conformation of proteins.5 This has resulted in a groundbreaking existence like AlphaFold, an AI system from DeepMind that can predict protein structures with near-experimental accuracy.14 AlphaFold shows great value as drug designing carries out a major difference in predicting protein folding particularly how drugs interact with their targets hence improving the design of new drugs.15Virtual Screening and Prediction
+AI models are now becoming gold-standard tools for enhancing computational virtual screening, a technique common in the chemical sciences for assessing large databases of compounds.16 That is why, with the help of DL algorithms, AI for the identification of new molecules for further development can analyze the properties of millions of molecular compounds.17 This approach was shown to be much faster and less expensive compared to other conventional high-throughput screening techniques such as HTS.15 AI systems can also predict how compounds will behave within the body and how toxic they are even before the real process of drug development starts.18
+For instance, few studies13,19,20 demonstrated that Insilico Medicine, an AI-driven biotechnology company, has developed AI-based platforms that identify novel drug candidates by screening vast chemical libraries. Also, the company’s AI-driven drug discovery system has been used to identify promising treatments for fibrosis and other complex diseases.21 Strikingly, this AI platform designed a novel drug candidate for idiopathic pulmonary fibrosis in just 18 months. Additionally, Moingeon22 highlighted that AI platforms like Atomwise support convolutional neural networks (CNNs) predict molecular interactions, which has accelerated the development of drug candidates for diseases such as Ebola and multiple sclerosis. Interestingly, this AI platform identified two drug candidates for Ebola in less than a day.AI in Preclinical and Clinical Development
+Drug Repurposing and Optimization
+AI has been most useful in drug repurposing, the process of identifying new uses of drugs that are already licensed.23 According to Tanoli et al,24 AI models can predict the compatibility of known drugs with new targets from large datasets of drug–target interactions as this accelerates the development of drugs from new molecules, which is time-consuming and costly. For example, Benevolent AI supplemented AI to discover the repurpose of Baricitinib, a drug used for rheumatoid arthritis as an applicant to cure COVID-19. It has since been granted emergency use status for the management of severe forms of the virus.25 AI is also used in drug improvement to help pharma businesses enhance the drug and its dosing schedule further.18 Advanced mathematic modeling may help to control the pharmacokinetics and pharmacodynamics of medicine providing high efficacy and low toxicity.26Preclinical Testing
+In preclinical, AI is used to infer drug toxicity and density, thereby avoiding the use of animal models. Machine learning models can analyze biological data that would allow researchers to simulate the behavior of a drug in the human body.24 This not only saves the number of tests conducted on animals but also speeds up the preclinical stage as the critical safety issues are indicated at this phase.27 AI is also used in Silico models that mimic human organs and disease states making realistic predictions of drug effectiveness and side effects before clinical trials.28 These are human organs’ “digital clones” that provide insights into drug–tissue interactions to minimize failure in subsequent clinical trial phases.29Clinical Trials
+AI finds application in patient recruitment, trial design, as well as trial outcomes. Electronic Health Records (EHRs) can be processed to find the subjects for clinical trials; this is especially desirable for clinical trials concerning rare diseases.30 AI can also design malleable clinical trials that require changes midstream in variables such as dose or patient population; this dynamic approach enhances the trial feasibility.31 In addition, it is utilized in making prognosis on patient outcomes as well as enhancement of the trial strategies.32 These models would be assessing markers that show the primordial signs of either benefit from treatment or lack of it, leading to dynamic changes to trials as it helps to shorten the period for a drug to reach the market besides enhancing patient safety by identifying side effects fast.3,33,34AI in Translational Medicine
+Personalized Medicine
+AI’s role in translational medicine is most probably most impressive in the area of personalized medicine, which targets patients’ reactions to interference. When applying genomic, environmental, and lifestyle data, AI algorithms can determine how a particular patient will react to a certain type of treatment by recommending a therapeutic approach.35–37 Applications of AI tool such as IBM Watson for Genomics, compare a patient’s genome sequence and prescribe best-suited treatments, especially in cancer.38
+The application of AI in medicine has benefited the health sector through the identification of the genetic makeup of the growths that cause cancer. Such information enables oncologists to determine which treatment approaches are best appropriate for such a patient in terms of debility, effectiveness, and side effects.39–42
+According to the study of Sheu et al43 involving 175 cancer patients, gene expression data of the patients were used for training a support ML, and a prediction accuracy of 80% across multiple drugs was recorded. In addition, Obermeyer44 used the electronic health records (EHR) of 17,556 patients and AI to predict patients’ responses to antidepressants. The AI models demonstrated strong prediction accuracy and minimized confounding variables by considering features indicative of treatment selection. This study showed that real-world EHR data with AI modeling may be used to effectively predict antidepressant responses, indicating the possibility of creating clinical decision support systems for better medication selection.
+Additionally, One AI algorithm available in precision medicine is DeepMind’s AI algorithm, which can predict patient deterioration and enable timely intervention by health care professionals. Integrating AI will support more precise diagnostics and assist in identifying personalized treatment options to improve patient outcomes.45 Furthermore, Benevolent AI will collaborate with key pharmaceutical companies by 2025 to introduce drugs tailored to genetic markers specific to certain patient populations. This would reduce the time required for drug development and make precision medicine more accessible. In silico AI engines and Chemistry42 are other AI algorithms (currently in clinical trials) that can improve personalized treatment. Additionally, IBM Watson for Genomics is an AI algorithm used to compare a patient’s genome sequence and prescribe the best-suited tailored treatments, especially for cancer.40,46Biomarker Discovery
+It is evident that biomarker discovery, which forms part of the translational medicine process, is closely linked to AI. Biomarkers are prognostic or diagnostic phenomena that guide the further course of a disease or its treatment. Their identification is critical in advancing treatment strategies.43,47,48 AI models can also analyze large datasets to find possible biomarkers, using the discovery of which the validation phase is hastened.49 For instance, Ramirez-Valles et al50 explain that AI algorithms have helped identify biomarkers for Alzheimer’s disease through integration of features of brain imaging, and genomic data. It has also been used in cancer research where the biomarkers are modeled to predict the overall reaction of patients to immunotherapy treatment. It also increases the rate of success with treatments while also advancing clinical trials as a parallel to the associated patients.8,39,49,50
+As a matter of fact, AI is useful in more than biomarker identification in translational medicine. In oncology, those applications of AI are being used to apply research results to clinical practice, particularly in cancer vaccines.51 Currently, AI systems successfully recognize unique mutations of tumors and help design vaccines.4 These particular vaccines are available for use in experimental melanoma and other cancers.52 AI is also advancing in the area of managing otherwise hard-to-treat diseases and, in particular, rare diseases. Healx is a company that employs algorithmic analysis to match existing drugs to rare disease targets, to bring treatments to patients faster for diseases that, by definition, have poor treatment options.23AI and Pharmaceutical Industry
+Leading pharmaceutical companies are actively partnering with AI vendors to implement advanced technology across the entire field, including the manufacturing processes, research, development, and discovery of drugs.53 Analyses indicate that nearly 62% of healthcare organizations will consider an investment in AI and 72% will assume an important role for AI in their business in the future. To investigate the role of AI in the pharmaceutical industry, Pharma News Intelligence reviews current AI applications, including the most successful case studies, and the future of AI and ML. According to the McKinsey Global Institute, AI and ML have the potential to yield nearly $100bn per year in the US healthcare system. Similarly, researchers have pointed out that these technologies contribute to improved decision-making, innovation, the acceleration of research and clinical trials, and the provision of resources for clinicians, consumers, insurers, and regulators. Major pharmaceutical companies, such as Roche, Pfizer, Merck, AstraZeneca, GSK, Sanofi, AbbVie, Bristol-Myers Squibb, and Johnson & Johnson have already integrated AI into their business operations through partnerships or mergers and acquisitions. In 2018, the Massachusetts Institute of Technology (MIT) collaborated with Novartis and Pfizer to transform drug design and synthesis with ML for Pharmaceutical Discovery and Synthesis Consortium.
+Daily research aims to discover new active principles for currently incurable diseases, enhance the safety profile of existing drugs, combat drug resistance, and minimize therapeutic failure. As a result, the biomedical data employed in drug design and discovery have expanded exponentially, driving the evolution of AI in the pharmaceutical field. Presently, multiple pharmaceutical companies offer software applications that support drug design, data analysis, and the prediction of treatment results.
+One notable example is GNS Healthcare (according to information retrieved from gnshealthcare.com), which uses an AI software called Reverse Engineering and Forward Simulation (REFS). This software detects cause–effect relationships in data that are not obvious a priority through standard assessment techniques. The GNS claims that REFS can analyze millions of data points across diverse medical fields, including clinical, genetic, laboratory, imaging, drug, consumer, and geographical data. Based on information retrieved from atomwise.com, Atomwise proposed the first deep-learning-based neural network, for structure-based drug discovery. AtomNet analyses millions of experimental affinity measurements and protein structures to predict the binding properties of small molecules to proteins. Three-dimensional visualization of protein–ligand interactions allows pharmaceutical chemists to conduct essential steps of hit discovery, lead optimization, and toxicity prediction with extraordinary speed and precision, resulting in weeks instead of years.
+Furthermore, according to the information obtained from In silico Medicine websites, Pharm AI is a project that utilizes Generative Adversarial Networks (GAN) and reinforcement-learning algorithms. GANs are composed of two neural networks: a generator and discriminator, which are trained to learn and predict samples. The relationship between the generator and the discriminator is “adversarial”. The generator generates new samples and the discriminator identifies whether it is real or fake. Through continuous training, the generator refines its ability to create realistic samples and the discriminator improves its classification accuracy. Through these technologies, Pharm AI can generate entirely new molecules and predict the biological causes of diseases.
+Advances in pharmacy practice include pharmacy-management systems that contain information on patient and drug usage. These systems also detect possible drug-related issues related to the use of clinical decision support screening. The next generation of pharmacy technology aims to integrate expert information systems capable of identifying drug-related issues using data from both pharmacy systems and external sources. Paired with workflow robotics, these innovations ease pharmacists’ workload so that they can concentrate on their essential role as pharmacists, and that technology can perform tiresome tasks.54,55Discussion
+AI is making an impact in the area of drug discovery and development as timelines can be hastened, and costs decreased while increasing the chances of accurate predictions. Efficacy or effectiveness design is a traditional pharmacological development that could take more than a decade and cost billions of dollars before a new therapy arrives on the market. On the other hand, AI-integrated methodologies ease this process. For instance, Nelson et al56 explain that the application of ML can find the most prescriptive drug for the treatment out of a large quantity of results and precedes traditional methods. Furthermore, Koromina et al57 reveal that AI can decrease drug discovery time by 50% with the help of efficient lead identification and optimization. In addition, Basile et al58 highlight that the efficiency of the forecasts regarding the drug’s effectiveness and toxicity is increased due to the application of AI solutions. In traditional development processes, assessment strategies are usually based on the trial and error approach, meaning that problems can be only recognized in the late stages when the project might have to be canceled or significantly redesigned. In fact, nine out of ten discovered therapeutic molecules usually fail Phase II clinical trials and regulatory approval.56 In comparison, ML can mimic the biological responses and in the process estimate the pharmacokinetics of a compound before getting to the clinical phases.59 Thus, this predictive capability helps researchers find more feasible drug prototypes at an earlier stage.60 For instance, AI systems would offer a prognosis of patients concerning its handling with therapeutic profiles from their genetic structure, including in the oncology specialty where individualized treatment plans are most prevalent.29Challenges and Limitations
+Despite the numerous advantages AI offers, several challenges and limitations persist in its integration into drug discovery and translational medicine. One major hurdle is the quality of data. AI models rely on vast amounts of high-quality data to function effectively. In many cases, the available datasets are fragmented, inconsistent, or biased, which can lead to inaccurate predictions and reinforce existing disparities in healthcare.61
+Furthermore, the transparency and interpretability of AI models particularly DL poses a significant challenge, particularly in clinical settings. Many AI systems operate as “black boxes” meaning their decision-making processes are not transparent. This lack of interpretability can hinder clinicians’ ability to trust and utilize AI-generated insights in treatment planning.44 Regulatory agencies, including the US Food and Drug Administration (FDA), are increasingly aware of these issues and are developing guidelines to ensure that AI systems can be audited and understood in clinical practice.2
+Furthermore, the integration of AI into health care raises several ethical concerns, particularly regarding patient data privacy and algorithmic bias. The use of sensitive health data to train AI models necessitates strict adherence to privacy regulations such as the Health Insurance Portability and Accountability Act (HIPAA) in the United States, which can have serious ethical implications and erode public trust in AI technologies.16
+Another major limitation is the possible bias that could arise from the AI algorithms. AI algorithms must be trained with the available data, which can sometimes be biased or unrepresentative. This implies that there will be unequal access to medical treatment and unfair treatment in certain groups.41Future Directions
+In the decades ahead, AI will prove valuable in bringing more advancements to drug discovery and translational research. An even more revolutionary idea is to create a fully self-contained system for drug discovery in which optimizations of compound structures, their synthesis, formulation, and testing are all conducted without human intervention.24 Furthermore, the development of the AI–human relation could create breakthroughs in research fields of translational medicine. For instance, Rai et al62 reveal that by using AI systems as a supplement to the doctor’s advice and experience, the limitations in the treatment plans might be removed, and the patient’s condition might be improved. With the help of this combination of Artificial and Augmented intelligence, one can better comprehend multifaceted diseases and design therapeutic approaches that would take into account the peculiarities of the patient.63
+Additionally, the interaction between AI, blockchain, and Internet of Things will improve data integrity, security, and real-time monitoring in clinical settings. This integration will facilitate the exchange of patient data, effective trials, and personalized treatment plans.64 Additionally, to fully explore the importance of AI in drug discovery, different regulatory frameworks must be established to accommodate the uniqueness of different AI models.65 This includes the establishment of guidelines for the model development, validation, and deployment. Also, these regulatory frameworks must also ensure transparency and accountability in AI-driven decision-making.Conclusion
+This systematic review discusses how AI has enabled scientific advancements in drug discovery, development, and implementation. AI technologies have replaced traditional methodologies in the drug development process with far higher speeds, reduced costs, and improved accuracy. The latest AI and ML techniques, such as DL, have many applications in the prediction and discovery of new drugs, clinical trials, and patient data analyses. AI is changing the face, processes, and pace of the pharmaceutical industry through tools, such as virtual screening and autonomous drug discovery solutions.
+Nonetheless, there are still barriers in recognizing and overcoming the effectiveness of AI in healthcare. Challenges, such as data quality, explainability of AI models, questions regarding patient data protection, and potential biases within these models must be resolved. Government agencies are gradually drawing standards of accountability that must be observed in AI systems. Overcoming these barriers is critical for populating the space of AI-driven drug discovery and Translational Medicine.
+In the coming years, it becomes planned that the introduction of AI will certainly help to design the future of medicine. In the future, as researchers and practitioners continue to work together to embrace the use of AI, this will lead to more enhanced treatment methods that suit individual patient needs, hence improving treatment processes. The evolution of this entails improved patient health and delivery of healthcare to develop an era within which we embrace AI as the key aspect in developing the health sector and coming up with relevant solutions to current and future complex health issues.Funding Statement
+There is no funding to report.Data Sharing Statement
+The manuscript’s materials, including all relevant raw data, will be made freely available by the corresponding author (Odetayo Adeyemi Fatai) to any researcher who wishes to use them for non-commercial purposes while maintaining participant confidentiality.Consent to Publish
+Yes.Disclosure
+The authors report no conflicts of interest in this work.References
+
+1.Blanco-González A, Cabezón A, Seco-González A, et al. The role of AI in drug discovery: challenges, opportunities, and strategies. Pharmaceuticals. 2023;16:891. doi: 10.3390/ph16060891
+ [DOI] [PMC free article] [PubMed] [Google Scholar]
+
+2.Mak KK, Pichika MR. Artificial intelligence in drug development: present status and future prospects. Drug Discov Today. 2019;24(3):773–780. doi: 10.1016/j.drudis.2018.11.014
+ [DOI] [PubMed] [Google Scholar]
+
+3.Mahmoud AM, Sayed AM, Ahmed OS, Abdel-Daim MM, Hassanein EH. The role of flavonoids in inhibiting IL-6 and inflammatory arthritis. Curr Top Med Chem. 2022;22(9):746–768. doi: 10.2174/1568026622666220107105233
+ [DOI] [PubMed] [Google Scholar]
+
+4.Méndez Hernández R, Ramasco Rueda F. Biomarkers as prognostic predictors and therapeutic guide in critically ill patients: clinical evidence. J Pers Med. 2023;13(2):333. doi: 10.3390/jpm13020333
+ [DOI] [PMC free article] [PubMed] [Google Scholar]
+
+5.Chen H, Engkvist O, Wang Y, Olivecrona M, Blaschke T. The rise of deep learning in drug discovery. Drug Discov Today. 2018;23(6):1241–1250. doi: 10.1016/j.drudis.2018.01.039
+ [DOI] [PubMed] [Google Scholar]
+
+6.Zhavoronkov A, Ivanenkov YA, Aliper A, et al. Deep learning enables rapid identification of potent DDR1 kinase inhibitors. Nat Biotechnol. 2020;37(9):1038–1040. doi: 10.1038/s41587-019-0224-x [DOI] [PubMed] [Google Scholar]
+
+7.Schlander M, Hernandez-Villafuerte K, Cheng CY, Mestre-Ferrandiz J, Baumann M. How much does it cost to research and develop a new drug? A systematic review and assessment. Pharmacoeconomics. 2021;39:1243–1269. doi: 10.1007/s40273-021-01065-y
+ [DOI] [PMC free article] [PubMed] [Google Scholar]
+
+8.Esteve-Pastor MA, Roldan V, Rivera-Caravaca JM, Ramirez-Macias I, Lip GY, Marin F. The use of biomarkers in clinical management guidelines: a critical appraisal. Thromb Haemost. 2019;119(12):1901–1919. doi: 10.1055/s-0039-1696955
+ [DOI] [PubMed] [Google Scholar]
+
+9.Cohrs RJ, Martin T, Ghahramani P, Bidaut L, Higgins PJ, Shahzad A. Translational medicine definition by the European Society for Translational Medicine. New Horizons Transl Med. 2015;2(3):86–88. [Google Scholar]
+
+10.Shadmanov AK, Okhunov AO. Translational medicine—a new way from experimental laboratory to clinical practice. J Adv Med Med Res. 2022;34(12):41–47. [Google Scholar]
+
+11.Priya S, Tripathi G, Singh DB, Jain P, Kumar A. Machine learning approaches and their applications in drug discovery and design. Chem Biol Drug Des. 2022;100(1):136–153. doi: 10.1111/cbdd.14057
+ [DOI] [PubMed] [Google Scholar]
+
+12.Selvaraj C, Chandra I, Singh SK. Artificial intelligence and machine learning approaches for drug design: challenges and opportunities for the pharmaceutical industries. Mol Divers. 2021;25:1315–1331.
+ [DOI] [PMC free article] [PubMed] [Google Scholar]
+
+13.Jiménez-Luna J, Grisoni F, Schneider G. Drug discovery with explainable artificial intelligence. Nat Mach Intell. 2021;3(11):933–943. [Google Scholar]
+
+14.Yu D, Yang S, Wang R, et al. Machine Learning in Heart Failure Research: a Bibliometric Analysis from 2003 to 2023. [Google Scholar]
+
+15.Jumper J, Evans R, Pritzel A, et al. Highly accurate protein structure prediction with AlphaFold. Nature. 2021;596(7873):583–589. doi: 10.1038/s41586-021-03819-2
+ [DOI] [PMC free article] [PubMed] [Google Scholar]
+
+16.U.S. Food & Drug Administration. Artificial Intelligence/Machine Learning (AI/ML)-Based Software as a Medical Device (SaMD) Action Plan. 2021. 
+Available from: https://www.fda.gov/medical-devices/software-medical-device-samd/artificial-intelligence-software-medical-device. Accessed July
+13, 2025.
+
+17.Banegas-Luna AJ, Cerón-Carrasco JP, Pérez-Sánchez H. A review of ligand-based virtual screening web tools and screening algorithms in large molecular databases in the age of big data. Future Med Chem. 2018;10(22):2641–2658. doi: 10.4155/fmc-2018-0076
+ [DOI] [PubMed] [Google Scholar]
+
+18.Gupta R, Srivastava D, Sahu M, Tiwari S, Ambasta RK, Kumar P. Artificial intelligence to deep learning: machine intelligence approach for drug discovery. Mol Divers. 2021;25:1315–1360.
+ [DOI] [PMC free article] [PubMed] [Google Scholar]
+
+19.Malandraki-Miller S, Riley PR. Use of artificial intelligence to enhance phenotypic drug discovery. Drug Discov Today. 2021;26(4):887–901. doi: 10.1016/j.drudis.2021.01.013
+ [DOI] [PubMed] [Google Scholar]
+
+20.Tiwari PC, Pal R, Chaudhary MJ, Nath R. Artificial intelligence revolutionizing drug development: exploring opportunities and challenges. Drug Dev Res. 2023;84(8):1652–1663. doi: 10.1002/ddr.22115
+ [DOI] [PubMed] [Google Scholar]
+
+21.Singh S, Gupta H, Sharma P, Sahi S. Advances in Artificial Intelligence (AI)-assisted approaches in drug screening. Artif Intell Chem. 2024;2(1):100039. doi: 10.1016/j.aichem.2023.100039 [DOI] [Google Scholar]
+
+22.Moingeon P. Artificial intelligence-driven drug development against autoimmune diseases. Trends Pharmacol Sci. 2023;44(7):411–424. doi: 10.1016/j.tips.2023.04.005
+ [DOI] [PubMed] [Google Scholar]
+
+23.Vamathevan J, Clark D, Czodrowski P, et al. Applications of machine learning in drug discovery and development. Nat Rev Drug Discov. 2019;18(6):463–477. doi: 10.1038/s41573-019-0024-5
+ [DOI] [PMC free article] [PubMed] [Google Scholar]
+
+24.Tanoli Z, Vähä-Koskela M, Aittokallio T. Artificial intelligence, machine learning, and drug repurposing in cancer. Expert Opin Drug Discov. 2021;16(9):977–989. doi: 10.1080/17460441.2021.1883585
+ [DOI] [PubMed] [Google Scholar]
+
+25.Richardson P, Griffin I, Tucker C, Smith L. Baricitinib as potential treatment for COVID-19: a systematic review. Lancet Infect Dis. 2020;20(5):568–574. doi: 10.1016/S1473-3099(20)30270-X [DOI] [Google Scholar]
+
+26.Schneider P, Walters WP, Plowright AT, et al. Rethinking drug design in the artificial intelligence era. Nat Rev Drug Discov. 2020;19(5):353–364. doi: 10.1038/s41573-019-0050-3
+ [DOI] [PubMed] [Google Scholar]
+
+27.Dara S, Dhamercherla S, Jadav SS, Babu CM, Ahsan MJ. Machine learning in drug discovery: a review. Artif Intell Rev. 2022;55(3):1947–1999. doi: 10.1007/s10462-021-10058-4
+ [DOI] [PMC free article] [PubMed] [Google Scholar]
+
+28.Schmidt M. accelerating drug discovery using ai: success stories and future directions. Pharm Res. 2019;36(12):158.31512001
+ [Google Scholar]
+
+29.Bender A, Cortés-Ciriano I. Artificial intelligence in drug discovery: what is realistic, what are illusions? Part 1: ways to make an impact, and why we are not there yet. Drug Discov Today. 2021;26(2):511–524. doi: 10.1016/j.drudis.2020.12.009
+ [DOI] [PubMed] [Google Scholar]
+
+30.Torres DAR, Wise J, Zhao B, et al. Dendritic cell effector mechanisms and tumor immune microenvironment infiltration define TLR8 modulation and PD-1 blockade. bioRxiv. 2024. doi: 10.1101/2024.09 [DOI] [PMC free article] [PubMed] [Google Scholar]
+
+31.Khurana S, Rauf Z, Rivzi S. AI for patient recruitment in clinical trials. Clin Trials J. 2020;18(1):89–95. [Google Scholar]
+
+32.Harrer S, Shah P, Antony B, Hu J. Artificial intelligence for clinical trial design. Trends Pharmacol Sci. 2019;40(8):577–591. doi: 10.1016/j.tips.2019.05.005
+ [DOI] [PubMed] [Google Scholar]
+
+33.Bera K, Braman N, Gupta A, Velcheti V, Madabhushi A. Predicting cancer outcomes with radiomics and artificial intelligence in radiology. Nat Rev Clin Oncol. 2022;19(2):132–146. doi: 10.1038/s41571-021-00560-7
+ [DOI] [PMC free article] [PubMed] [Google Scholar]
+
+34.Liu X, Rivera SC, Moher D, et al. Reporting guidelines for clinical trial reports for interventions involving artificial intelligence: the CONSORT-AI extension. Lancet Digit Health. 2020;2(10):e537–e548. doi: 10.1016/S2589-7500(20)30218-1
+ [DOI] [PMC free article] [PubMed] [Google Scholar]
+
+35.Zahra MA, Al-Taher A, Alquhaidan M, et al. The synergy of artificial intelligence and personalized medicine for the enhanced diagnosis, treatment, and prevention of disease. Drug Metab Pers Ther. 2024;39(2):47–58. doi: 10.1515/dmpt-2024-0003
+ [DOI] [PubMed] [Google Scholar]
+
+36.DeFrank J, Luiz A. AI-based personalized treatment recommendation for cancer patients. J Carcinog. 2022;21(2). [Google Scholar]
+
+37.Xu J, Yang P, Xue S, et al. Translating cancer genomics into precision medicine with artificial intelligence: applications, challenges and future perspectives. Hum Genet. 2019;138(2):109–124. doi: 10.1007/s00439-019-01970-5
+ [DOI] [PMC free article] [PubMed] [Google Scholar]
+
+38.Topol EJ. Deep Medicine: How Artificial Intelligence Can Make Healthcare Human Again. New York: Basic Books; 2019. [Google Scholar]
+
+39.Hamamoto R, Suvarna K, Yamada M, et al. Application of artificial intelligence technology in oncology: towards the establishment of precision medicine. Cancers. 2020;12(12):3532. doi: 10.3390/cancers12123532
+ [DOI] [PMC free article] [PubMed] [Google Scholar]
+
+40.Burdick HW, Denny JC, Polubriaginof F. The role of AI in clinical trials and personalized medicine. Nat Rev Drug Discov. 2020;19(2):63–65. [Google Scholar]
+
+41.Quazi S. Artificial intelligence and machine learning in precision and genomic medicine. Med Oncol. 2022;39(8):120.
+ [DOI] [PMC free article] [PubMed] [Google Scholar] [Retracted]
+
+42.Huang C, Clayton EA, Matyunina LV, et al. Machine learning predicts individual cancer patient responses to therapeutic drugs with high accuracy. Sci Rep. 2018;8(1):16444. doi: 10.1038/s41598-018-34753-5
+ [DOI] [PMC free article] [PubMed] [Google Scholar]
+
+43.Sheu YH, Magdamo C, Miller M, Das S, Blacker D, Smoller JW. AI-assisted prediction of differential response to antidepressant classes using electronic health records. NPJ Digit Med. 2023;6(1):73. doi: 10.1038/s41746-023-00817-8
+ [DOI] [PMC free article] [PubMed] [Google Scholar]
+
+44.Obermeyer Z, Powers B, Vogeli C, Mullainathan S. Dissecting racial bias in an algorithm used to manage the health of populations. Science. 2019;366(6464):447–453. doi: 10.1126/science.aax2342
+ [DOI] [PubMed] [Google Scholar]
+
+45.Burke HB. Predicting clinical outcomes using molecular biomarkers. Biomark Cancer. 2016;8:BIC–S33380. [DOI] [PMC free article] [PubMed] [Google Scholar]
+
+46.Califf RM. Biomarker definitions and their applications. Exp Biol Med. 2018;243(3):213–221. [DOI] [PMC free article] [PubMed] [Google Scholar]
+
+47.Ahmad A, Imran M, Ahsan H. Biomarkers as biomedical bioindicators: approaches and techniques for the detection, analysis, and validation of novel biomarkers of diseases. Pharmaceutics. 2023;15(6):1630. doi: 10.3390/pharmaceutics15061630
+ [DOI] [PMC free article] [PubMed] [Google Scholar]
+
+48.Mathotaarachchi S, Pascoal TA, Shin M, Gauthier S. Identifying Alzheimer’s biomarkers using AI models. Alzheimers Res Ther. 2017;9(1):73.28899429
+ [Google Scholar]
+
+49.Carrigan P, Krahn T. Impact of biomarkers on personalized medicine. New Approaches to Drug Discov. 2016;285–311. [DOI] [PubMed] [Google Scholar]
+
+50.Ramirez-Valles EG, Rodríguez-Pulido A, Barraza-Salas M, et al. A quest for new cancer diagnosis, prognosis and prediction biomarkers and their use in biosensors development. Technol Cancer Res Treat. 2020;19:1533033820957033. doi: 10.1177/1533033820957033
+ [DOI] [PMC free article] [PubMed] [Google Scholar]
+
+51.Bhinder B, Gilvary C, Madhukar NS, Elemento O. Artificial intelligence in cancer research and precision medicine. Cancer Discov. 2021;11(4):900–915. doi: 10.1158/2159-8290.CD-21-0090
+ [DOI] [PMC free article] [PubMed] [Google Scholar]
+
+52.Sebastian AM, Peter D. Artificial intelligence in cancer research: trends, challenges and future directions. Life. 2022;12(12):1991. doi: 10.3390/life12121991
+ [DOI] [PMC free article] [PubMed] [Google Scholar]
+
+53.Shah S, Dooms MM, Amaral-Garcia S, Igoillo-Esteve M. Current drug repurposing strategies for rare neurodegenerative disorders. Front Pharmacol. 2021;12:768023. doi: 10.3389/fphar.2021.768023
+ [DOI] [PMC free article] [PubMed] [Google Scholar]
+
+54.Rehman AU, Li M, Wu B, et al. Role of artificial intelligence in revolutionizing drug discovery. Fundam Res. 2024;5:1273–1287. doi: 10.1016/j.fmre.2024.04.021
+ [DOI] [PMC free article] [PubMed] [Google Scholar]
+
+55.Kostić EJ, Pavlović DA, Živković MD. Applications of artificial intelligence in medicine and pharmacy: ethical aspects. Acta Medica Medianae. 2019;58(3):128–137. doi: 10.5633/amm.2019.0319 [DOI] [Google Scholar]
+
+56.Nelson SD, Walsh CG, Olsen CA, et al. Demystifying artificial intelligence in pharmacy. Am J Health Syst Pharm. 2020;77(19):1556–1570. doi: 10.1093/ajhp/zxaa218
+ [DOI] [PubMed] [Google Scholar]
+
+57.Koromina M, Pandi MT, Patrinos GP. Rethinking drug repositioning and development with artificial intelligence, machine learning, and omics. Omics. 2019;23(11):539–548. doi: 10.1089/omi.2019.0151
+ [DOI] [PubMed] [Google Scholar]
+
+58.Basile AO, Yahi A, Tatonetti NP. Artificial intelligence for drug toxicity and safety. Trends Pharmacol Sci. 2019;40(9):624–635. doi: 10.1016/j.tips.2019.07.005
+ [DOI] [PMC free article] [PubMed] [Google Scholar]
+
+59.Paul D, Sanap G, Shenoy S, Kalyane D, Kalia K, Tekade RK. Artificial intelligence in drug discovery and development. Drug Discov Today. 2021;26(1):80–93. doi: 10.1016/j.drudis.2020.10.010
+ [DOI] [PMC free article] [PubMed] [Google Scholar]
+
+60.Lipton ZC. The mythos of model interpretability. Commun ACM. 2016;59(10):36–43. [Google Scholar]
+
+61.Heath MG, Blencowe NS, Wiggins J. AI and data privacy in healthcare: a review. J Med Internet Res. 2018;20(6):e221. doi: 10.2196/jmir.9866
+ [DOI] [PMC free article] [PubMed] [Google Scholar]
+
+62.Rai A, Shah K, Dewangan HK. Review on the artificial intelligence-based nanorobotics targeted drug delivery system for brain-specific targeting. Curr Pharm Des. 2023;29(44):3519–3531. doi: 10.2174/0113816128279248231210172053
+ [DOI] [PubMed] [Google Scholar]
+
+63.Qayyum MU, Sherani AMK, Khan M, Hussain HK. Revolutionizing healthcare: the transformative impact of artificial intelligence in medicine. Bull Inform. 2023;1(2):71–83. [Google Scholar]
+
+64.Roopa GM, Shryavani K, Pradeep N, Diaz VG. Accelerating translational medical research by leveraging artificial intelligence: digital healthcare. 2021. [Google Scholar]
+
+65.Kant S, Roy S. Artificial intelligence in drug discovery and development: transforming challenges into opportunities. Discov Pharm Sci. 2025;1:7. doi: 10.1007/s44395025-00007-3 [DOI] [Google Scholar]
+Associated Data
+This section collects any data citations, data availability statements, or supplementary materials included in this article.
+Data Availability Statement
+The manuscript’s materials, including all relevant raw data, will be made freely available by the corresponding author (Odetayo Adeyemi Fatai) to any researcher who wishes to use them for non-commercial purposes while maintaining participant confidentiality.

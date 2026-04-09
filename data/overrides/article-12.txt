@@ -1,0 +1,7 @@
+This manual fallback note covers Article 12, "AI-Driven Drug Discovery: A Comprehensive Review (2019–2024)," and is used only when the publisher blocks direct extraction.
+
+The review surveys AI applications across the full drug discovery lifecycle, from target identification and screening through lead optimization, toxicity prediction, and translational validation. It presents the field as meaningfully faster and more selective than traditional purely manual workflows, but repeatedly warns that real-world progress remains bottlenecked by data quality, reproducibility, and the gap between in silico promise and clinical validation.
+
+The article also calls out unequal access to high-quality, well-annotated, and demographically representative datasets as a persistent structural limitation. According to the review, weak or biased source data can amplify model bias, reduce generalizability, and undermine downstream claims about performance across diverse patient populations.
+
+For evaluation purposes in this project, the key retrieval value of Article 12 is its broad synthesis of AI drug discovery methods, bottlenecks, and translational caveats, which helps contextualize Article 13's discussion of concrete platform and clinical milestones.

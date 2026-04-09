@@ -1,0 +1,627 @@
+ABSTRACT
+Background and Aims
+Artificial Intelligence (AI) beginning to integrate in healthcare, is ushering in a transformative era, impacting diagnostics, altering personalized treatment, and significantly improving operational efficiency. The study aims to describe AI in healthcare, including important technologies like robotics, machine learning (ML), deep learning (DL), and natural language processing (NLP), and to investigate how these technologies are used in patient interaction, predictive analytics, and remote monitoring. The goal of this review is to present a thorough analysis of AI's effects on healthcare while providing stakeholders with a road map for navigating this changing environment.Methods
+This review analyzes the impact of AI on healthcare using data from the Web of Science (2014–2024), focusing on keywords like AI, ML, and healthcare applications. It examines the uses and effects of AI on healthcare by synthesizing recent literature and real‐world case studies, such as Google Health and IBM Watson Health, highlighting AI technologies, their useful applications, and the difficulties in putting them into practice, including problems with data security and resource limitations. The review also discusses new developments in AI, and how they can affect society.Results
+The findings demonstrate how AI is enhancing the skills of medical professionals, enhancing diagnosis, and opening the door to more individualized treatment plans, as reflected in the steady rise of AI‐related healthcare publications from 158 articles (3.54%) in 2014 to 731 articles (16.33%) by 2024. Core applications like remote monitoring and predictive analytics improve operational effectiveness and patient involvement. However, there are major obstacles to the mainstream implementation of AI in healthcare, including issues with data security and budget constraints.Conclusion
+Healthcare may be transformed by AI, but its successful use requires ethical and responsible use. To meet the changing demands of the healthcare sector and guarantee the responsible application of AI technologies, the evaluation highlights the necessity of ongoing research, instruction, and multidisciplinary cooperation. In the future, integrating AI responsibly will be essential to optimizing its advantages and reducing related dangers.Keywords: AI ethics, AI technologies, data Analytics, digital Health, Healthcare Business1. Introduction
+Artificial Intelligence (AI) in healthcare, exploiting machine learning (ML) algorithms, data analytics, and automation, is enduring a paradigm transition by improving medical decision‐making, diagnosis, and treatment outcomes, with the potential to boost productivity, care quality, and ease costs [1]. The delivery, administration, and patient experience of healthcare are all being completely transformed by the advancement of AI‐driven technology and further its integration into existing systems [2, 3]. This in‐depth study looks at how AI is significantly impacting the healthcare sector, improving diagnostic precision through data analysis, streamlining treatment planning through predictive algorithms, and shedding light on how these advancements are challenging accepted wisdom and setting new benchmarks for quality [3, 4, 5]. Najjar (2023) showcased AI's revolutionary potential in several healthcare sectors. In diagnostics, AI‐powered diagnostic tools have shown remarkable accuracy in diagnosing diseases including cancer, heart issues, and neurological disorders, particularly in the area of medical imaging. These technologies frequently outperform human clinicians in this regard [6]. Their speed and precision have frequently surpassed that of human professionals. ML algorithms scan vast amounts of data from imaging studies, genomes, and medical records to identify patterns and predict patient outcomes, enabling earlier and more accurate diagnosis [4]. In addition to improving patient outcomes, AI‐powered expertise enables personalized treatment plans that cater to each patient's unique requirements and boost the effectiveness of treatments [5, 6]. By analyzing patient data to suggest tailored medication, AI improves treatment success and minimizes side effects [4, 5, 6]. These technologies can reduce hospital admissions and readmissions by remotely monitoring patients and alerting medical professionals to issues before they get worse [2, 3]. According to Alowais et al. (2023), AI is also greatly enhancing patient care and administrative effectiveness. Virtual health assistants driven by ML and NLP are increasingly being used to plan appointments, handle patient communications, and provide medical advice, all of which reduce the workload for medical staff [7]. Healthcare facilities operate more effectively, and resources are directed where they are most needed because to AI's capacity to manage massive information and optimize workflows [7]. By optimizing treatment plans, getting rid of unnecessary procedures, and improving diagnosis accuracy, AI has the potential to significantly reduce healthcare expenditures. Bajwa et. al. (2021) touched on one of the main factors influencing AI's adoption is its ability to lower healthcare expenses [1]. One of the primary drivers of AI adoption, according to Bajwa et al. (2021), is its potential to reduce healthcare costs [1]. Predictive analytics is a significant use of AI in healthcare that supports patient demand forecasting, population health management, and resource allocation. Since early detection and tailored treatment can prevent costly outcomes and hospital admissions, these qualities are particularly beneficial in the management of chronic illnesses [1, 3, 7].
+AI in healthcare must overcome several significant challenges if it is to live up to its full potential. Ethical concerns such as safeguarding patient privacy and avoiding bias in AI systems must be taken into consideration. There are concerns about data security and potential misuse because AI systems rely on massive amounts of data [3]. To ensure that the highest safety and efficacy standards are fulfilled and to oversee the development and use of AI technology in healthcare, robust regulatory frameworks are also necessary [8].
+Additionally, for the healthcare industry to adopt AI, a cultural shift must occur. By automating processes like scheduling, billing, and patient triage and allocating resources optimally to cut down on wait times and enhance workflow overall, AI also increases operational competence [1, 3, 5]. Healthcare professionals must understand the benefits and drawbacks of AI technology and be ready to handle them. Collaboration between AI developers, healthcare practitioners, and legislators is essential to the development of systems that are not just technologically advanced but also aligned with the needs and values of patients and providers [7]. To enable prompt reactions, AI‐driven surveillance systems use ML algorithms to identify trends and early warning indicators of disease outbreaks [9, 58]. AI models forecast epidemics and track the spread of diseases like influenza, monkeypox, chikungunya and COVID‐19 by analyzing symptoms, travel records, and environmental data [6, 7, 8], helping public health officials allocate resources, implement prevention strategies, and tackle emergent health threats [3, 7].
+At the outset, AI is more than just a technological advancement—it is what is propelling the advancement of healthcare. Its capacity to transform patient care, diagnostics, and operational effectiveness offers hope for a more individualized, effective, and accessible healthcare system in the future [8]. As AI develops, ethical, legal, and cultural issues must be carefully considered before integrating it into the healthcare industry. By overcoming these obstacles, AI can live up to its potential of revolutionizing healthcare into a more efficient and just system where human judgment and technological know‐how combine to provide better treatment [3, 7].
+This review provides a comprehensive analysis of AI's implications for the healthcare sector, emphasizing how it affects operational effectiveness, treatment planning, and diagnosis. The following important sections make up the structure of the manuscript. The methodology is described in Section 2, which also includes information on the databases, keywords, inclusion/exclusion criteria, data extraction, and synthesis used in this investigation. Understanding AI in healthcare is examined in Section 3, market dynamics and the development of AI throughout time are examined in Section 4, and the use of AI in the healthcare industry is examined in Section 5. Recognizing the market dynamics, the growth of AI over time, and the critical role it has played in diagnostics, operational effectiveness, and patient care. While Section 7 concentrates on the main obstacles and worries regarding the deployment of AI in healthcare, Section 6 emphasizes the advantages of AI in the healthcare industry. Together with its disadvantages, which include ethical concerns, data privacy issues, and legal challenges, the benefits of AI, such as improved outcomes and reduced expenses have been examined. The current uses of AI in healthcare are reviewed in Section 8, and Section 9 looks at possible future developments and their ramifications. Additionally, several real‐world examples are provided, along with forecasts on future trends and implications, such as the possible impact of AI on healthcare and its continued integration.2. Methodology
+2.1. The Databases, Keywords, and Inclusion/Exclusion Criteria
+
+Databases used: PubMed, Scopus, Web of Science, IEEE Xplore, Food Science & Technology Abstracts (FSTA), and Google Scholar. These databases were selected for their broad coverage of medical, pharmaceutical, engineering, and computer science literature.
+
+Keywords: “Artificial Intelligence”; “machine learning”; “healthcare applications”; “diagnostics”; “data mining”; “predictive modeling”; “target identification”; “molecular docking”; “personalized therapeutics”; “drug repurposing” and “epidemic forecasting” were used in combination with Boolean operators (AND, OR) to refine the search.
+Table 1 provides a structured overview of the criteria for including or excluding studies in a review or for studies focused on AI in healthcare.
+Table 1.
+Inclusion and exclusion criteria.
+
+The study focuses on AI applications in healthcare, including diagnostics, treatment, operational efficiency, and epidemic forecasting
+Studies that did not focus on AI and ML or were not directly related to healthcare applications
+
+The study must discuss the application of “Artificial Intelligence”; “machine learning”; “healthcare applications”; “diagnostics”; “treatment”; “data mining”; “predictive modeling”; “molecular docking”; “personalized therapeutics”; “ethics”; and “epidemic forecasting” in healthcare sector
+Articles with limited access, Authoritative reports, doctoral theses, and news articles were excluded
+
+Peer‐reviewed articles, systematic reviews, scoping reviews, and meta‐analyses are included
+Non‐peer‐reviewed articles or studies lacking experimental data or relevant reviews
+
+Included studies have been published in English within the last 10 years (2014–2024)
+Excluded studies have been published in non‐English languages more than the last 10 years
+
+2.2. Study Selection
+A systematic approach was employed for study selection and data extraction to ensure transparency, reproducibility, and the generation of reliable evidence. Initially, titles and abstracts were screened for relevance. In brief, the selection process involved screening titles and abstracts for relevance. The preliminary search includes conducting a basic search in selected databases with applied filters, followed by exporting the results to reference management tools like Endnote or Mendeley to remove duplicates. Full‐text articles were evaluated for inclusion based on their alignment with the review's objectives. Studies were included if they provided significant insights into AI applications in healthcare or addressed critical challenges related to AI adoption.2.3. Data Extraction and Synthesis
+Data from the selected studies were extracted, including the type of AI used, the healthcare domain addressed, outcomes measured, and key findings. A thematic synthesis approach was employed to organize and summarize the data into key themes, such as AI applications in diagnostics, treatment, and operational efficiency, as well as challenges to AI adoption. Finally, the data were presented as narrative or thematic summaries, organized by key themes or objectives, with the results displayed in Figure 1.
+Figure 1.
+
+Thematic summary and statistical overview of AI's Impact on healthcare.This comprehensive review examines the impact of AI on healthcare, synthesizing data from review articles, research studies, patents, copyrighted works, and early access publications retrieved from the WoS (Web of Science) database. The search strings utilized specific keywords, including “AI”; “ML”; “healthcare applications”; “diagnostics”; “treatment”; “predictive modeling”; “molecular docking”; “personalized therapeutics”; “ethics”; and “epidemic predicting”. The search focused on titles, abstracts, and keywords from 2014 to 2024. The results indicate that 158 articles were published in 2014, representing 3.54% of the total available data. By 2023, this number had increased more than fourfold to 653 articles, comprising 14.61% of the total published data. As of October 2024, 731 articles have been published, accounting for 16.33% of the total available data.3. Understanding Al in Healthcare
+AI is a disruptive force in the healthcare industry that involves novel ideas and changes in conventional methods. This section provides a thorough overview of AI in healthcare, including everything from its basic description to its current acceptance status [1, 3].
+3.1. What Is Al in Healthcare?
+The development of computer systems capable of carrying out operations often associated with human intellect is known as AI. Within the healthcare domain, AI manifests through diverse modalities, including ML algorithms, NLP and robotics [4, 5]. These technological facets collectively empower machines to scrutinize intricate medical data, discern patterns, and render informed decisions. In effect, AI serves as a transformative augmentation of healthcare professionals’ capabilities [1, 5, 6]. AI in healthcare is a paradigm change that affects patient interaction, treatment plans, administrative procedures, and diagnosis. Improving patient outcomes, optimizing healthcare delivery, and raising the standard of care are the main objectives. AI is a flexible toolset rather than a single fix, providing a range of applications that address various facets of the healthcare environment [3, 4, 7].3.2. Types of Al in Healthcare
+ML algorithms are essential to the healthcare industry because they make it easier to identify patterns and trends in large datasets. Another aspect of AI is NLP, which enables robots to understand and communicate with human language. This makes it easier to perform activities like voice‐activated devices or language‐based data analysis. Robots, a kind of AI, are used in healthcare through automated procedures and hands‐on support during procedures or patient care [6]. The hierarchical structure and interdependencies between AI, ML, and DL are depicted in Figure 2. As general AI concepts give way to the next generation of advanced, data‐driven learning performances, the correlations show how specificity and complexity increase from AI to DL.
+Figure 2.
+
+Schematic illustration of the framework and relationships between AI, ML and DL.AI in healthcare comes in a variety of forms, each intended for a specific use. Rule‐based systems, for instance, make decisions based on preset criteria and are suitable for tasks like symptom screening [3, 4]. On the other hand, because ML algorithms can spot patterns in data, they are crucial for customized treatment regimens and diagnostic imaging. Applications like voice recognition and chatbots are made possible by NLP's facilitation of human‐computer communication [8]. Robotics is another area of AI that has applications in physical therapy and surgery. This demonstrates the range and complexity of AI's uses in healthcare [5].
+AI's rapid and accurate analysis of complicated medical data presents a promising path toward more accurate, data‐driven decision‐making in the healthcare industry, which will ultimately lead to better patient care and results [1, 5].3.3. Current State of Al Adoption in Healthcare
+AI's application in healthcare is being propelled by growing awareness of its potential benefits, data abundance, and technological advancements [3, 4]. In diagnostics, AI‐powered tools, such as X‐rays and MRIs, demonstrate remarkable accuracy in interpreting medical images, often outperforming traditional methods [6, 9]. Treatment personalization, leveraging ML algorithms, allows for tailored approaches based on individual patient profiles, optimizing therapeutic interventions [3, 10]. Administrative functions, including revenue cycle management and supply chain optimization, involve witnessing efficiency gains through AI‐driven automation [3]. Table 2 provides a crisp overview of each AI approach, including their applications, advantages, disadvantages, and references, offering a clearer understanding of their potential application and challenges in healthcare.
+Table 2.
+Overview of ML algorithms in healthcare: Applications, benefits and drawbacks.
+
+AI/ML models [Ref.]
+Details & application
+Benefit
+Drawback
+
+Generative Adversarial Networks (GANs) [61]
+Through the creation of new chemical structures, or GANs, are essential to the development of medicinal products. They are made up of a discriminator network for assessing quality and a generator network for generating compounds, which together enable the production of many, well‐suited therapeutic candidates.
+
+GANs produce state‐of‐the‐art high‐quality synthetic images.
+It serves as a valuable tool for data augmentation and simulation.
+
+Training and stabilizing GANs can be challenging.
+It may generate unrealistic/misleading data if not appropriately managed.
+
+Recurrent Neural Networks (RNNs) [54]
+In drug discovery, RNNs are widely employed for tasks such as protein structure prediction, genomic data analysis, and peptide sequence design. RNNs are particularly good at identifying sequential relationships and creating new sequences based on patterns they have learned.
+
+RNNs are very effective for progressive data analysis.
+They can effectively capture temporal dependencies in patient data.
+
+RNNs are susceptible to vanishing gradient problems.
+They require substantial computational resources and are intricate to train.
+
+Convolutional Neural Networks (CNNs) [41, 57]
+CNNs are an effective tool for image‐based applications including drug target identification and chemical structure analysis. They take relevant information out of molecular pictures to help in target identification and medication design.
+
+CNNs are highly effective for achieving accurate analysis of medical images.
+They automatically extracts landscapes and relevant features from images.
+
+They require huge amounts of categorized data.
+Interpretation of obtained results can be challenging for CNNs.
+
+Long short‐Term Memory Networks (LSTMs) [35]
+Modeling and forecasting temporal relationships is a strong suit for RNN subtypes called LSTMs. They are useful for forecasting drug concentration‐time profiles, evaluating drug effectiveness, and conducting pharmacokinetics and pharmacodynamics research.
+
+LSTMs address the vanishing gradient problem found in RNNs.
+They are well suited for handling long‐term dependencies in data.
+
+They are computationally expensive.
+LSTMs are bit challenging to implement and optimize.
+
+Transformer Models (TMs) [43, 67]
+TMs are used for NLP jobs in the pharmaceutical area, such as the popular BERT (Bidirectional Encoder Representations from Transformers) model. They help researchers make well‐informed judgments on the development of new drugs by extracting important information from databases of patents, clinical trial data, and scientific literature.
+
+TMs are extremely operative for processing sequential and contextual data.
+They deliver superior performance in NLP and structured data tasks.
+
+Unnecessarily requires vast amounts of data and computational resources.
+The model has complexity in tuning and implementation.
+
+Reinforcement Learning (RL) [26]
+Personalized treatment plans and optimal drug dosage methods are achieved through the application of RL approaches. By generating consecutive judgments that improve dosage optimization and patient outcomes, RL algorithms learn from interactions with the environment.
+
+The advantage of RL is that it optimizes treatment plans and decision‐making strategies through trial and feedback.
+RL is flexible to changing environments and patient responses.
+
+The model requires extensive training and can be complex to configure.
+RL might face ethical concerns and the potential for unintended significances.
+
+Bayesian Models (BMs) [37, 44, 59, 71]
+In drug development, BMs, such as Gaussian processes and Bayesian networks, are essential for quantifying uncertainty and making decisions. For researchers in the field, they aid in risk assessment, experimental design optimization, and probabilistic forecasts.
+
+BMs offers probabilistic interpretations of uncertainty.
+These models are useful for integrating prior knowledge and apprising beliefs with new data.
+
+BMs are computationally intensive.
+These models have the disadvantage of being complex to implement and comprehend.
+
+Deep Q‐Networks (DQNs) [38, 49]
+Drug discovery is optimized by applying DQNs, which combine RL and DL. By predicting chemical activity and suggesting promising candidates for additional testing, they improve the efficiency of the drug discovery process.
+
+DQNs are effective for learning optimal policies in decision‐making responsibilities.
+They can effortlessly handle large state spaces.
+
+These models requires substantial training time.
+DQNs may face challenges with stability and convergence in certain applications.
+
+Autoencoders (AEs) [32]
+In drug development, AEs—unsupervised learning models are used for feature extraction and dimensionality reduction. They help with virtual screening and compound screening procedures by capturing important molecular features.
+
+AEs are useful for data compression and feature extraction.
+They are effective for anomaly detection and allied noise reduction.
+
+These models may necessitate large datasets for training.
+They can be sensitive to hyperparameters and architecture selections.
+
+Graph Neural Networks (GNNs) [55, 66]
+Because they are designed to handle graph‐structured data, GNNs are perfect for drug discovery applications that involve chemical structures. They aid in de novo drug creation and virtual screening processes, efficiently model molecular graphs, and forecast features.
+
+GNNs are outstanding for analyzing relational and structured data.
+They are beneficial for modeling complex interactions in biological networks or patient data.
+
+These models can be resource‐intensive and computationally demanding.
+They requires careful design and understanding of graph structures.
+
+However, the current state of AI adoption is not without challenges. Although progressive businesses and important healthcare facilities welcome AI, obstacles to its broad adoption include a lack of resources, worries about data security, and the need for extensive legal frameworks [11, 12]. As technology advances, cooperation between software developers, medical practitioners, and government agencies is necessary to guarantee the appropriate and efficient application of AI [1, 5, 11]. Recognizing AI's diversity, ranging from complex ML algorithms to rule‐based systems, is essential for comprehending its application in healthcare [4, 5]. A summary of AI applications in healthcare shows how the technology has the potential to completely transform the sector, and the adoption process now reflects both advancements and challenges [3, 7]. To fully realize the promise of AI for improving healthcare delivery, we must continue to explore and collaborate as we traverse this revolutionary terrain [1, 4].4. Market Dynamics and the Evolution of Al Over the Years
+4.1. Global Healthcare Al Market
+Healthcare AI is estimated to expand at a compound annual growth rate (CAGR) of 47.6%, from $11.2 billion in 2023 to $427.5 billion by 2032. In recent years, North America has been the market leader for AI in healthcare, with over USD 6.5 billion in sales expected in 2022 [13]. AI in the healthcare market is anticipated to develop significantly in the Asia‐Pacific region, particularly in China and India, as a result of rising government backing and technical breakthroughs. Oncora, Koninklijke Philips N.V., Siemens, GE Healthcare, Medtronic, Google, Amazon, Intel, IBM, Johnson & Johnson Services Inc., and Microsoft are some of the industry leaders [13]. Figure 3 depicts the expansion of the Healthcare AI market, which is projected to grow at a compound annual growth rate (CAGR) of 47.6%.
+Figure 3.
+
+Global AI Healthcare Market (Adapted with permission from Acumen Research and Consulting, 2022) [13].The market is anticipated to grow rapidly and offer substantial investment opportunities in AI‐driven healthcare technology over the next 10 years, from $11.2 billion in 2023 to $427.5 billion by 2032 [13]. The global healthcare AI market is experiencing significant growth driven by several key factors. Adoption of AI solutions has been fueled by the growing need for data‐driven healthcare practices, which allow for the analysis of large datasets and better patient outcomes [1, 3, 4]. The usage of healthcare AI, which provides tools for early identification, individualized treatment regimens, and ongoing patient monitoring, has also increased as a result of the growing burden of chronic diseases [1, 3]. Advances in ML and DL have improved the precision of therapy recommendations, predictive analytics, and diagnostic procedures [4, 5, 7].
+Furthermore, the incorporation of big data analytics facilitates improvements in clinical research, population health management, and personalized treatment. An environment that is favorable for the global spread of healthcare AI is being created by government initiatives and regulatory assistance [14, 15]. Adopting AI in healthcare is not without its challenges. Patients and healthcare professionals are concerned about using sensitive health data; therefore, data security and privacy issues continue to be major obstacles [12, 16]. The lack of established data formats creates interoperability issues that make it difficult to integrate AI solutions into current healthcare systems [11]. Uncertainty among stakeholders is exacerbated by the lack of legislation and standards pertaining specifically to healthcare AI, and certain healthcare providers may find it financially difficult to bear the high implementation costs associated with infrastructure, training, and integration. Another obstacle to the broad use of AI‐driven technology is the reluctance of healthcare practitioners to adapt. To overcome these obstacles, cooperation is needed to create strong legal frameworks, resolve privacy issues, and encourage the ethical and efficient use of AI in international healthcare contexts [12, 15].4.2. Evolution of Al Over the Years
+Over many decades, AI has experienced major advancements in theory and practice. Figure 4 illustrates the development of AI by highlighting key milestones and significant achievements, from early theoretical foundations to contemporary advancements, including foundational algorithms, research breakthroughs, and recent innovations. There is a rapid increase in the number of significant turning points in the development of AI [6, 17, 60, 65]:
+
+i.
+Foundational Concepts (1950s): The term “artificial intelligence” was first coined by the computer scientist John McCarthy in 1955. In 1950, Alan Turing introduced the Turing test as a measure of a machine's ability to exhibit intelligent behavior indistinguishable from that of a human.
+
+ii.
+Dartmouth Conference (1956): The Dartmouth Conference in 1956, which is regarded as the beginning of the area of AI, brought together early AI pioneers, including McCarthy, Marvin Minsky, Nathaniel Rochester, and Claude Shannon.
+
+iii.
+Symbolic AI and Expert Systems (1960s‐1970s): Rule‐based methods and symbolic thinking were the main features of early AI systems. Expert system development, which employs knowledge‐based rules to address certain issues, has become increasingly common.
+
+iv.
+ML and Neural Networks (1980s‐1990s): The focus shifted to ML, with algorithms capable of learning from data. Neural networks, inspired by the structure of the human brain, have gained increased amounts of attention. However, progress has been limited due to computational constraints and a lack of sufficient data.
+
+v.
+AI Winter (1980s‐1990s): Funding for AI research declined due to overpromised results and unmet expectations. This period became known as the “AI winter”.
+
+vi.
+Rise of ML and Data (2000s‐2010s): Advances in ML, fueled by increased computing power and the availability of large datasets, led to breakthroughs in areas such as NLP and computer vision. Support vector machines, decision trees, and ensemble methods have become popular in ML.
+
+vii.
+DL Revolution (2010s‐2020s): DL, especially using neural networks with many layers (deep neural networks), became a dominant paradigm. Key breakthroughs, such as the ImageNet competition in 2012, demonstrated the effectiveness of DL in image recognition. DL algorithms have played a crucial role in advancements in speech recognition, language translation, and other AI applications.
+
+viii.
+AI in Everyday Life (Present): AI is being incorporated into many areas of daily life, such as recommendation engines, driverless cars, and virtual assistants. The subject is still being shaped by ongoing advancements in explainable AI, generative models, and RL.
+
+Evolution of AI (Adapted with permission from Najjar R.) (2023) [6].With the increasing deployment of AI, there is a growing focus on ethical considerations, bias in AI systems, and the impact of AI on employment and society. The journey of AI is marked by periods of optimism, disappointment, and resurgence, with ongoing challenges and opportunities shaping its trajectory. The field continues to evolve as researchers explore new algorithms, models, and applications [3, 18].5. Applications of Al in Healthcare
+AI has revolutionized the way medical professionals approach diagnosis, treatment planning, and operating procedures [1, 7]. In addition, a new era of innovation in healthcare has emerged recently. AI is rapidly emerging as a key component of the healthcare industry due to its many uses, which significantly enhance many facets of the sector [3, 9]. Healthcare delivery is changing as a result of the shift from diagnostic and individualized care to administrative procedures, ethical issues, patient involvement, and AI‐powered remote monitoring [1, 3]. AI has many different and extensive uses in healthcare. AI is influencing how healthcare is delivered in the future, from improving administrative procedures and guaranteeing ethical concerns to revolutionizing diagnostics and treatment customization. To fully utilize AI while preserving moral principles and patient welfare, continued cooperation between technologists, medical practitioners, and legislators will be crucial as its integration progresses [3, 7, 15].
+5.1. Diagnostics and Disease Identification
+The integration of AI into diagnostic and disease identification has revolutionized healthcare, particularly in medical imaging, where AI algorithms exhibit unparalleled proficiency. A significant benefit in time‐sensitive scenarios is the quick and accurate interpretation of complicated pictures, including those from MRIs and X‐rays, which speeds up the diagnostic process [6, 9]. This procedure not only speeds up the start of treatment but also improves accuracy, helping medical practitioners identify minute irregularities that would be missed by conventional techniques [6]. AI is also a useful tool for radiography image analysis and tissue sample analysis [9]. Pathology and AI's examination of microscopic details help pathologists quickly and precisely identify problems. The cooperative concept of AI algorithms and radiologists in radiology improves patient care, solves staffing shortages, and speeds up and improves diagnosis [9]. Beyond productivity improvements, AI has a significant impact on patient outcomes in diagnostics. Quick and precise diagnoses allow for prompt interventions, which are essential when prognosis is greatly impacted by early diagnosis [5]. Furthermore, AI's use as a screening tool supports preventative care initiatives by assisting in the early detection of illnesses [5]. Research has shown that AI may perform on par with or better than human experts in several areas when it comes to identifying medical conditions from photos [1, 5]. For instance, when it came to detecting pneumonia, a CNN trained on annotated frontal chest X‐ray pictures performed better than radiology professionals. In a similar vein, a dermatology CNN trained on clinical pictures was successful in correctly classifying skin lesions [1]. AI algorithms trained on whole‐slide pathology images may identify lymph node metastases of breast cancer with an accuracy comparable to that of pathologists in the pathology domain [1, 19]. Additionally, in the field of cardiology, a DL system demonstrated performance comparable to that of cardiologists in identifying heart attacks [1, 19]. Responsible deployment requires tackling algorithmic bias, protecting patient privacy, and defining precise rules for AI and medical professionals to work together. A possible model for guaranteeing better patient care and influencing the direction of healthcare diagnostics in the future is the cooperative synergy between AI and human expertise [15, 19, 39, 69].5.2. Treatment Personalization
+With a major contribution to medication discovery and development as well as the treatment landscape, AI's disruptive impact in healthcare is especially noticeable in therapy personalization [3].
+5.2.1. Drug Discovery and Development
+The application of AI to medication research and discovery marks a significant advancement for the pharmaceutical sector. AI has become a vital collaborator in the field of drug research, helping to identify possible therapeutic candidates [11, 20, 47]. Large datasets are painstakingly analyzed by ML algorithms, which also forecast the effectiveness of different substances and expedite the preliminary phases of drug screening [10]. This method greatly cuts down on the time and expenses often involved in introducing a novel medication to the market, in addition to speeding up the identification process [11, 51]. Furthermore, by enabling more effective clinical trials, anticipating possible adverse effects, and identifying patient groups who would react best to particular treatments, AI helps to optimize drug development [3, 10, 57]. The conversion of scientific discoveries into practical treatment options is accelerated by AI's capacity to handle complicated biological data [10, 21, 39]. Drug development has undergone a paradigm shift as a result of this revolutionary use of AI, shifting from a labor‐intensive and time‐consuming process to one i.e. more efficient and data‐driven [3, 22, 62]. As AI algorithms continue to evolve and learn from diverse datasets, the potential for discovering novel therapies, improving treatment efficacy, and tailoring interventions to individual patient profiles has become gradually promising, steering in a new era of innovation in the pharmaceutical landscape [5, 10].5.2.2. Revolutionizing Personalized Healthcare
+One of the most transformative applications of AI in healthcare lies in treatment planning, and personalization can be performed a step further by leveraging AI to tailor interventions based on individual patient profiles [3, 7]. AI algorithms assist medical providers in creating treatment plans that are both more successful and less likely to have negative side effects by evaluating patient‐specific data [4, 10]. A paradigm change away from broad treatment techniques and toward more focused and patient‐centered healthcare strategies is represented by this degree of customization [23, 39]. AI serves as an advanced guide for treatment planning, considering the specifics of a patient's genetic composition, medical history, and other pertinent variables [5, 21]. By identifying the best therapy pathways, this granular analysis improves therapeutic results. As AI advances a more accurate, data‐driven, and customized approach to treatment planning, the paradigm is shifting toward patient‐centric healthcare methods. This portends a time when medical interventions will seamlessly fit each patient's particular characteristics [20, 21].5.3. Predictive Analytics and Preventive Medicine
+To improve patient outcomes and lessen the strain on healthcare systems, proactive healthcare where interventions are started before diseases worsen, is encouraged by the combination of AI and preventive medicine [3, 5].
+5.3.1. Predicting Disease Outbreaks
+The AI uses its analytical skills to examine large information and spot trends and abnormalities that could be signs of an outbreak. AI helps healthcare organizations to proactively execute timely interventions, strategically manage resources, and lessen the effect of emerging health hazards by identifying trends in real‐time health data [3, 4].5.3.2. Identifying High‐Risk Patients
+By identifying patients who are at higher risk for illnesses through the analysis of individual patient data, AI supports preventative medicine [7]. By providing individualized care plans and actions that are designed to halt or reduce the progression of diseases, this early diagnosis enables healthcare practitioners to start specific preventive measures [21]. AI has the potential to transform predictive analytics and preventive medicine as it develops further in these fields, making it a valuable instrument for improving both individual and public health [1, 21].5.3.3. Optimizing Clinical Processes
+Mobile apps use NLP and ML algorithms to generate tailored maps of patients' illnesses, prompt people to experience symptoms, and deliver clearly understandable health information [21]. Early intervention is made possible by this proactive strategy, which also improves the general patient experience. Another crucial application is the real‐time monitoring of patient vital signs, where wireless sensors that continuously transmit data replace manual measures taken on a periodic basis. This improves healthcare outcomes by guaranteeing prompt responses to unforeseen changes in a patient's condition [24].5.4. Administrative and Operational Efficiency
+In the healthcare industry, integrating big data, analytics, AI, and ML improves operational effectiveness and lowers expenses [3, 4]. Both supervised and unsupervised ML techniques are essential for comprehending parameters, connecting them to illnesses, and forecasting results. It supports anomaly detection, tailored therapy, and diagnostics [6, 10]. In contrast to proactive healthcare, which emphasizes prevention over reaction, reactive ML deals with urgent medical requirements and responses to symptoms. In the end, these technology developments support a healthcare system i.e. scalable, resilient, and responsive [3, 21]. In addition to increasing efficiency, integrating AI into the operational and administrative components of healthcare frees up valuable human resources to concentrate on more patient‐centered and strategic areas of healthcare delivery. As healthcare organizations increasingly adopt AI‐driven solutions, the industry is poised to witness a transformative shift toward more streamlined, cost‐effective, and responsive healthcare administration [3, 4, 5].
+5.4.1. Revenue Cycle Management
+Healthcare firms are handling billing, claims, and general financial workflows differently because of AI's ability to streamline complex financial operations. By automating processes like billing and coding, AI algorithms lower errors, speed up the processing of claims, and eventually maximize revenue streams [3, 25]. As billing and reimbursement procedures become more effective, AI's accuracy and speed not only improve healthcare organizations' financial stability but also make patient and provider experiences smoother [3, 25].5.4.2. Supply Chain Optimization
+Supply chain optimization is another domain where AI brings transformative change. It is crucial to the healthcare industry to make sure that medical resources are acquired, distributed, and managed in a timely and effective manner. AI helps with demand forecasting, inventory management, and logistics optimization using predictive analytics and ML [26]. Costs are decreased, waste is decreased, and the supply chain becomes more robust and responsive as a result. AI‐powered supply chain optimization is vital for guaranteeing the availability of necessary medical supplies, especially during international health emergencies [26].5.5. Patient Engagement and Remote Monitoring
+The synergy between AI, wearable devices, and telemedicine not only enhances remote monitoring but also empowers individuals to take a more active role in their health. As technology continues to advance, the integration of AI in patient engagement and remote monitoring stands as a testament to the potential for more personalized, efficient, and accessible healthcare delivery [27].
+5.5.1. Transforming Patient Engagement and Preventive Healthcare by Wearable Devices
+AI‐enabled wearable technology has become a potent instrument for measuring patient involvement [7]. These gadgets gather health data in real time and range from fitness trackers to advanced wearable health monitoring systems. Healthcare professionals can remotely monitor patients thanks to AI algorithms that evaluate this data and produce meaningful findings [28]. Vital signs and health parameters are continuously monitored to enable early abnormality detection and fast intervention by patients and healthcare providers. By encouraging an active involvement in healthcare management, this not only improves patient engagement but also advances preventive medicine by addressing any health risks before they worsen [28].5.5.2. Revolutionizing Virtual Care and Remote Consultations Through Telemedicine
+AI‐powered telemedicine technologies make virtual consultations, diagnostic evaluations, and treatment planning possible. AI‐powered chatbots help with patient inquiry triage, initial information provision, and smooth patient‐provider contact [29, 40, 45]. AI in telemedicine improves the effectiveness of remote consultations, increases access to healthcare for a variety of populations, and guarantees continuity of care, particularly in circumstances when in‐person visits may be difficult [29, 40, 45].5.6. Ethical Considerations in AI Applications
+A thorough analysis of ethical issues is required when integrating AI in healthcare. The primary issue is data privacy since AI depends on large datasets that contain sensitive data, necessitating strong safeguards to protect personal information. Another significant issue is algorithm bias, whereby biassed datasets used to train AI systems could exacerbate already‐existing inequities in healthcare outcomes [8]. It takes constant work to detect and lessen biases to ensure justice and inclusivity. To ensure responsibility and foster confidence between patients and healthcare providers, ethical considerations like interpretability and openness in AI decision‐making processes are essential. As it relates to AI applications, informed consent is still fundamental and guarantees that people are aware of how AI will be used in their healthcare [20]. It is essential to create AI systems that put explainability and justice first to overcome these ethical issues. According to research, explainability‐based AI models can improve the dependability of medical devices and lessen prejudice [13]. Establishing thorough criteria that guarantee AI in healthcare adheres to ethical standards, puts patient welfare first, and strikes a careful balance between technological innovation and moral ideals requires ongoing oversight and regulatory frameworks [12, 25].6. Benefits of AI in Healthcare Business
+By greatly increasing treatment planning and diagnostic accuracy, AI integration in the healthcare sector has yielded observable advantages. These developments represent a revolutionary change in the way healthcare is delivered since they not only improve patient care but also maximize resource use [1, 30]. Pharmaceutical firms are intensifying their use of AI in drug discovery, clinical trials, and manufacturing (see Table 3). While the pandemic has fueled interest, the actual impacts of many initiatives are undisclosed [13].
+Table 3.
+Major pharmaceuticals employ AI to reshape drug discovery, clinical trials, and manufacturing landscapes, driving innovation and efficiency in the industry (Buntz, B. 2023) [43].
+
+1
+Sanofi
+In 2018, Sanofi collaborated with Aily Labs to create ‘Play,’ an AI platform for drug discovery and clinical trials. They also partnered with Hillo for AI‐enabled connected insulin pens, merging drug development and healthcare products.
+
+2
+Pfizer
+Leveraged IBM's supercomputing and AI, accelerating drug development, exemplified by PAXLOVID for COVID‐19. Collaborating with CytoReason, they utilize an AI model of the immune system.
+
+3
+Novartis
+Harnesses AI for drug discovery with over 150 ongoing projects. Collaborating with Microsoft and NVIDIA, the goal is a decade‐long scale‐up to enhance access, reduce costs, and improve health outcomes.
+
+4
+Janssen
+Pioneers AI in drug discovery, clinical trials, diagnosis, and manufacturing, utilizing Trials360.ai for optimized trial design. With 100 + AI projects, Janssen adopts a scalable approach for testing and deployment.
+
+5
+AstraZeneca
+In 2021, collaborated with Oncoshot for patient matching in trials and BenevolentAI for target identification. Successful outcomes include five selected targets in CKD and IPF, expanding to lupus and heart failure.
+
+6
+Bristol Myers Squibb (BMS)
+Collaborated with Exscientia, utilizing AI for small molecule drug discovery in oncology and immunology. The partnership accelerates early‐stage drug pipeline development through combined expertise.
+
+7
+Bayer
+Partnered with Exscientia, leveraging AI for small molecule drug discovery in cardiovascular disease and oncology. The partnership aims to expedite new drug candidates, with potential payments of up to €240 million.
+
+8
+Merck
+Collaborated with BenchSci, Atomwise, C4 Therapeutics, and ACMED for diverse AI drug discovery and development initiatives, fostering innovation and advancement in pharmaceutical research.
+
+9
+GSK
+Partnered with Cloud Pharmaceuticals and Insilico Medicine, employing their AI platforms for target identification, drug design, and lead generation. The company further explores AI partnerships through the Advantage AI program.
+
+10
+Roche
+Collaborated with Recursion Pharmaceuticals for AI‐driven drug discovery. With over 25 AI partnerships, Roche has established an AI hub, emphasizing its commitment to advancing pharmaceutical research and development.
+
+11
+Eli Lilly
+Plans to expand its ‘digital worker’ hours to 2.4 million by year‐end via 100 + AI projects. CEO David Ricks anticipates AI transforming productivity, automating processes, and enhancing drug discovery.
+
+6.1. Improved Diagnostic Accuracy and Enhanced Treatment Planning
+AI enhances diagnostic accuracy by meticulously analyzing vast datasets, enabling early detection of diseases. In medical imaging and pathology, AI algorithms contribute to more precise and timely diagnoses, reduce errors and improve patient outcomes by tailoring treatment plans based on individual patient profiles, ushering in a personalized medicine era [6, 51, 70]. ML algorithms analyze patient‐specific data, optimizing treatment efficacy while minimizing potential adverse effects [6, 69].
+Recent advances in AI show significant potential for predicting epidermal growth factor receptor (EGFR) mutation status in non–small cell lung cancer (NSCLC). For example, a meta‐analysis conducted of 35 studies revealed that DL algorithms outperformed cML in sensitivity (80.1% vs. 71.1%) but had slightly lower specificity (70.0% vs. 73.8%). This study evaluated AI algorithms, including conventional ML and DL, for their accuracy in predicting EGFR mutations. The study suggests that integrating AI with additional clinical data and advanced imaging techniques can enhance diagnostic performance, emphasizing the need for guidelines in oncologic radiomics [72].6.2. Cost Reduction and Efficiency
+AI‐driven automation streamlines administrative tasks, from billing to claims processing, reducing errors and optimizing revenue cycle management. Operational workflows benefit from AI's predictive analytics, enhancing supply chain management and minimizing inefficiencies, ultimately reducing costs [31].6.3. Patient‐Centered Care
+AI facilitates patient‐centric care by providing personalized treatment options, improving engagement, and fostering a collaborative approach between healthcare providers and patients. Enhanced communication and individualized interventions contribute to a more satisfactory patient experience [4].6.4. Access to Healthcare in Underserved Areas
+AI‐powered telemedicine and remote monitoring address geographical barriers, expanding access to healthcare services in underserved areas. Remote consultations facilitated by AI bridge the gap between patients and healthcare providers, overcoming distance‐related challenges [21].6.5. Future Potential and Innovation
+The incorporation of AI sets the stage for future innovations in healthcare. Predictive analytics, genomics, and continuous technological advancements hold the promise of novel solutions, transforming healthcare delivery and improving overall patient outcomes [1, 3, 50]. For instance, drug‐food interactions (DFIs) can significantly impact the effectiveness of medications, leading to adverse health outcomes. Despite their importance, DFIs are under‐researched. According to a study conducted by Kha Q. H. et. al., introduces a novel predictive model using eXtreme Gradient Boosting (XGBoost) to address limitations in previous DFI research. The model analyzes 70,477 food compounds from FooDB and 13,580 drugs from DrugBank, extracting 3,780 features for each drug‐food pair. Validated with an external test set of 1,922 DFIs, the model provides accurate recommendations on whether drugs should be taken with specific foods, aiming to prevent severe adverse events and enhance patient safety in clinical practice [73]. Table 3 highlights the efforts of major pharmaceutical players in adapting AI to transform drug discovery, clinical trials, and manufacturing processes, thereby driving innovation and efficiency in the industry.7. Challenges and Concerns
+The widespread adoption of AI in healthcare is accompanied by a set of challenges and concerns that necessitate careful consideration to ensure responsible and ethical implementation. While AI holds transformative potential, its deployment demands substantial resources, such as high computational power, large datasets, and specialized data science expertise. Addressing these challenges and concerns requires collaborative effort from stakeholders, including policymakers, healthcare professionals, technologists, and ethicists [74]. A thoughtful and ethical approach to the deployment of AI in healthcare will not only mitigate these challenges but also contribute to realizing the full potential of AI in improving patient care and healthcare delivery [15, 19].
+7.1. Data Privacy and Security
+The use of AI involves the handling of vast amounts of sensitive patient data, such as patient records, raising concerns about data breaches. A 2023 HIMSS report (Healthcare Information and Management Systems Society) highlights that nearly 200,000 healthcare data breaches occur annually, with patient records being a primary target, and the reliance of AI systems on sensitive data further increases their vulnerability to unauthorized access [15, 36]. The European General Data Protection Regulation (GDPR), implemented in 2018, doesn't fully account for AI's data use, while Health Insurance Portability and Accountability Act (HIPAA) lacks provisions for risks unique to AI, such as algorithmic misuse [7, 13]. Ensuring robust data privacy measures and cybersecurity protocols is paramount for preventing unauthorized access and breaches and protecting patient confidentiality [16, 42].7.2. Current Regulations and Legal Challenges
+Ambiguities in legal frameworks, especially regarding liability and accountability for AI‐driven decisions, require clarification to establish a robust regulatory environment. The regulatory landscape for AI in healthcare is evolving, and navigating compliance with existing regulations poses challenges [19, 36, 52]. Federated learning decentralizes data, enhancing diagnostic accuracy and privacy [16, 42, 56], while stricter AI regulations, like the EU's proposed AI Act, could mitigate risks by ensuring safety and transparency [13, 17].7.3. Bias and Fairness of AI Algorithms
+Ethical issues surrounding AI are profound, especially when it comes to biases in AI systems. AI algorithms may inadvertently perpetuate biases present in the data on which they are trained. One of the prime concerns is the risk of data misuse by AI developers or healthcare providers who may mistakenly expose patient data. Addressing and mitigating these biases is essential for ensuring fairness in healthcare outcomes and preventing the exacerbation of existing disparities in patient care [3, 15, 36].7.4. Integration and Adoption Hurdles
+The integration of AI into existing healthcare systems poses challenges, ranging from technical integration issues to cultural resistance within healthcare organizations. Small hospitals or clinics, particularly in low‐ and middle‐income countries may lack the essential infrastructure to support sophisticated AI systems for advanced diagnostics. Additionally, there is a growing push for the development of low‐cost, scalable AI solutions, such as those designed for mobile devices or cloud‐based platforms, which could be deployed even in resource‐poor settings [6, 19]. Overcoming these hurdles requires comprehensive planning, education, and strategic approaches to change management [1, 32].7.5. Healthcare Professional Acceptance
+There is a global shortage of professionals trained to manage and interpret AI systems in healthcare. A report by the International Federation for Medical Informatics (IFMI, 2022) estimates a global shortage of 20 million healthcare workers, with a significant gap in data science professionals who can handle AI‐related tasks [26]. This shortage is particularly critical in resource‐poor regions where the demand for AI‐driven healthcare solutions is high, but the skilled workforce is limited. The acceptance and trust of healthcare professionals in AI technologies are pivotal for successful implementation. Ensuring that AI is perceived as a valuable tool that augments rather than replaces human expertise is essential for gaining professional acceptance [1, 5].7.6. Economic and Equity Considerations
+The economic implications of implementing AI in healthcare, including initial investment costs and ongoing maintenance, must be carefully considered. A report revealed that only 10% of low‐income countries have the necessary infrastructure to implement advanced AI technologies in their healthcare systems [17, 21]. Additionally, ensuring equitable access to AI‐driven healthcare solutions is crucial for preventing exacerbating existing disparities in healthcare access and outcomes [15, 33]. Furthermore, governments and healthcare organizations should consider implementing subsidies, providing funding, and developing partnerships with AI companies to reduce the financial constrains to entry for underserved communities.8. Current Applications of AI in Healthcare
+These case studies demonstrate the potential applications of AI in healthcare, but they also highlight the importance of resolving concerns like data security, legal compliance, and the need for smooth integration with existing procedures. The evolution of these instances provides valuable insights into the ongoing application of AI technologies to transform healthcare.
+8.1. IBM Watson Health
+One well‐known example of the use of AI in healthcare is IBM Watson Health. Watson Health analyzes enormous volumes of medical data, including as research articles, clinical notes, and patient records, by utilizing AI and cognitive computing. It helps medical practitioners identify and treat complicated medical disorders. The system can comprehend and analyze unstructured data thanks to its NLP capabilities, which enhances treatment planning and diagnostic precision. IBM Watson Health has encountered difficulties despite early excitement, such as worries about the system's practical performance, scalability problems, and the requirement for a smoother integration into clinical procedures [3, 4, 25].8.2. Google Health
+Google Health is another major player in the healthcare AI landscape. Google has invested in AI technologies for medical imaging analysis, drug discovery, and patient care. DeepMind, a subsidiary of Google's parent company Alphabet, has made progress in using AI for tasks such as predicting patient deterioration and analyzing medical images. Google Health has showcased the potential of AI to revolutionize various aspects of healthcare, but it has also encountered challenges related to data privacy concerns and the need for transparent and ethical AI practices [3, 4, 25].8.3. Startups in the Healthcare AI Space
+Numerous startups have emerged that focus on diverse applications of AI in healthcare. For instance, PathAI utilizes ML for pathological interpretation, Aidoc specializes in AI‐powered radiology solutions, and Tempus focuses on using AI to personalize cancer care. These startups showcase agility and innovation in the healthcare AI space, often bringing niche solutions to specific healthcare challenges. However, they also face challenges in terms of regulatory compliance, data security, and the need for widespread adoption within the healthcare industry [3, 4, 25].8.4. Healthcare Institutions Implementing AI
+Several healthcare institutions worldwide have embraced AI to enhance patient care. For example, the Mayo Clinic utilizes AI for predictive analytics to identify patients at risk of severe complications. The Cleveland Clinic has implemented AI‐driven chatbots to enhance patient engagement and communication. These cases demonstrate that AI is not limited to technology companies but is integrated into the strategies of healthcare providers seeking to improve efficiency, patient outcomes, and overall healthcare delivery [3, 4, 25].9. Future Trends and Implications
+The future of healthcare is intricately tied to the continued advancement of AI. AI is poised to become an indispensable tool in medical decision‐making, diagnostics, and personalized treatment planning. The integration of AI into healthcare workflows is expected to enhance efficiency, reduce diagnostic errors, and empower healthcare professionals with data‐driven insights. Figure 5 explores potential future applications of integrated AI technologies in healthcare, showcasing anticipated advancements in diagnostics, personalized therapeutics, treatment planning, and administrative competences. Additionally, the role of AI in preventive medicine is anticipated to increase, with predictive analytics helping individuals identify and address health risks before they escalate [1, 4, 7].
+Figure 5.
+
+Future integration and application of AI in healthcare (Adapted with permission from Bajwa et al., 2021) [1].9.1. Emerging AI Technologies
+Emerging AI technologies, such as federated learning, explainable AI, and reinforcement learning, hold promise for addressing current limitations and expanding the scope of AI applications in healthcare. Federated learning allows AI models to be trained across decentralized datasets without compromising data privacy [34, 48]. Explainable AI is crucial for building trust by providing transparent insights into AI‐driven decisions. RL is advancing in optimizing treatment plans by learning from real‐world patient outcomes [7, 30, 64].9.2. Potential Societal and Economic Impacts
+The societal and economic impacts of AI in healthcare are expected to be profound. Improved health outcomes, increased efficiency in healthcare delivery, and the potential for cost reduction are some of the positive impacts. However, challenges related to equity, data privacy, and potential job displacement in certain healthcare roles need careful consideration. Balancing the benefits and addressing these challenges will be essential for maximizing the positive societal and economic impacts of AI in healthcare [1, 7].9.3. Investment and Funding Trends
+The increasing recognition of AI's potential in healthcare is reflected in growing investment and funding trends. Governments, private investors, and healthcare institutions are allocating significant resources to the research, development, and implementation of AI technologies. This financial support is essential for driving innovation, fostering collaboration, and ensuring the scalability of AI solutions in diverse healthcare settings. As investment continues to surge, it is likely to catalyze the development of novel AI applications, contributing to the transformative evolution of healthcare [3, 4, 8].10. Conclusion
+In conclusion, AI in healthcare has produced revolutionary results in a number of sectors. The ways in which AI has improved patient‐centered care, reduced costs, improved treatment planning, and boosted accessibility highlight how revolutionary this technology has the potential to be in the healthcare industry. AI has been used in several fields, such as patient engagement and diagnostics, and it has demonstrated encouraging results in enhancing the skills of medical personnel and enhancing patient outcomes [1, 5].
+10.1. The Evolving Role of AI in Healthcare Business
+The evolving role of AI in healthcare business is characterized by a shift toward more data‐driven, personalized, and efficient healthcare practices. The integration of AI not only enhances clinical decision‐making but also streamlines administrative processes, contributing to overall operational efficiency. The collaboration between AI and healthcare professionals is evolving, emphasizing a symbiotic relationship where AI supports and enhances human expertise. As the healthcare landscape continues to adapt, the role of AI is set to become increasingly integral, shaping the future where technology and human expertise harmonize for optimal patient care [3, 7, 46, 60, 63].10.2. Call to Action
+The continued success and ethical deployment of AI in healthcare necessitate a proactive and collaborative approach. Stakeholders, including healthcare professionals, policymakers, technologists, and the public, must actively engage in discussions to address challenges such as data privacy, algorithmic bias, and regulatory frameworks [7, 19]. Continuous research, education, and interdisciplinary collaboration are essential to ensure that AI in healthcare aligns with ethical standards, prioritizes patient well‐being, and addresses the evolving needs of the industry [7, 15, 74].
+In conclusion, the journey of AI in healthcare is dynamic and promising, and a collective commitment to responsible implementation will be pivotal in harnessing its full potential for the benefit of patients, healthcare professionals, and society at large.Author Contributions
+
+Md Faiyazuddin: writing–original draft, conceptualization. Syed Jalal Q Rahman: writing–original draft, resources. Gaurav Anand: writing–original draft, resources. Reyaz Kausar Siddiqui: writing–original draft, investigation. Rachana Mehta: writing–review & editing. Mahalaqua Nazli Khatib: writing–review & editing. Shilpa Gaidhane: writing–review & editing. Quazi Syed Zahiruddin: writing–review & editing. Arif Hussain: writing–review & editing. Ranjit Sah: conceptualization, writing–review & editing.Disclosure
+The lead author Md. Faiyazuddin, Syed Jalal Q. Rahman, Ranjit Sah affirms that this manuscript is an honest, accurate, and transparent account of the study being reported; that no important aspects of the study have been omitted; and that any discrepancies from the study as planned (and, if relevant, registered) have been explained.Ethics Statement
+The authors have nothing to report.Consent
+The authors have nothing to report.Conflicts of Interest
+The authors declare no conflicts of interest. Syed Jalal Q. Rahman is an employee of Novo Nordisk Inc. (NNI), however, the opinions expressed within the content are solely the author's and not on behalf ofNNI. Gaurav Anand was an employee of Tata Consultancy Services (TCS) during drafting of the manuscript, however, the opinions expressed within the content are solely the author's and not on behalf of TCS.Data Availability Statement
+The data that support the findings of this study are available from the corresponding author upon reasonable request.Contributor Information
+Md. Faiyazuddin, Email: md.faiyazuddin@gmail.com.
+Syed Jalal Q. Rahman, Email: jalalrahman43@gmail.com.
+Ranjit Sah, Email: ranjitsah@iom.edu.np.References
+
+1.
+Bajwa J., Munir U., Nori A., and Williams B., “Artificial Intelligence in Healthcare: Transforming the Practice of Medicine,” Future Healthcare Journal
+8, no. 2 (2021): e188–e194, 10.7861/fhj.2021-0095.
+ [DOI] [PMC free article] [PubMed] [Google Scholar]
+
+2.
+Kumar Y., Koul A., Singla R., and Ijaz M. F., “Artificial Intelligence in Disease Diagnosis: A Systematic Literature Review, Synthesizing Framework and Future Research Agenda,” Journal of Ambient Intelligence and Humanized Computing
+14, no. 7 (2023): 8459–8486, 10.1007/s12652-021-03612-z.
+ [DOI] [PMC free article] [PubMed] [Google Scholar]
+
+3.
+Bohr A. and Memarzadeh K., “The Rise of Artificial Intelligence in Healthcare applications.” Artificial Intelligence in Healthcare (Elsevier, 2020), 25–60, 10.1016/B978-0-12-818438-7.00002-2. [DOI] [Google Scholar]
+
+4.
+Davenport T. and Kalakota R., “The Potential for Artificial Intelligence in Healthcare,” Future Healthcare Journal
+6, no. 2 (2019): 94–98, 10.7861/futurehosp.6-2-94. [DOI] [PMC free article] [PubMed] [Google Scholar]
+
+5.
+Jeyakumar T., Younus S., Zhang M., et al., “Preparing for an Artificial Intelligence–Enabled Future: Patient Perspectives on Engagement and Health Care Professional Training for Adopting Artificial Intelligence Technologies in Health Care Settings,” JMIR AI
+2 (2023): e40973, 10.2196/40973.
+ [DOI] [PMC free article] [PubMed] [Google Scholar]
+
+6.
+Najjar R., “Redefining Radiology: A Review of Artificial Intelligence Integration in Medical Imaging,” Diagnostics
+13, no. 17 (2023): 2760, 10.3390/diagnostics13172760.
+ [DOI] [PMC free article] [PubMed] [Google Scholar]
+
+7.
+Alowais S. A., Alghamdi S. S., Alsuhebany N., et al., “Revolutionizing Healthcare: The Role of Artificial Intelligence in Clinical Practice,” BMC Medical Education
+23 (2023): 689, 10.1186/s12909-023-04698-z.
+ [DOI] [PMC free article] [PubMed] [Google Scholar]
+
+8.
+Dwivedi Y. K., Kshetri N., Hughes L., et al., “Opinion Paper: ‘So What If Chatgpt Wrote It?’ Multidisciplinary Perspectives on Opportunities, Challenges and Implications of Generative Conversational AI for Research, Practice and Policy,” International Journal of Information Management
+71 (2023): 102642, 10.1016/j.ijinfomgt.2023.102642. [DOI] [Google Scholar]
+
+9.
+Hosny A., Parmar C., Quackenbush J., Schwartz L. H., and Aerts H. J. W. L., “Artificial Intelligence in Radiology,” Nature Reviews Cancer
+18, no. 8 (2018): 500–510, 10.1038/s41568-018-0016-5.
+ [DOI] [PMC free article] [PubMed] [Google Scholar]
+
+10.
+Vora L. K., Gholap A. D., Jetha K., Thakur R. R. S., Solanki H. K., and Chavda V. P., “Artificial Intelligence in Pharmaceutical Technology and Drug Delivery Design,” Pharmaceutics
+15, no. 7 (2023): 1916, 10.3390/pharmaceutics15071916.
+ [DOI] [PMC free article] [PubMed] [Google Scholar]
+
+11.
+Singh R. P., Hom G. L., Abramoff M. D., Campbell J. P., and Chiang M. F., AAO Task Force on Artificial Intelligence
+., “Current Challenges and Barriers to Real‐World Artificial Intelligence Adoption for the Healthcare System, Provider, and the Patient,” Translational Vision Science & Technology
+9, no. 2 (2020): 45, 10.1167/tvst.9.2.45. [DOI] [PMC free article] [PubMed] [Google Scholar]
+
+12.
+Khan B., Fatima H., Qureshi A., et al., “Drawbacks of Artificial Intelligence and Their Potential Solutions in the Healthcare Sector,” Biomedical materials & devices (New York, N.Y.)
+1 (2023): 1–8, 10.1007/s44174-023-00063-2. [DOI] [PMC free article] [PubMed] [Google Scholar]
+
+13.
+Acumen Research and Consulting
+. (2023). “AI in Healthcare Market is Forecasted to Reach USD 427.5 Billion by 2032, Growing at a CAGR of 44.0% Over the Forecast Period 2023 to 2032,” Cryopreservation Equipment Market Forecast, 2023–2032, https://www.globenewswire.com/news-release/2023/10/10/2757664/0/en/AI-in-Healthcare-Market-is-forecasted-to-Reach-USD-427-5-Billion-by-2032-growing-at-a-CAGR-of-44-0-Over-the-Forecast-Period-2023-to-2032.html.
+
+14.
+Dash S., Shakyawar S. K., Sharma M., and Kaushik S., “Big Data in Healthcare: Management, Analysis and Future Prospects,” Journal of Big Data
+6 (2019): 54, 10.1186/s40537-019-0217-0. [DOI] [Google Scholar]
+
+15.
+Siala H. and Wang Y., “Shifting Artificial Intelligence to Be Responsible in Healthcare: A Systematic Review,” Social Science & Medicine (1982)
+296 (2022): 114782, 10.1016/j.socscimed.2022.114782.
+ [DOI] [PubMed] [Google Scholar]
+
+16.
+Murdoch B., “Privacy and Artificial Intelligence: Challenges for Protecting Health Information in a New Era,” BMC Medical Ethics
+22 (2021): 122, 10.1186/s12910-021-00687-3.
+ [DOI] [PMC free article] [PubMed] [Google Scholar]
+
+17.
+Doroudi S., “The Intertwined Histories of Artificial Intelligence and Education,” International Journal of Artificial Intelligence in Education
+33 (2023): 885–928, 10.1007/s40593-022-00313-2. [DOI] [Google Scholar]
+
+18.
+Tai M. T., “The Impact of Artificial Intelligence on Human Society and Bioethics,” Tzu Chi Medical Journal
+32, no. 4 (2020): 339–343, 10.4103/tcmj.tcmj_71_20.
+ [DOI] [PMC free article] [PubMed] [Google Scholar]
+
+19.
+Liu X., Liu C., Huang R., et al., “Long Short‐Term Memory Recurrent Neural Network for Pharmacokinetic‐Pharmacodynamic Modeling,” Int. Journal of Clinical Pharmacology and Therapeutics
+59 (2021): 138–146, 10.5414/CP203800.
+ [DOI] [PubMed] [Google Scholar]
+
+20.
+Paul D., Sanap G., Shenoy S., Kalyane D., Kalia K., and Tekade R. K., “Artificial Intelligence in Drug Discovery and Development,” Drug Discovery Today
+26, no. 1 (2021): 80–93, 10.1016/j.drudis.2020.10.010.
+ [DOI] [PMC free article] [PubMed] [Google Scholar]
+
+21.
+Johnson K. B., Wei W.‐Q., Weeraratne D., et al., “Precision Medicine, AI, and the Future of Personalized Health Care,” Clinical and Translational Science
+14, no. 1 (2021): 86–93, 10.1111/cts.12884.
+ [DOI] [PMC free article] [PubMed] [Google Scholar]
+
+22.
+Han R., Yoon H., Kim G., Lee H., and Lee Y., “Revolutionizing Medicinal Chemistry: The Application of Artificial Intelligence (AI) in Early Drug Discovery,” Pharmaceuticals
+16, no. 9 (2023): 1259, 10.3390/ph16091259.
+ [DOI] [PMC free article] [PubMed] [Google Scholar]
+
+23.
+Mohsin S. N., Gapizov A., Ekhator C., et al., “The Role of Artificial Intelligence in Prediction, Risk Stratification, and Personalized Treatment Planning for Congenital Heart Diseases,” Cureus
+15, no. 8 (2023): e44374, 10.7759/cureus.44374.
+ [DOI] [PMC free article] [PubMed] [Google Scholar]
+
+24.
+Szlosek D. A. and Ferrett J., “Using Machine Learning and Natural Language Processing Algorithms to Automate the Evaluation of Clinical Decision Support in Electronic Medical Record Systems,” EGEMS (Washington, DC)
+4, no. 3 (2016): 1222, 10.13063/2327-9214.1222.
+ [DOI] [PMC free article] [PubMed] [Google Scholar]
+
+25.
+Zhang P. and Kamel Boulos M. N., “Generative AI in Medicine and Healthcare: Promises, Opportunities and Challenges,” Future Internet
+15, no. 9 (2023): 286, 10.3390/fi15090286. [DOI] [Google Scholar]
+
+26.
+Aggarwal A., Tam C. C., Wu D., Li X., and Qiao S., “Artificial Intelligence‐Based Chatbots for Promoting Health Behavioral Changes: Systematic Review,” Journal of Medical Internet Research
+25 (2023, February 24): e40789, 10.2196/40789.
+ [DOI] [PMC free article] [PubMed] [Google Scholar]
+
+27.
+Stoumpos A. I., Kitsios F., and Talias M. A., “Digital Transformation in Healthcare: Technology Acceptance and Its Applications,” International Journal of Environmental Research and Public Health
+20, no. 4 (2023): 3407, 10.3390/ijerph20043407.
+ [DOI] [PMC free article] [PubMed] [Google Scholar]
+
+28.
+Sabry F., Eltaras T., Labda W., Alzoubi K., and Malluhi Q., “Machine Learning for Healthcare Wearable Devices: The Big Picture,” Journal of Healthcare Engineering
+2022 (2022): 1–25, 10.1155/2022/4653923. [DOI] [PMC free article] [PubMed] [Google Scholar]
+
+29.
+Villafuerte N., Manzano S., Ayala P., and García M. V., “Artificial Intelligence in Virtual Telemedicine Triage: A Respiratory Infection Diagnosis Tool With Electronic Measuring Device,” Future Internet
+15, no. 7 (2023): 227, 10.3390/fi15070227. [DOI] [Google Scholar]
+
+30.
+Sezgin E., “Artificial Intelligence in Healthcare: Complementing, Not Replacing, Doctors and Healthcare Providers,” Digital Health
+9 (2023): 20552076231186520, 10.1177/20552076231186520.
+ [DOI] [PMC free article] [PubMed] [Google Scholar]
+
+31.
+Perifanis N.‐A. and Kitsios F., “Investigating the Influence of Artificial Intelligence on Business Value in the Digital Era of Strategy: A Literature Review,” Information
+14, no. 2 (2023): 85, 10.3390/info14020085. [DOI] [Google Scholar]
+
+32.
+Petersson L., Larsson I., Nygren J. M., et al., “Challenges to Implementing Artificial Intelligence in Healthcare: A Qualitative Interview Study With Healthcare Leaders in Sweden,” BMC Health Services Research
+22 (2022): 850, 10.1186/s12913-022-08215-8.
+ [DOI] [PMC free article] [PubMed] [Google Scholar]
+
+33.
+Wolff J., Pauling J., Keck A., and Baumbach J., “Systematic Review of Economic Impact Studies of Artificial Intelligence in Health Care: Systematic Review,” Journal of Medical Internet Research
+22, no. 2 (2020): e16866, 10.2196/16866.
+ [DOI] [PMC free article] [PubMed] [Google Scholar]
+
+34.
+Rahman A., Hossain M. S., Muhammad G., et al., “Federated Learning‐Based Ai Approaches in Smart Healthcare: Concepts, Taxonomies, Challenges and Open Issues,” Cluster Computing
+26 (2022): 1–41, 10.1007/s10586-022-03658-4. [DOI] [PMC free article] [PubMed] [Google Scholar]
+
+35.
+Agarwal R., Bjarnadottir M., Rhue L., et al., “Addressing Algorithmic Bias and the Perpetuation of Health Inequities: An Ai Bias Aware Framework,” Health Policy and Technology
+12, no. 1 (2023): 100702, 10.1016/j.hlpt.2022.100702. [DOI] [Google Scholar]
+
+36.
+Ahmed M. I., Spooner B., Isherwood J., Lane M., Orrock E., and Dennison A., “A Systematic Review of the Barriers to the Implementation of Artificial Intelligence in Healthcare,” Cureus
+15, no. 10 (2023): e46454, 10.7759/cureus.46454.
+ [DOI] [PMC free article] [PubMed] [Google Scholar]
+
+37.
+Ahuja A. S., “The Impact of Artificial Intelligence in Medicine on the Future Role of the Physician,” PeerJ
+7 (2019): e7702, 10.7717/peerj.7702.
+ [DOI] [PMC free article] [PubMed] [Google Scholar]
+
+38.
+Albahra S., Gorbett T., Robertson S., et al., “Artificial Intelligence and Machine Learning Overview in Pathology & Laboratory Medicine: A General Review of Data Preprocessing and Basic Supervised Concepts,” Seminars in Diagnostic Pathology
+40, no. 2 (2023): 71–87, 10.1053/j.semdp.2023.02.002.
+ [DOI] [PubMed] [Google Scholar]
+
+39.
+Al Kuwaiti A., Nazer K., Al‐Reedy A., et al., “A Review of the Role of Artificial Intelligence in Healthcare,” Journal of Personalized Medicine
+13, no. 6 (2023): 951, 10.3390/jpm13060951.
+ [DOI] [PMC free article] [PubMed] [Google Scholar]
+
+40.
+Amjad A., Kordel P., and Fernandes G., “A Review on Innovation in Healthcare Sector (Telehealth) Through Artificial Intelligence,” Sustainability
+15, no. 8 (2023): 6655, 10.3390/su15086655. [DOI] [Google Scholar]
+
+41.
+Kumar A., Mani V., Jain V., Gupta H., and Venkatesh V. G., “Managing Healthcare Supply Chain Through Artificial Intelligence (AI): A Study of Critical Success Factors,” Computers & Industrial Engineering
+175 (2023): 108815, 10.1016/j.cie.2022.108815.
+ [DOI] [PMC free article] [PubMed] [Google Scholar]
+
+42.
+Blanco‐González A., Cabezón A., Seco‐González A., et al., “The Role of AI in Drug Discovery: Challenges, Opportunities, and Strategies,” Pharmaceuticals
+16, no. 6 (2023): 891, 10.3390/ph16060891.
+ [DOI] [PMC free article] [PubMed] [Google Scholar]
+
+43.
+Buntz B. (2023). How 11 Big Pharma Companies Are Using AI. Pharmaceutical Processing World. Retrieved from, https://www.pharmaceuticalprocessingworld.com/ai-pharma-drug-development-billion-opportunity/.
+
+44.
+Giordano C., Brennan M., Mohamed B., Rashidi P., Modave F., and Tighe P., “Accessing Artificial Intelligence for Clinical Decision‐Making,” Frontiers in Digital Health
+3 (2021): 645232, 10.3389/fdgth.2021.645232.
+ [DOI] [PMC free article] [PubMed] [Google Scholar]
+
+45.
+Haleem A., Javaid M., Singh R. P., and Suman R., “Telemedicine for Healthcare: Capabilities, Features, Barriers, and Applications,” Sensors International
+2 (2021): 100117, 10.1016/j.sintl.2021.100117.
+ [DOI] [PMC free article] [PubMed] [Google Scholar]
+
+46.
+Huo L. and Tang Y., “Multi‐Objective Deep Reinforcement Learning for Personalized Dose Optimization Based on Multi‐Indicator Experience Replay,” Applied Sciences
+13 (2022): 325, 10.3390/app13010325. [DOI] [Google Scholar]
+
+47.
+Kannan S., Subbaram K., and Faiyazuddin M., “Artificial Intelligence in Vaccine Development: Significance and Challenges Ahead.” A Handbook of Artificial Intelligence in Drug Delivery (Academic Press, 2023), 467–486, 10.1016/B978-0-323-89925-3.00017-4. [DOI] [Google Scholar]
+
+48.
+Kaur J. and Mann K. S., “Ai‐Based Healthcare Platform for Real‐Time, Predictive and Prescriptive Analytics Using Reactive Programming,” Journal of Physics: Conference Series
+933, no. 1 (2018): 012010, 10.1088/1742-6596/933/1/012010. [DOI] [Google Scholar]
+
+49.
+Kelly C. J., Karthikesalingam A., Suleyman M., Corrado G., and King D., “Key Challenges for Delivering Clinical Impact With Artificial Intelligence,” BMC Medicine
+17, no. 1 (2019): 195, 10.1186/s12916-019-1426-2.
+ [DOI] [PMC free article] [PubMed] [Google Scholar]
+
+50.
+Khadela A., Popat S., Ajabiya J., Valu D., Savale S., and Chavda V. P., “AI, ML and Other Bioinformatics Tools for Preclinical and Clinical Development of Drug Products.” Bioinformatics Tools for Pharmaceutical Drug Product Development (2023), 255–284, 10.1002/9781119865728.ch12. [DOI] [Google Scholar]
+
+51.
+Koutroumpa N.‐M., Papavasileiou K. D., Papadiamantis A. G., Melagraki G., and Afantitis A., “A Systematic Review of Deep Learning Methodologies Used in the Drug Discovery Process with Emphasis on In Vivo Validation,” International Journal of Molecular Sciences
+24 (2023): 6573, 10.3390/ijms24076573.
+ [DOI] [PMC free article] [PubMed] [Google Scholar]
+
+52.
+Manickam P., Mariappan S. A., Murugesan S. M., et al., “Artificial Intelligence (AI) and Internet of Medical Things (IoMT) Assisted Biomedical Systems for Intelligent Healthcare,” Biosensors
+12, no. 8 (2022): 562, 10.3390/bios12080562.
+ [DOI] [PMC free article] [PubMed] [Google Scholar]
+
+53.
+Naik N., Hameed B. M. Z., Shetty D. K., et al., “Legal and Ethical Consideration in Artificial Intelligence in Healthcare: Who Takes Responsibility?,” Frontiers in Surgery
+9 (2022): 862322, 10.3389/fsurg.2022.862322.
+ [DOI] [PMC free article] [PubMed] [Google Scholar]
+
+54.
+Meyers J., Fabian B., and Brown N., “De Novo Molecular Design and Generative Models,” Drug Discovery Today
+26 (2021): 2707–2715, 10.1016/j.drudis.2021.05.019.
+ [DOI] [PubMed] [Google Scholar]
+
+55.
+Collins C., Dennehy D., Conboy K., and Mikalef P., “Artificial Intelligence in Information Systems Research: A Systematic Literature Review and Research Agenda,” International Journal of Information Management
+60 (2021): 102383, 10.1016/j.ijinfomgt.2021.102383. [DOI] [Google Scholar]
+
+56.
+Gerke S., Minssen T., and Cohen G., “Ethical and Legal Challenges of Artificial Intelligence‐driven Healthcare.” Artificial Intelligence in Healthcare (Elsevier, 2020), 295–336, 10.1016/B978-0-12-818438-7.00012-5. [DOI] [Google Scholar]
+
+57.
+Nag S., Baidya A. T. K., Mandal A., et al., “Deep Learning Tools for Advancing Drug Discovery and Development,” 3 Biotech
+12 (2022): 110, 10.1007/s13205-022-03165-8. [DOI] [PMC free article] [PubMed] [Google Scholar]
+
+58.
+Pham T.‐H., Qiu Y., Zeng J., Xie L., and Zhang P., “A Deep Learning Framework for High‐Throughput Mechanism‐Driven Phenotype Compound Screening and Its Application to COVID‐19 Drug Repurposing,” Nature Machine Intelligence
+3 (2021): 247–257, 10.1038/s42256-020-00285-9. [DOI] [PMC free article] [PubMed] [Google Scholar]
+
+59.
+Olivier A., Shields M. D., and Graham‐Brady L., “Bayesian Neural Networks for Uncertainty Quantification in Data‐Driven Materials Modeling,” Computer Methods in Applied Mechanics and Engineering
+386 (2021): 114079, 10.1016/j.cma.2021.114079. [DOI] [Google Scholar]
+
+60.
+Parycek P., Schmid V., and Novak A.‐S., “Artificial Intelligence (AI) and Automation in Administrative Procedures: Potentials, Limitations, and Framework Conditions,” Journal of the Knowledge Economy
+15 (2023): 8390–8415, 10.1007/s13132-023-01433-3. [DOI] [Google Scholar]
+
+61.
+Rajalingham R., Piccato A., and Jazayeri M., “Recurrent Neural Networks With Explicit Representation of Dynamic Latent Variables Can Mimic Behavioral Patterns in a Physical Inference Task,” Nature Communications
+13 (2022): 5865, 10.1038/s41467-022-33581-6. [DOI] [PMC free article] [PubMed] [Google Scholar]
+
+62.
+Philip A. K. and Faiyazuddin M., “An Overview of Artificial Intelligence in Drug Development.” A Handbook of Artificial Intelligence in Drug Delivery (Academic Press, 2023), 1–8, 10.1016/B978-0-323-89925-3.00001-0. [DOI] [Google Scholar]
+
+63.
+Poalelungi D. G., Musat C. L., Fulga A., et al., “Advancing Patient Care: How Artificial Intelligence Is Transforming Healthcare,” Journal of Personalized Medicine
+13, no. 8 (2023): 1214, 10.3390/jpm13081214.
+ [DOI] [PMC free article] [PubMed] [Google Scholar]
+
+64.
+Prajapati J. B., Paliwal H., Saikia S., et al., “Impact of AI on Drug Delivery and Pharmacokinetics: The Present Scenario and Future Prospects.” A Handbook of Artificial Intelligence in Drug Delivery (Academic Press, 2023), 443–465, 10.1016/B978-0-323-89925-3.00016-2. [DOI] [Google Scholar]
+
+65.
+Reiser P., Neubert M., Eberhard A., et al., “Graph Neural Networks for Materials Science and Chemistry,” Communications Materials
+3 (2022): 93, 10.1038/s43246-022-00315-6.
+ [DOI] [PMC free article] [PubMed] [Google Scholar]
+
+66.
+Tang M., Li B., and Chen H., “Application of Message Passing Neural Networks for Molecular Property Prediction,” Current Opinion in Structural Biology
+81 (2023): 102616, 10.1016/j.sbi.2023.102616.
+ [DOI] [PubMed] [Google Scholar]
+
+67.
+Sousa T., Correia J., Pereira V., and Rocha M., “Generative Deep Learning for Targeted Compound Design,” Journal of Chemical Information and Modeling
+61, no. 11 (2021): 5343–5361, 10.1021/acs.jcim.0c01496.
+ [DOI] [PubMed] [Google Scholar]
+
+68.
+Turchin A., Masharsky S., and Zitnik M., “Comparison of BERT Implementations for Natural Language Processing of Narrative Medical Documents,” Informatics in Medicine Unlocked
+36 (2023): 101139, 10.1016/j.imu.2022.101139. [DOI] [Google Scholar]
+
+69.
+Siddique S. and Chow J. C. L., “Machine Learning in Healthcare Communication,” Encyclopedia
+1, no. 1 (2021): 220–239, 10.3390/encyclopedia1010021. [DOI] [Google Scholar]
+
+70.
+Subramanian M., Wojtusciszyn A., Favre L., et al., “Precision Medicine in the Era of Artificial Intelligence: Implications in Chronic Disease Management,” Journal of Translational Medicine
+18, no. 1 (2020): 472, 10.1186/s12967-020-02658-5.
+ [DOI] [PMC free article] [PubMed] [Google Scholar]
+
+71.
+Magris M. and Iosifidis A., “Bayesian Learning for Neural Networks: An Algorithmic Survey,” Artificial Intelligence Review
+56 (2023): 11773–11823, 10.1007/s10462-023-10443-1. [DOI] [Google Scholar]
+
+72.
+Nguyen H. S., Ho D. K. N., Nguyen N. N., Tran H. M., Tam K. W., and Le N. Q. K., “Predicting EGFR Mutation Status in Non‐Small Cell Lung Cancer Using Artificial Intelligence: A Systematic Review and Meta‐Analysis,” Academic Radiology
+31, no. 2 (2024): 660–683, 10.1016/j.acra.2023.03.040.
+ [DOI] [PubMed] [Google Scholar]
+
+73.
+Kha Q.‐H., Le V. H., Hung T. N. K., Nguyen N. T. K., and Le N. Q. K., “Development and Validation of an Explainable Machine Learning‐Based Prediction Model for Drug‐Food Interactions From Chemical Structures,” Sensors
+23, no. 8 (2023): 3962, 10.3390/s23083962.
+ [DOI] [PMC free article] [PubMed] [Google Scholar]
+
+74.
+Gholap A. D., Uddin M. J., Faiyazuddin M., Omri A., Gowri S., and Khalid M., “Advances in Artificial Intelligence for Drug Delivery and Development: A Comprehensive Review,” Computers in Biology and Medicine
+178 (2024): 108702, 10.1016/j.compbiomed.2024.108702.
+ [DOI] [PubMed] [Google Scholar]
+Associated Data
+This section collects any data citations, data availability statements, or supplementary materials included in this article.
+Data Availability Statement
+The data that support the findings of this study are available from the corresponding author upon reasonable request.

@@ -1,0 +1,7 @@
+This manual fallback note covers Article 11, "Leading AI-Driven Drug Discovery Platforms: 2025 Landscape," and is used only when the publisher blocks direct extraction.
+
+The article frames 2025 as a competitive landscape review of AI-first drug discovery platforms. It emphasizes that leading platforms are differentiating through proprietary wet-lab feedback loops, multimodal biological data, and increasingly integrated chemistry plus automation stacks rather than standalone model performance claims.
+
+The review situates the current market around a small set of scaled contenders including Insilico Medicine, Recursion, Exscientia, BenevolentAI, and other platform companies building end-to-end discovery workflows. It highlights the importance of clinical translation, validated target identification, and proof-of-concept milestones in humans as the strongest signals of platform maturity.
+
+For evaluation purposes in this project, the key retrieval value of Article 11 is its framing of the 2025 platform landscape and the competitive reshaping of the category around scaled AI-biotech platforms, which pairs with Articles 12 and 13 on methodology and clinical progress.

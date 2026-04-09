@@ -1,0 +1,51 @@
+{
+  "name": "together-healthcare-agent",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "engines": {
+    "node": ">=20.0.0"
+  },
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "typecheck": "tsc --noEmit",
+    "prepare:data": "node --import tsx scripts/prepare-data.ts",
+    "ingest": "node --import tsx scripts/ingest.ts",
+    "eval": "node --import tsx scripts/eval.ts",
+    "smoke": "node --import tsx scripts/smoke.ts",
+    "package:submission": "node --import tsx scripts/package-submission.ts"
+  },
+  "dependencies": {
+    "@google/genai": "^1.29.0",
+    "@langchain/langgraph": "^0.4.9",
+    "@mozilla/readability": "^0.6.0",
+    "@pinecone-database/pinecone": "^7.1.0",
+    "cheerio": "^1.1.2",
+    "class-variance-authority": "^0.7.1",
+    "clsx": "^2.1.1",
+    "jsdom": "^27.0.1",
+    "lucide-react": "^0.542.0",
+    "next": "^16.0.0",
+    "next-themes": "^0.4.6",
+    "pdf-parse": "^1.1.1",
+    "react": "^19.1.1",
+    "react-dom": "^19.1.1",
+    "react-markdown": "^10.1.0",
+    "remark-gfm": "^4.0.1",
+    "tailwind-merge": "^3.3.1",
+    "zod": "^4.1.5",
+    "zod-to-json-schema": "^3.24.6"
+  },
+  "devDependencies": {
+    "@types/node": "^24.4.0",
+    "@types/react": "^19.1.10",
+    "@types/react-dom": "^19.1.7",
+    "autoprefixer": "^10.4.21",
+    "postcss": "^8.5.6",
+    "tailwindcss": "^3.4.17",
+    "tsx": "^4.20.5",
+    "typescript": "^5.9.2"
+  }
+}

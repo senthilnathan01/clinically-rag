@@ -1,0 +1,263 @@
+{
+  "generatedAt": "2026-04-09T19:19:31.568Z",
+  "articleCount": 21,
+  "articles": [
+    {
+      "articleNumber": 1,
+      "badge": "MARKET",
+      "title": "2025: The State of AI in Healthcare",
+      "publication": "Menlo Ventures",
+      "date": "Oct 2025",
+      "cluster": "Market & Adoption",
+      "url": "https://menlovc.com/perspective/2025-the-state-of-ai-in-healthcare/",
+      "questionRefs": [
+        "Q01"
+      ],
+      "isLive": false
+    },
+    {
+      "articleNumber": 2,
+      "badge": "MARKET",
+      "title": "AI in Healthcare Market Size & Share — Industry Report 2033",
+      "publication": "Grand View Research",
+      "date": "2025",
+      "cluster": "Market & Adoption",
+      "url": "https://www.grandviewresearch.com/industry-analysis/artificial-intelligence-ai-healthcare-market",
+      "questionRefs": [],
+      "isLive": false
+    },
+    {
+      "articleNumber": 3,
+      "badge": "MARKET",
+      "title": "AI in Healthcare Market Rises 37.66% CAGR by 2035",
+      "publication": "Toward Healthcare",
+      "date": "Dec 2025",
+      "cluster": "Market & Adoption",
+      "url": "https://www.towardshealthcare.com/insights/ai-in-healthcare-market",
+      "questionRefs": [],
+      "isLive": false
+    },
+    {
+      "articleNumber": 4,
+      "badge": "SURVEY",
+      "title": "Adoption of AI in Healthcare: Survey of Health System Priorities",
+      "publication": "PMC / Scottsdale Inst.",
+      "date": "Fall 2024",
+      "cluster": "Market & Adoption",
+      "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC12202002/",
+      "questionRefs": [
+        "Q02",
+        "Q09"
+      ],
+      "isLive": false
+    },
+    {
+      "articleNumber": 5,
+      "badge": "MARKET",
+      "title": "AI Agents in Healthcare Market Report 2025–2030",
+      "publication": "MarketsandMarkets",
+      "date": "2025",
+      "cluster": "Market & Adoption",
+      "url": "https://www.marketsandmarkets.com/Market-Reports/ai-agents-in-healthcare-market-231362627.html",
+      "questionRefs": [],
+      "isLive": false
+    },
+    {
+      "articleNumber": 6,
+      "badge": "MARKET",
+      "title": "Artificial Intelligence in Healthcare Market — MarketsandMarkets",
+      "publication": "MarketsandMarkets",
+      "date": "2025",
+      "cluster": "Market & Adoption",
+      "url": "https://www.marketsandmarkets.com/Market-Reports/artificial-intelligence-healthcare-market-54679303.html",
+      "questionRefs": [],
+      "isLive": false
+    },
+    {
+      "articleNumber": 7,
+      "badge": "CLINICAL",
+      "title": "7 Ways AI Is Transforming Healthcare",
+      "publication": "World Economic Forum",
+      "date": "Aug 2025",
+      "cluster": "Clinical AI",
+      "url": "https://www.weforum.org/stories/2025/08/ai-transforming-global-health/",
+      "questionRefs": [],
+      "isLive": false
+    },
+    {
+      "articleNumber": 8,
+      "badge": "CLINICAL",
+      "title": "2025 Watch List: Artificial Intelligence in Health Care",
+      "publication": "NCBI / Canada Health",
+      "date": "2024",
+      "cluster": "Clinical AI",
+      "url": "https://www.ncbi.nlm.nih.gov/books/NBK613808/",
+      "questionRefs": [],
+      "isLive": false
+    },
+    {
+      "articleNumber": 9,
+      "badge": "CLINICAL",
+      "title": "AI Scribes in Health Care: Balancing Transformative Potential",
+      "publication": "PMC / JMIR Med Inform",
+      "date": "2025",
+      "cluster": "Clinical AI",
+      "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC12316405/",
+      "questionRefs": [
+        "Q03"
+      ],
+      "isLive": false
+    },
+    {
+      "articleNumber": 10,
+      "badge": "CLINICAL",
+      "title": "AI Medical Devices: 2025 Status, Regulation & Challenges",
+      "publication": "IntuitionLabs",
+      "date": "Oct 2025",
+      "cluster": "Clinical AI",
+      "url": "https://intuitionlabs.ai/articles/ai-medical-devices-regulation-2025",
+      "questionRefs": [
+        "Q04"
+      ],
+      "isLive": false
+    },
+    {
+      "articleNumber": 11,
+      "badge": "RESEARCH",
+      "title": "Leading AI-Driven Drug Discovery Platforms: 2025 Landscape",
+      "publication": "ScienceDirect",
+      "date": "Nov 2025",
+      "cluster": "Drug Discovery",
+      "url": "https://www.sciencedirect.com/science/article/abs/pii/S0031699725075118",
+      "questionRefs": [],
+      "isLive": false
+    },
+    {
+      "articleNumber": 12,
+      "badge": "RESEARCH",
+      "title": "AI-Driven Drug Discovery: A Comprehensive Review (2019–2024)",
+      "publication": "ACS Omega",
+      "date": "2025",
+      "cluster": "Drug Discovery",
+      "url": "https://pubs.acs.org/doi/10.1021/acsomega.5c00549",
+      "questionRefs": [],
+      "isLive": false
+    },
+    {
+      "articleNumber": 13,
+      "badge": "RESEARCH",
+      "title": "Transformative Role of AI in Drug Discovery and Translational Medicine",
+      "publication": "PMC",
+      "date": "2025",
+      "cluster": "Drug Discovery",
+      "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC12406033/",
+      "questionRefs": [
+        "Q05"
+      ],
+      "isLive": false
+    },
+    {
+      "articleNumber": 14,
+      "badge": "RESEARCH",
+      "title": "Unlocking the Potential: Multimodal AI in Biotechnology",
+      "publication": "npj Digital Medicine",
+      "date": "Oct 2025",
+      "cluster": "Drug Discovery",
+      "url": "https://www.nature.com/articles/s41746-025-01992-6",
+      "questionRefs": [],
+      "isLive": false
+    },
+    {
+      "articleNumber": 15,
+      "badge": "RESEARCH",
+      "title": "ML-Enabled Medical Devices Authorized by the FDA in 2024",
+      "publication": "PMC / Harvard & Stanford",
+      "date": "Dec 2025",
+      "cluster": "Regulation & Ethics",
+      "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC12730494/",
+      "questionRefs": [
+        "Q04",
+        "Q08",
+        "Q09"
+      ],
+      "isLive": false
+    },
+    {
+      "articleNumber": 16,
+      "badge": "ETHICS",
+      "title": "Ethical Challenges and Evolving Strategies in AI Integration",
+      "publication": "PLOS Digital Health",
+      "date": "Apr 2025",
+      "cluster": "Regulation & Ethics",
+      "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC11977975/",
+      "questionRefs": [
+        "Q06",
+        "Q10"
+      ],
+      "isLive": false
+    },
+    {
+      "articleNumber": 17,
+      "badge": "ETHICS",
+      "title": "Framework for Bias Evaluation in LLMs in Healthcare Settings",
+      "publication": "npj Digital Medicine",
+      "date": "Jul 2025",
+      "cluster": "Regulation & Ethics",
+      "url": "https://www.nature.com/articles/s41746-025-01786-w",
+      "questionRefs": [
+        "Q08"
+      ],
+      "isLive": false
+    },
+    {
+      "articleNumber": 18,
+      "badge": "ETHICS",
+      "title": "Pathways to Trustworthy AI: Ethical Clinical Challenges",
+      "publication": "PMC / MDPI",
+      "date": "Mar 2025",
+      "cluster": "Regulation & Ethics",
+      "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC11900311/",
+      "questionRefs": [
+        "Q10"
+      ],
+      "isLive": false
+    },
+    {
+      "articleNumber": 19,
+      "badge": "ETHICS",
+      "title": "AI in Healthcare — Hastings Center Bioethics Briefing Book",
+      "publication": "Hastings Center",
+      "date": "2025",
+      "cluster": "Regulation & Ethics",
+      "url": "https://www.thehastingscenter.org/briefingbook/ai-in-healthcare/",
+      "questionRefs": [
+        "Q07"
+      ],
+      "isLive": false
+    },
+    {
+      "articleNumber": 20,
+      "badge": "RESEARCH",
+      "title": "Impact of AI on Healthcare: Diagnostics, Treatment & Operations",
+      "publication": "Health Science Reports",
+      "date": "Jan 2025",
+      "cluster": "Regulation & Ethics",
+      "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC11702416/",
+      "questionRefs": [],
+      "isLive": false
+    },
+    {
+      "articleNumber": 21,
+      "badge": "BREAKING",
+      "title": "AI in the Mental Health Care Workforce: Fear, Pushback & Enthusiasm",
+      "publication": "NPR",
+      "date": "Apr 7 2026",
+      "cluster": "Live",
+      "url": "https://www.npr.org/2026/04/07/nx-s1-5771707/mental-health-care-workforce-artificial-intelligence-ai",
+      "questionRefs": [
+        "Q11"
+      ],
+      "isLive": true
+    }
+  ]
+}

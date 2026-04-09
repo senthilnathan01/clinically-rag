@@ -1,0 +1,43 @@
+{
+  "title": "Together Fund Technical Intern Assignment · v3",
+  "deadline": "12th April 2026",
+  "requiredFeatures": [
+    "Fetch, parse, chunk, embed, and index all 21 article URLs.",
+    "Expose a chat UI with visible reasoning trace and article-level citations.",
+    "Support follow-up questions with maintained conversation context.",
+    "Handle Q11 by indexing Article 21 from its live URL."
+  ],
+  "bonusFeatures": [
+    "Critic agent",
+    "Query routing",
+    "Eval automation",
+    "Hybrid retrieval"
+  ],
+  "systemRubric": [
+    {
+      "criterion": "Retrieval Quality",
+      "points": 10,
+      "description": "Find the right articles, including multi-article questions."
+    },
+    {
+      "criterion": "Reasoning Transparency",
+      "points": 10,
+      "description": "Show visible, coherent reasoning from query to evidence to answer."
+    },
+    {
+      "criterion": "Citation Accuracy",
+      "points": 10,
+      "description": "Map each factual claim to the correct article number."
+    },
+    {
+      "criterion": "Agent Architecture",
+      "points": 10,
+      "description": "Use a meaningful multi-agent design rather than a thin wrapper."
+    },
+    {
+      "criterion": "Usability",
+      "points": 10,
+      "description": "Make the system legible to a non-technical reviewer."
+    }
+  ]
+}
