@@ -1,7 +1,7 @@
 "use client";
 
-import { Copy, FileText, Sparkles } from "lucide-react";
-import { useMemo, useState } from "react";
+import { Check, Copy, FileText, Sparkles } from "lucide-react";
+import { useEffect, useMemo, useState } from "react";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 
@@ -19,20 +19,56 @@ interface AssistantMessageProps {
 
 export function AssistantMessage({ turn }: AssistantMessageProps) {
   const artifact = turn.artifact as AssistantArtifact | undefined;
-  const [showReasoning, setShowReasoning] = useState(false);
-  const [showSources, setShowSources] = useState(false);
+  const [openPanel, setOpenPanel] = useState<"reasoning" | "sources" | null>(null);
   const [activeCitationId, setActiveCitationId] = useState<string | null>(null);
+  const [copyState, setCopyState] = useState<"idle" | "copied" | "error">("idle");
   const isAnswerComplete = turn.status === "complete";
-  const isSourcesOpen = showSources || Boolean(activeCitationId);
+  const showReasoning = openPanel === "reasoning";
+  const isSourcesOpen = openPanel === "sources";
 
   const visibleSourceDetails = useMemo(() => {
-    if (!artifact?.sourceDetails?.length) return [];
+    if (!artifact?.sourceDetails?.length || !isSourcesOpen) return [];
     if (activeCitationId) {
       return artifact.sourceDetails.filter((detail) => detail.citationId === activeCitationId);
     }
-    if (showSources) return artifact.sourceDetails;
+    if (isSourcesOpen) {
+      const uniqueDetails = new Map<string, AssistantArtifact["sourceDetails"][number]>();
+
+      for (const detail of artifact.sourceDetails) {
+        const key = `${detail.articleNumber}:${detail.url}`;
+        if (!uniqueDetails.has(key)) {
+          uniqueDetails.set(key, detail);
+        }
+      }
+
+      return [...uniqueDetails.values()];
+    }
     return [];
-  }, [activeCitationId, artifact?.sourceDetails, showSources]);
+  }, [activeCitationId, artifact?.sourceDetails, isSourcesOpen]);
+
+  useEffect(() => {
+    if (copyState === "idle") {
+      return;
+    }
+
+    const timeoutId = window.setTimeout(() => {
+      setCopyState("idle");
+    }, 1600);
+
+    return () => {
+      window.clearTimeout(timeoutId);
+    };
+  }, [copyState]);
+
+  const handleReasoningToggle = () => {
+    setOpenPanel((current) => (current === "reasoning" ? null : "reasoning"));
+    setActiveCitationId(null);
+  };
+
+  const handleSourcesToggle = () => {
+    setOpenPanel((current) => (current === "sources" ? null : "sources"));
+    setActiveCitationId(null);
+  };
 
   return (
     <div className="space-y-3">
@@ -51,8 +87,8 @@ export function AssistantMessage({ turn }: AssistantMessageProps) {
                     active={activeCitationId === citationId}
                     fallbackLabel={String(children)}
                     onClick={() => {
+                      setOpenPanel("sources");
                       setActiveCitationId((current) => (current === citationId ? null : citationId));
-                      setShowSources(true);
                     }}
                   />
                 );
@@ -82,7 +118,7 @@ export function AssistantMessage({ turn }: AssistantMessageProps) {
               showReasoning &&
                 "border-border/70 bg-foreground/8 text-foreground shadow-sm hover:bg-foreground/10 dark:border-border dark:bg-foreground/10 dark:hover:bg-foreground/14"
             )}
-            onClick={() => setShowReasoning((current) => !current)}
+            onClick={handleReasoningToggle}
           >
             <Sparkles className="size-3.5" />
             View reasoning
@@ -97,12 +133,7 @@ export function AssistantMessage({ turn }: AssistantMessageProps) {
               isSourcesOpen &&
                 "border-border/70 bg-foreground/8 text-foreground shadow-sm hover:bg-foreground/10 dark:border-border dark:bg-foreground/10 dark:hover:bg-foreground/14"
             )}
-            onClick={() => {
-              setShowSources((current) => !current);
-              if (showSources) {
-                setActiveCitationId(null);
-              }
-            }}
+            onClick={handleSourcesToggle}
           >
             <FileText className="size-3.5" />
             Sources
@@ -111,13 +142,31 @@ export function AssistantMessage({ turn }: AssistantMessageProps) {
             type="button"
             variant="ghost"
             size="sm"
-            className="rounded-full"
+            className={cn(
+              "rounded-full",
+              copyState === "copied" &&
+                "border-border/70 bg-foreground/8 text-foreground shadow-sm hover:bg-foreground/10 dark:border-border dark:bg-foreground/10 dark:hover:bg-foreground/14"
+            )}
             onClick={async () => {
-              await navigator.clipboard.writeText(turn.content);
+              try {
+                await navigator.clipboard.writeText(turn.content);
+                setCopyState("copied");
+              } catch {
+                setCopyState("error");
+              }
             }}
+            aria-live="polite"
           >
-            <Copy className="size-3.5" />
-            Copy
+            {copyState === "copied" ? (
+              <Check className="size-3.5" />
+            ) : (
+              <Copy className="size-3.5" />
+            )}
+            {copyState === "copied"
+              ? "Copied"
+              : copyState === "error"
+                ? "Copy failed"
+                : "Copy"}
           </Button>
         </div>
       ) : null}

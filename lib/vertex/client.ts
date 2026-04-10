@@ -46,7 +46,9 @@ export function getVertexClient() {
     vertexai: true
   };
 
-  if (env.GOOGLE_CLOUD_CREDENTIALS_JSON) {
+  if (env.GOOGLE_API_KEY) {
+    clientOptions.apiKey = env.GOOGLE_API_KEY;
+  } else if (env.GOOGLE_CLOUD_CREDENTIALS_JSON) {
     if (!env.GOOGLE_CLOUD_PROJECT) {
       throw new Error(
         "GOOGLE_CLOUD_PROJECT is required when GOOGLE_CLOUD_CREDENTIALS_JSON is set."
@@ -58,8 +60,6 @@ export function getVertexClient() {
     clientOptions.googleAuthOptions = {
       credentials: parseCredentialsJson(env.GOOGLE_CLOUD_CREDENTIALS_JSON)
     };
-  } else if (env.GOOGLE_API_KEY) {
-    clientOptions.apiKey = env.GOOGLE_API_KEY;
   } else {
     if (!env.GOOGLE_CLOUD_PROJECT) {
       throw new Error(

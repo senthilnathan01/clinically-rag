@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useState } from "react";
 
 import type { AssistantArtifact, ChatTurn } from "@/lib/types/agent";
 
@@ -54,7 +54,7 @@ export function useChatSession() {
   const [isStreaming, setIsStreaming] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
-  const started = useMemo(() => turns.length > 0 || Boolean(draftTurn), [turns.length, draftTurn]);
+  const started = turns.length > 0 || draftTurn !== null;
 
   async function submitQuestion(question: string) {
     if (!question.trim() || isStreaming) return;

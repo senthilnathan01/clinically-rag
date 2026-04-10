@@ -2,7 +2,6 @@
 
 import { ArrowUp, WandSparkles } from "lucide-react";
 import { useEffect, useRef } from "react";
-import type { KeyboardEvent } from "react";
 
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils/cn";
@@ -15,7 +14,6 @@ interface ComposerProps {
   disabled?: boolean;
   isStreaming?: boolean;
   docked: boolean;
-  showPromptControl?: boolean;
 }
 
 export function Composer({
@@ -25,8 +23,7 @@ export function Composer({
   onUseEvalPrompt,
   disabled,
   isStreaming,
-  docked,
-  showPromptControl
+  docked
 }: ComposerProps) {
   const textareaRef = useRef<HTMLTextAreaElement | null>(null);
 
@@ -40,7 +37,7 @@ export function Composer({
   return (
     <div
       className={cn(
-        "allow-text-selection [-webkit-app-region:no-drag] w-full rounded-[2rem] border border-border/80 bg-panel/92 p-3 shadow-soft transition-all duration-500",
+        "w-full rounded-[2rem] border border-border/80 bg-panel/92 p-3 shadow-soft transition-all duration-500",
         docked ? "backdrop-blur supports-[backdrop-filter]:bg-panel/88" : ""
       )}
     >
@@ -61,14 +58,8 @@ export function Composer({
             }
           }}
           spellCheck={false}
-          draggable={false}
           placeholder="Ask a question"
-          className="[-webkit-app-region:no-drag] max-h-60 min-h-[60px] flex-1 resize-none border-0 bg-transparent px-3 py-2 text-[15px] leading-7 text-foreground outline-none placeholder:text-muted-foreground select-text"
-          style={{
-            userSelect: "text",
-            WebkitUserSelect: "text",
-            WebkitTouchCallout: "default"
-          }}
+          className="max-h-60 min-h-[60px] flex-1 resize-none border-0 bg-transparent px-3 py-2 text-[15px] leading-7 text-foreground outline-none placeholder:text-muted-foreground"
         />
         <Button
           type="button"
@@ -85,7 +76,7 @@ export function Composer({
         <div className="text-[11px] text-muted-foreground">
           Enter to send, Shift+Enter for a new line
         </div>
-        {showPromptControl ? (
+        {onUseEvalPrompt ? (
           <button
             type="button"
             className="inline-flex items-center gap-1.5 text-[11px] text-muted-foreground transition hover:text-foreground"

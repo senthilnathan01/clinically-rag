@@ -1,7 +1,7 @@
 "use client";
 
 import { ArrowUpRight, RotateCcw } from "lucide-react";
-import { useMemo, useState } from "react";
+import { useState } from "react";
 
 import { ThemeToggle } from "@/components/theme-toggle";
 import { Button } from "@/components/ui/button";
@@ -29,10 +29,13 @@ export function ChatShell({ sampleQuestions }: ChatShellProps) {
     resetConversation
   } = useChatSession();
   const [promptIndex, setPromptIndex] = useState(0);
-
-  const promptPills = useMemo(() => sampleQuestions.slice(0, 5), [sampleQuestions]);
+  const promptPills = sampleQuestions.slice(0, 5);
 
   const nextPrompt = () => {
+    if (!sampleQuestions.length) {
+      return;
+    }
+
     const question = sampleQuestions[promptIndex % sampleQuestions.length];
     setInput(question.prompt);
     setPromptIndex((current) => (current + 1) % sampleQuestions.length);
@@ -98,7 +101,6 @@ export function ChatShell({ sampleQuestions }: ChatShellProps) {
               disabled={isStreaming || !input.trim()}
               isStreaming={isStreaming}
               docked={started}
-              showPromptControl
             />
 
             <div

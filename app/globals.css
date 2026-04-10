@@ -55,12 +55,12 @@ a {
   color: inherit;
 }
 
-.allow-text-selection,
-.allow-text-selection * {
-  user-select: text;
-  -webkit-user-select: text;
+::selection {
+  background: hsl(var(--primary) / 0.32);
+  color: hsl(var(--foreground));
 }
 
-::selection {
-  background: hsla(var(--primary), 0.2);
+::-moz-selection {
+  background: hsl(var(--primary) / 0.32);
+  color: hsl(var(--foreground));
 }

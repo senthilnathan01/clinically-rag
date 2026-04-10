@@ -19,6 +19,8 @@ References:
 
 Choose one path.
 
+If both paths are populated, the app prefers `GOOGLE_API_KEY` and skips project/location-based Vertex initialization.
+
 ### Option A: Vertex AI express mode with API key
 
 ```bash

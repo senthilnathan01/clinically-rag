@@ -22,6 +22,184 @@ const criticSchema = z.object({
 
 type CriticReview = z.infer<typeof criticSchema>;
 
+const criticStatuses = ["supported", "weak", "unsupported"] as const;
+const criticOveralls = ["pass", "weak", "fail"] as const;
+
+function coerceCriticStatus(value: unknown): CriticCheck["status"] | null {
+  if (typeof value !== "string") return null;
+
+  return (criticStatuses as readonly string[]).includes(value)
+    ? (value as CriticCheck["status"])
+    : null;
+}
+
+function coerceCriticOverall(value: unknown): CriticSummary["overall"] | null {
+  if (typeof value !== "string") return null;
+
+  return (criticOveralls as readonly string[]).includes(value)
+    ? (value as CriticSummary["overall"])
+    : null;
+}
+
+function coerceCitationNumbers(value: unknown): number[] {
+  if (Array.isArray(value)) {
+    return value
+      .flatMap((entry) => coerceCitationNumbers(entry))
+      .slice(0, 5);
+  }
+
+  if (typeof value === "number" && Number.isFinite(value)) {
+    return [value];
+  }
+
+  if (typeof value !== "string") {
+    return [];
+  }
+
+  return [...value.matchAll(/\d+/g)]
+    .map((match) => Number(match[0]))
+    .filter((entry) => Number.isFinite(entry))
+    .slice(0, 5);
+}
+
+function parseCriticCheck(value: unknown): CriticCheck | null {
+  const parsed = criticCheckSchema.safeParse(value);
+  if (parsed.success) {
+    return parsed.data;
+  }
+
+  if (!value || typeof value !== "object" || Array.isArray(value)) {
+    return null;
+  }
+
+  const candidate = value as Record<string, unknown>;
+  const status = coerceCriticStatus(candidate.status);
+
+  if (typeof candidate.claim !== "string" || !status) {
+    return null;
+  }
+
+  return {
+    claim: candidate.claim.trim(),
+    status,
+    citationNumbers: coerceCitationNumbers(candidate.citationNumbers)
+  };
+}
+
+function parseFlattenedCriticChecks(values: unknown[]): CriticCheck[] {
+  const checks: CriticCheck[] = [];
+  let current: Partial<CriticCheck> = {};
+
+  const pushCurrent = () => {
+    if (!current.claim || !current.status) return;
+
+    checks.push({
+      claim: current.claim.trim(),
+      status: current.status,
+      citationNumbers: current.citationNumbers ?? []
+    });
+    current = {};
+  };
+
+  for (let index = 0; index < values.length && checks.length < 5; index += 1) {
+    const entry = values[index];
+    const parsedObject = parseCriticCheck(entry);
+
+    if (parsedObject) {
+      pushCurrent();
+      checks.push(parsedObject);
+      continue;
+    }
+
+    if (typeof entry !== "string" && typeof entry !== "number") {
+      continue;
+    }
+
+    const token = String(entry).trim();
+
+    if (!token) {
+      continue;
+    }
+
+    switch (token) {
+      case "claim": {
+        const next = values[index + 1];
+        if (typeof next === "string" || typeof next === "number") {
+          if (current.claim && current.status) {
+            pushCurrent();
+          }
+
+          current.claim = String(next).trim();
+          index += 1;
+        }
+        break;
+      }
+      case "status": {
+        const next = values[index + 1];
+        const status = coerceCriticStatus(next);
+        if (status) {
+          current.status = status;
+          index += 1;
+        }
+        break;
+      }
+      case "citationNumbers": {
+        const next = values[index + 1];
+        current.citationNumbers = coerceCitationNumbers(next);
+        index += 1;
+        break;
+      }
+      default: {
+        if (!current.claim) {
+          current.claim = token;
+        } else if (current.status) {
+          pushCurrent();
+          current.claim = token;
+        }
+      }
+    }
+  }
+
+  pushCurrent();
+
+  return checks.slice(0, 5);
+}
+
+function repairCriticReview(rawText: string): CriticReview | null {
+  let parsedJson: unknown;
+
+  try {
+    parsedJson = JSON.parse(rawText);
+  } catch {
+    return null;
+  }
+
+  const direct = criticSchema.safeParse(parsedJson);
+  if (direct.success) {
+    return direct.data;
+  }
+
+  if (!parsedJson || typeof parsedJson !== "object" || Array.isArray(parsedJson)) {
+    return null;
+  }
+
+  const candidate = parsedJson as Record<string, unknown>;
+  const checks = Array.isArray(candidate.checks)
+    ? parseFlattenedCriticChecks(candidate.checks)
+    : [];
+
+  const repaired = criticSchema.safeParse({
+    overall: coerceCriticOverall(candidate.overall) ?? "weak",
+    summary:
+      typeof candidate.summary === "string" && candidate.summary.trim().length > 0
+        ? candidate.summary.trim()
+        : "Critic review degraded, so the answer is shown with a conservative verification note.",
+    checks
+  });
+
+  return repaired.success ? repaired.data : null;
+}
+
 function extractCitationNumbersFromAnswer(answerMarkdown: string) {
   return [...answerMarkdown.matchAll(/\[Art\.\s*(\d{1,2})\s*·/g)].map((match) =>
     Number(match[1])
@@ -110,23 +288,41 @@ async function runCriticAttempt({
     citedArticleNumbers
   });
 
-  const result = await generateObjectWithRaw({
-    model: env.GEMINI_TOOLS_MODEL,
-    prompt: buildCriticPrompt({
-      answerMarkdown: state.answerMarkdown,
-      claimCandidates,
-      evidence,
-      retry
-    }),
-    schema: criticSchema
-  });
+  try {
+    const result = await generateObjectWithRaw({
+      model: env.GEMINI_TOOLS_MODEL,
+      prompt: buildCriticPrompt({
+        answerMarkdown: state.answerMarkdown,
+        claimCandidates,
+        evidence,
+        retry
+      }),
+      schema: criticSchema
+    });
 
-  console.info("Critic raw text", result.rawText);
+    console.info("Critic raw text", result.rawText);
 
-  return normalizeCriticReview(
-    result.object,
-    new Set(evidence.map((detail) => detail.articleNumber))
-  );
+    return normalizeCriticReview(
+      result.object,
+      new Set(evidence.map((detail) => detail.articleNumber))
+    );
+  } catch (error) {
+    if (error instanceof StructuredOutputError) {
+      const repairedReview = repairCriticReview(error.rawText);
+
+      if (repairedReview) {
+        console.warn("Critic structured output repaired from raw text.");
+        console.info("Critic repaired raw text", error.rawText);
+
+        return normalizeCriticReview(
+          repairedReview,
+          new Set(evidence.map((detail) => detail.articleNumber))
+        );
+      }
+    }
+
+    throw error;
+  }
 }
 
 export async function criticNode(state: GraphState, config?: LangGraphRunnableConfig) {

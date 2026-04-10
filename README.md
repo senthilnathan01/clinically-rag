@@ -6,7 +6,7 @@ Clinically Rag is a minimal, chat-first healthcare AI research app built for the
 
 - Empty state: almost empty screen, centered composer, subtle example prompts
 - Chat state: single conversation column, sticky bottom composer, tiny left-aligned streaming status beneath the latest user message
-- Assistant turns: inline citations, `View reasoning`, `Sources`, `Copy`
+- Assistant turns: inline citations, mutually exclusive `View reasoning` / unique `Sources` reveals, `Copy`
 - No dashboard panels, no permanent source inspector, no marketing homepage
 
 ## Architecture
@@ -81,6 +81,8 @@ Required auth:
 
 - `GOOGLE_API_KEY`, or
 - `GOOGLE_CLOUD_PROJECT` with ADC/service account credentials
+
+When both auth paths are present, the app prefers `GOOGLE_API_KEY` and ignores the project/location path for Vertex client initialization.
 
 Required model config:
 
