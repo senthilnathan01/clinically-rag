@@ -1,7 +1,7 @@
 import type { LangGraphRunnableConfig } from "@langchain/langgraph";
 
 import { getServerEnv } from "@/lib/config/env";
-import { streamText } from "@/lib/gemini/client";
+import { streamText } from "@/lib/vertex/client";
 import { buildSynthesizerPrompt } from "@/lib/gemini/prompts";
 import { emitStreamEvent, withTiming } from "@/lib/langgraph/helpers";
 import type { GraphState } from "@/lib/langgraph/state";

@@ -2,7 +2,7 @@ import type { LangGraphRunnableConfig } from "@langchain/langgraph";
 import { z } from "zod";
 
 import { getServerEnv } from "@/lib/config/env";
-import { StructuredOutputError, generateObjectWithRaw } from "@/lib/gemini/client";
+import { StructuredOutputError, generateObjectWithRaw } from "@/lib/vertex/client";
 import { buildCriticPrompt } from "@/lib/gemini/prompts";
 import { emitStreamEvent, withTiming } from "@/lib/langgraph/helpers";
 import type { GraphState } from "@/lib/langgraph/state";

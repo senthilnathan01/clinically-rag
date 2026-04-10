@@ -10,24 +10,43 @@ cp .env.example .env.local
 
 This parses the three provided PDFs into `data/generated`.
 
-## 2. Create a Gemini API key
+## 2. Configure Vertex AI auth
 
-Reference: [Gemini API keys](https://ai.google.dev/gemini-api/docs/api-key)
+References:
 
-1. Open [Google AI Studio](https://aistudio.google.com/).
-2. Open `Dashboard`.
-3. Open `API Keys`.
-4. Create an API key.
-5. Put it in `.env.local` as:
+- [Get a Google Cloud API key for Vertex AI express mode](https://cloud.google.com/vertex-ai/generative-ai/docs/start/api-keys?usertype=expressmode)
+- [Google Gen AI SDK for JS: Vertex AI initialization](https://googleapis.github.io/js-genai/)
+
+Choose one path.
+
+### Option A: Vertex AI express mode with API key
 
 ```bash
-GEMINI_API_KEY=...
-GEMINI_MODEL=gemini-3.1-pro-preview
-GEMINI_TOOLS_MODEL=gemini-3.1-pro-preview-customtools
+GOOGLE_API_KEY=...
+GEMINI_MODEL=gemini-3-flash-preview
+GEMINI_TOOLS_MODEL=gemini-3-flash-preview
 GEMINI_EMBEDDING_MODEL=gemini-embedding-001
 ```
 
-If your account shows different Gemini aliases, replace the example model names with the exact aliases shown in your console.
+### Option B: standard Vertex AI auth with ADC or service account credentials
+
+For local development with Application Default Credentials:
+
+```bash
+gcloud auth application-default login
+```
+
+Then set:
+
+```bash
+GOOGLE_CLOUD_PROJECT=your-project-id
+GOOGLE_CLOUD_LOCATION=global
+GEMINI_MODEL=gemini-3-flash-preview
+GEMINI_TOOLS_MODEL=gemini-3-flash-preview
+GEMINI_EMBEDDING_MODEL=gemini-embedding-001
+```
+
+If you already use different Gemini Flash aliases in Vertex AI, keep those exact model IDs instead of the examples above.
 
 ## 3. Create the Pinecone index
 
@@ -72,6 +91,7 @@ This:
 Note:
 
 - articles 11 and 12 currently rely on documented override text under `data/overrides/` because direct publisher fetches returned `403`
+- if you later migrate retrieval to Vertex AI RAG Engine, use a supported regional location instead of relying on the `global` default used here for model calls
 
 ## 5. Run local checks
 

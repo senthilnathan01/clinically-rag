@@ -1,4 +1,4 @@
-import { GoogleGenAI, type GenerateContentResponse } from "@google/genai";
+import { GoogleGenAI, type GenerateContentResponse, type GoogleGenAIOptions } from "@google/genai";
 import { zodToJsonSchema } from "zod-to-json-schema";
 import type { ZodSchema } from "zod";
 
@@ -18,16 +18,60 @@ export class StructuredOutputError extends Error {
   }
 }
 
-export function getGeminiClient() {
+function parseCredentialsJson(
+  rawCredentials: string
+): NonNullable<GoogleGenAIOptions["googleAuthOptions"]>["credentials"] {
+  try {
+    const parsed = JSON.parse(rawCredentials) as Record<string, unknown>;
+
+    if (!parsed || typeof parsed !== "object") {
+      throw new Error("Parsed credentials were not an object.");
+    }
+
+    return parsed as NonNullable<GoogleGenAIOptions["googleAuthOptions"]>["credentials"];
+  } catch (error) {
+    throw new Error(
+      `GOOGLE_CLOUD_CREDENTIALS_JSON must be valid Google Cloud credentials JSON. ${
+        error instanceof Error ? error.message : ""
+      }`.trim()
+    );
+  }
+}
+
+export function getVertexClient() {
   if (cachedClient) return cachedClient;
 
   const env = getServerEnv();
+  const clientOptions: GoogleGenAIOptions = {
+    vertexai: true
+  };
 
-  if (!env.GEMINI_API_KEY) {
-    throw new Error("GEMINI_API_KEY is required to run the agent.");
+  if (env.GOOGLE_CLOUD_CREDENTIALS_JSON) {
+    if (!env.GOOGLE_CLOUD_PROJECT) {
+      throw new Error(
+        "GOOGLE_CLOUD_PROJECT is required when GOOGLE_CLOUD_CREDENTIALS_JSON is set."
+      );
+    }
+
+    clientOptions.project = env.GOOGLE_CLOUD_PROJECT;
+    clientOptions.location = env.GOOGLE_CLOUD_LOCATION;
+    clientOptions.googleAuthOptions = {
+      credentials: parseCredentialsJson(env.GOOGLE_CLOUD_CREDENTIALS_JSON)
+    };
+  } else if (env.GOOGLE_API_KEY) {
+    clientOptions.apiKey = env.GOOGLE_API_KEY;
+  } else {
+    if (!env.GOOGLE_CLOUD_PROJECT) {
+      throw new Error(
+        "Set GOOGLE_API_KEY for Vertex AI express mode, or GOOGLE_CLOUD_PROJECT for standard Vertex AI auth."
+      );
+    }
+
+    clientOptions.project = env.GOOGLE_CLOUD_PROJECT;
+    clientOptions.location = env.GOOGLE_CLOUD_LOCATION;
   }
 
-  cachedClient = new GoogleGenAI({ apiKey: env.GEMINI_API_KEY });
+  cachedClient = new GoogleGenAI(clientOptions);
   return cachedClient;
 }
 
@@ -58,7 +102,7 @@ export async function generateObjectWithRaw<T>({
   prompt: string;
   schema: ZodSchema<T>;
 }) {
-  const client = getGeminiClient();
+  const client = getVertexClient();
   const response = await client.models.generateContent({
     model,
     contents: prompt,
@@ -90,7 +134,7 @@ export async function generateText({
   prompt: string;
   temperature?: number;
 }) {
-  const client = getGeminiClient();
+  const client = getVertexClient();
   const response = await client.models.generateContent({
     model,
     contents: prompt,
@@ -113,7 +157,7 @@ export async function streamText({
   temperature?: number;
   onChunk?: (chunk: GenerateContentResponse) => void;
 }) {
-  const client = getGeminiClient();
+  const client = getVertexClient();
   const stream = await client.models.generateContentStream({
     model,
     contents: prompt,
@@ -137,7 +181,7 @@ export async function streamText({
 
 export async function embedTexts(texts: string[], model?: string) {
   const env = getServerEnv();
-  const client = getGeminiClient();
+  const client = getVertexClient();
   const targetModel = model ?? env.GEMINI_EMBEDDING_MODEL;
   const vectors: number[][] = [];
 

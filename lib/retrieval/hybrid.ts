@@ -2,7 +2,7 @@ import type { RetrievalCandidate } from "@/lib/types/agent";
 
 import { getArticleByNumber } from "@/lib/data/load-data";
 import { getServerEnv } from "@/lib/config/env";
-import { embedTexts } from "@/lib/gemini/client";
+import { embedTexts } from "@/lib/vertex/client";
 import { scoreSparseQuery } from "@/lib/retrieval/bm25";
 import { getPineconeIndex } from "@/lib/retrieval/providers/pinecone";
 import { loadChunkStore } from "@/lib/retrieval/store";

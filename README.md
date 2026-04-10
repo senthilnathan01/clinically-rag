@@ -12,8 +12,8 @@ Clinically Rag is a minimal, chat-first healthcare AI research app built for the
 ## Architecture
 
 - Frontend: Next.js App Router, TypeScript, Tailwind, `next-themes`
-- Backend: custom SSE chat route, LangGraph JS/TS orchestration, Gemini model calls
-- Retrieval: Gemini embeddings + Pinecone dense search + local BM25-style sparse scoring
+- Backend: custom SSE chat route, LangGraph JS/TS orchestration, Vertex AI Gemini model calls
+- Retrieval: Vertex AI Gemini embeddings + Pinecone dense search + local BM25-style sparse scoring
 - Data: PDF-derived corpus/eval metadata, local chunk manifest, live Article 21 ingest
 
 LangGraph nodes:
@@ -77,9 +77,13 @@ npm run eval
 
 ## Environment variables
 
-Required:
+Required auth:
 
-- `GEMINI_API_KEY`
+- `GOOGLE_API_KEY`, or
+- `GOOGLE_CLOUD_PROJECT` with ADC/service account credentials
+
+Required model config:
+
 - `GEMINI_MODEL`
 - `GEMINI_TOOLS_MODEL`
 - `GEMINI_EMBEDDING_MODEL`
@@ -89,14 +93,19 @@ Required:
 
 Usually required:
 
+- `GOOGLE_CLOUD_LOCATION`
 - `PINECONE_HOST`
 - `NEXT_PUBLIC_APP_URL`
 
-See [SETUP.md](/Users/tsn/projects/clinically-rag/SETUP.md) and [DEPLOY_VERCEL.md](/Users/tsn/projects/clinically-rag/DEPLOY_VERCEL.md) for exact steps.
+Optional for deployments without ADC:
+
+- `GOOGLE_CLOUD_CREDENTIALS_JSON`
+
+See [SETUP.md](/Users/tsn/projects/Together/SETUP.md) and [DEPLOY_VERCEL.md](/Users/tsn/projects/Together/DEPLOY_VERCEL.md) for exact steps.
 
 ## Validation status
 
 - Implemented: yes
 - Syntax-checked: yes, `npm run typecheck`
 - Locally validated: yes, `npm run build` and `npm run smoke`
-- Fully run and verified: partially; the live eval run depends on outbound Gemini access and available quota
+- Fully run and verified: partially; the live eval run depends on outbound Vertex AI access and available quota

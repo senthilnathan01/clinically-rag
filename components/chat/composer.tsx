@@ -37,76 +37,6 @@ export function Composer({
     textarea.style.height = `${Math.min(textarea.scrollHeight, 240)}px`;
   }, [value]);
 
-  async function handleEditorShortcut(event: KeyboardEvent<HTMLTextAreaElement>) {
-    if (event.metaKey || event.ctrlKey) {
-      const textarea = event.currentTarget;
-      const key = event.key.toLowerCase();
-
-      if (key === "a") {
-        event.preventDefault();
-        event.stopPropagation();
-        return true;
-      }
-
-      if (key === "c") {
-        const selectedText = textarea.value.slice(
-          textarea.selectionStart,
-          textarea.selectionEnd
-        );
-
-        if (selectedText) {
-          event.preventDefault();
-          event.stopPropagation();
-          try {
-            await navigator.clipboard.writeText(selectedText);
-          } catch {
-            // Fall back to the browser default if clipboard permissions fail.
-          }
-        }
-        return true;
-      }
-
-      if (key === "x") {
-        const selectionStart = textarea.selectionStart;
-        const selectionEnd = textarea.selectionEnd;
-        const selectedText = textarea.value.slice(selectionStart, selectionEnd);
-
-        if (selectedText) {
-          event.preventDefault();
-          event.stopPropagation();
-          try {
-            await navigator.clipboard.writeText(selectedText);
-          } catch {
-            // If clipboard access fails, keep the text unchanged.
-            return true;
-          }
-
-          const nextValue =
-            textarea.value.slice(0, selectionStart) + textarea.value.slice(selectionEnd);
-          onChange(nextValue);
-
-          requestAnimationFrame(() => {
-            textarea.focus();
-            textarea.setSelectionRange(selectionStart, selectionStart);
-          });
-        }
-        return true;
-      }
-
-      if (key === "v") {
-        event.stopPropagation();
-        return true;
-      }
-
-      if (key === "z" || key === "y") {
-        event.stopPropagation();
-        return true;
-      }
-    }
-
-    return false;
-  }
-
   return (
     <div
       className={cn(
@@ -120,37 +50,25 @@ export function Composer({
           rows={1}
           value={value}
           onChange={(event) => onChange(event.target.value)}
-          onKeyDownCapture={(event) => {
-            if ((event.metaKey || event.ctrlKey) && event.key.toLowerCase() === "a") {
-              event.preventDefault();
-              event.stopPropagation();
-              event.currentTarget.focus();
-              event.currentTarget.select();
-              return;
-            }
-
-            void handleEditorShortcut(event);
-          }}
           onKeyDown={(event) => {
-            if (event.metaKey || event.ctrlKey) {
+            if (event.metaKey || event.ctrlKey || event.altKey) {
               return;
             }
 
-            if (event.key === "Enter" && !event.shiftKey) {
+            if (event.key === "Enter" && !event.shiftKey && !event.nativeEvent.isComposing) {
               event.preventDefault();
               onSubmit();
             }
-          }}
-          onPointerDownCapture={(event) => {
-            event.stopPropagation();
-          }}
-          onClickCapture={(event) => {
-            event.stopPropagation();
           }}
           spellCheck={false}
           draggable={false}
           placeholder="Ask a question"
           className="[-webkit-app-region:no-drag] max-h-60 min-h-[60px] flex-1 resize-none border-0 bg-transparent px-3 py-2 text-[15px] leading-7 text-foreground outline-none placeholder:text-muted-foreground select-text"
+          style={{
+            userSelect: "text",
+            WebkitUserSelect: "text",
+            WebkitTouchCallout: "default"
+          }}
         />
         <Button
           type="button"

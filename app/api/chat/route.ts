@@ -33,7 +33,7 @@ export async function POST(request: Request) {
     return Response.json(
       {
         error:
-          "Missing runtime configuration. Set GEMINI_API_KEY plus Pinecone (or another configured vector provider) before chatting."
+          "Missing runtime configuration. Set Vertex AI auth via GOOGLE_API_KEY or GOOGLE_CLOUD_PROJECT, plus Pinecone (or another configured vector provider), before chatting."
       },
       { status: 400 }
     );

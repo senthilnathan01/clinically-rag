@@ -7,10 +7,25 @@
 3. Click `Add New...` -> `Project`.
 4. Import the repository.
 5. Keep the default Next.js build settings.
-6. Add these environment variables for Production, Preview, and Development:
+6. Add these environment variables for Production, Preview, and Development.
+
+Preferred production auth:
 
 ```bash
-GEMINI_API_KEY
+GOOGLE_CLOUD_PROJECT
+GOOGLE_CLOUD_LOCATION
+GOOGLE_CLOUD_CREDENTIALS_JSON
+```
+
+Alternative testing auth:
+
+```bash
+GOOGLE_API_KEY
+```
+
+Model and app config:
+
+```bash
 GEMINI_MODEL
 GEMINI_TOOLS_MODEL
 GEMINI_EMBEDDING_MODEL
@@ -25,6 +40,11 @@ ENABLE_DEBUG_TRACES
 7. Deploy once.
 8. Set `NEXT_PUBLIC_APP_URL` to the real production URL.
 9. Redeploy.
+
+Notes:
+
+- `GOOGLE_CLOUD_CREDENTIALS_JSON` should contain the full service account JSON as a single environment variable value
+- if you use `GOOGLE_API_KEY`, the app will call Vertex AI in express mode instead of ADC/service account auth
 
 ## Local deploy flow with CLI
 

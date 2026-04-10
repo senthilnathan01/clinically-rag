@@ -5,7 +5,7 @@ import nextEnv from "@next/env";
 
 import { getCorpusDataset } from "@/lib/data/load-data";
 import { getServerEnv } from "@/lib/config/env";
-import { embedTexts } from "@/lib/gemini/client";
+import { embedTexts } from "@/lib/vertex/client";
 import { createChunkRecords, createIndexedArticle } from "@/lib/ingest/chunk";
 import { extractArticleFromHtml, extractPdfTextFromBuffer } from "@/lib/ingest/extractors";
 import { fetchSource } from "@/lib/ingest/fetch-source";
