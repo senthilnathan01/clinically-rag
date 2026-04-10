@@ -1,51 +1,46 @@
 import type { LangGraphRunnableConfig } from "@langchain/langgraph";
 
+import { attachCitationAnchors } from "@/lib/citations/anchors";
 import { emitStreamEvent, withTiming } from "@/lib/langgraph/helpers";
 import type { GraphState } from "@/lib/langgraph/state";
 
 export async function formatterNode(state: GraphState, config?: LangGraphRunnableConfig) {
   const startedAt = Date.now();
   emitStreamEvent(config, {
-    type: "phase",
-    phase: "Finalizing response",
-    node: "formatter",
-    status: "running",
-    detail: "Assembling the UI-ready answer payload."
+    event: "phase",
+    data: { label: "Finalizing response" }
   });
 
-  const finalResponse = {
+  const anchored = attachCitationAnchors({
     answerMarkdown: state.answerMarkdown,
-    citations: state.citations,
-    reasoningTrace: {
-      route: state.routeTaken,
-      phases: state.reasoningSteps
-    },
-    retrievedSources: state.retrievedSources,
-    criticReport: state.criticReport,
+    sourceTemplates: state.retrievedSources,
+    sourceDetails: state.sourceDetails
+  });
+
+  const finalArtifact = {
+    answerMarkdown: anchored.answerMarkdown,
     routeTaken: state.routeTaken,
-    timingBreakdown: state.timingBreakdown
+    citationAnchors: anchored.citationAnchors,
+    reasoningTrace: {
+      routeTaken: state.routeTaken,
+      routeRationale: state.routeRationale,
+      subQuestions: state.subQuestions,
+      retrievedSources: state.retrievedSources,
+      evidenceSnippets: state.evidenceSnippets,
+      synthesisSummary: state.synthesisSummary,
+      criticSummary: state.criticSummary
+    },
+    criticSummary: state.criticSummary,
+    sourceDetails: anchored.sourceDetails
   };
 
   emitStreamEvent(config, {
-    type: "final",
-    node: "formatter",
-    payload: finalResponse
+    event: "artifact",
+    data: finalArtifact
   });
 
   return {
-    finalResponse,
-    reasoningSteps: [
-      ...state.reasoningSteps,
-      {
-        key: "formatting" as const,
-        label: "Response Packaging",
-        summary: "Prepared the answer, trace, sources, and critic report for the UI.",
-        details: [
-          `Route taken: ${state.routeTaken}`,
-          `Citations surfaced: ${state.citations.length}`
-        ]
-      }
-    ],
+    finalArtifact,
     ...withTiming(state, "formatter", startedAt)
   };
 }

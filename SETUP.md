@@ -1,97 +1,79 @@
 # Setup Guide
 
-This guide is the human checklist for getting the project from a clean checkout to a live, ingest-ready deployment.
-
-## 1. Gemini API setup
-
-Reference: [Using Gemini API keys](https://ai.google.dev/gemini-api/docs/api-key)
-
-1. Open [Google AI Studio](https://aistudio.google.com/).
-2. In the left sidebar, open `Dashboard`.
-3. Open `API Keys`.
-4. If you do not already have a project available:
-   - open `Projects`
-   - click `Import projects` or create the default project
-   - return to `API Keys`
-5. Click `Create API key`.
-6. Copy the generated key.
-7. Put it into `.env.local` as `GEMINI_API_KEY`.
-8. In the same file, set:
+## 1. Install and prepare local data
 
 ```bash
+npm install
+npm run prepare:data
+cp .env.example .env.local
+```
+
+This parses the three provided PDFs into `data/generated`.
+
+## 2. Create a Gemini API key
+
+Reference: [Gemini API keys](https://ai.google.dev/gemini-api/docs/api-key)
+
+1. Open [Google AI Studio](https://aistudio.google.com/).
+2. Open `Dashboard`.
+3. Open `API Keys`.
+4. Create an API key.
+5. Put it in `.env.local` as:
+
+```bash
+GEMINI_API_KEY=...
 GEMINI_MODEL=gemini-3.1-pro-preview
 GEMINI_TOOLS_MODEL=gemini-3.1-pro-preview-customtools
 GEMINI_EMBEDDING_MODEL=gemini-embedding-001
 ```
 
-9. If your AI Studio account shows different model aliases, replace the example values with the exact aliases shown in your account. The code reads them as plain strings.
+If your account shows different Gemini aliases, replace the example model names with the exact aliases shown in your console.
 
-## 2. Pinecone setup
+## 3. Create the Pinecone index
 
 Reference: [Create a serverless index](https://docs.pinecone.io/docs/create-an-index)
 
 1. Open [Pinecone Console](https://app.pinecone.io/).
-2. Create or open a project.
-3. Click `Indexes`.
-4. Click `Create index`.
-5. Choose a dense serverless index.
-6. Use these values:
+2. Create a dense serverless index.
+3. Set:
    - Name: `together-healthcare`
-   - Dimension: `3072` if your Gemini embedding output is 3072 in your account, otherwise use the dimension reported by your embedding model
    - Metric: `cosine`
-   - Cloud/region: choose the cheapest low-latency serverless region available to you
-7. After the index is ready, copy:
-   - your Pinecone API key
-   - the index name
-   - the host value if Pinecone shows one
-8. Put them into `.env.local`:
+   - Dimension: match your Gemini embedding model output size
+4. Copy these values into `.env.local`:
 
 ```bash
 PINECONE_API_KEY=...
 PINECONE_INDEX_NAME=together-healthcare
 PINECONE_NAMESPACE=together-healthcare
 PINECONE_HOST=...
+NEXT_PUBLIC_APP_URL=http://localhost:3000
+ENABLE_DEBUG_TRACES=false
 ```
 
-## 3. Install and normalize local data
+Important:
 
-Run:
-
-```bash
-npm install
-npm run prepare:data
-```
-
-What this does:
-
-- installs the app and script dependencies
-- parses the three provided PDFs into structured JSON under `data/generated`
+- choose `Vector embeddings` when Pinecone asks what kind of data you have
+- the index dimension must exactly match the embedding model output size
 
 ## 4. Ingest the corpus
-
-Run:
 
 ```bash
 npm run ingest
 ```
 
-What this does:
+This:
 
-- fetches all 21 URLs from the corpus PDF
-- extracts text from HTML or PDF sources
-- writes extracted text to `data/ingest/raw`
-- creates `data/ingest/articles.json`
-- creates `data/ingest/chunks.json`
-- creates `data/ingest/manifest.json`
-- upserts vectors into Pinecone when Pinecone credentials are present
+- fetches and extracts all 21 article sources
+- writes raw extracted text to `data/ingest/raw`
+- builds `articles.json`, `chunks.json`, and `manifest.json`
+- confirms whether Article 21 is present
+- upserts vectors to Pinecone when Pinecone credentials are present
 
-Important note:
+Note:
 
-- Articles 11 and 12 have manual fallback notes under `data/overrides/` because they returned `403` during local validation. If you later obtain full accessible text for those articles, replace the override files with better notes or exported text before rerunning `npm run ingest`.
+- articles 11 and 12 currently rely on documented override text under `data/overrides/` because direct publisher fetches returned `403`
 
 ## 5. Run local checks
-
-Run:
 
 ```bash
 npm run smoke
@@ -99,31 +81,22 @@ npm run typecheck
 npm run build
 ```
 
-What each command validates:
-
-- `smoke`: corpus JSON, eval JSON, manifest existence, chunk existence, and Article 21 presence
-- `typecheck`: TypeScript correctness
-- `build`: App Router production build success
-
-## 6. Start the app locally
-
-Run:
+## 6. Start the app
 
 ```bash
 npm run dev
 ```
 
-Then open [http://localhost:3000](http://localhost:3000).
+Open [http://localhost:3000](http://localhost:3000).
 
-Expected first-run behavior:
+Expected UI:
 
-- the homepage loads without secrets errors in the shell
-- `/api/health` returns JSON
-- the chat route works only after Gemini + Pinecone are configured
+- sparse empty state
+- centered composer
+- no dashboard panels
+- bottom-docked composer after the first message
 
-## 7. Run the evaluation harness
-
-Run:
+## 7. Run the eval harness
 
 ```bash
 npm run eval
@@ -134,9 +107,7 @@ Outputs:
 - `EVAL_REPORT.md`
 - `data/generated/eval-results.json`
 
-## 8. Build the submission zip
-
-Run:
+## 8. Package the submission
 
 ```bash
 npm run package:submission

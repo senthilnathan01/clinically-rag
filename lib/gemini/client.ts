@@ -6,6 +6,18 @@ import { getServerEnv } from "@/lib/config/env";
 
 let cachedClient: GoogleGenAI | null = null;
 
+export class StructuredOutputError extends Error {
+  rawText: string;
+  cause: unknown;
+
+  constructor(message: string, rawText: string, cause: unknown) {
+    super(message);
+    this.name = "StructuredOutputError";
+    this.rawText = rawText;
+    this.cause = cause;
+  }
+}
+
 export function getGeminiClient() {
   if (cachedClient) return cachedClient;
 
@@ -28,6 +40,24 @@ export async function generateObject<T>({
   prompt: string;
   schema: ZodSchema<T>;
 }) {
+  const result = await generateObjectWithRaw({
+    model,
+    prompt,
+    schema
+  });
+
+  return result.object;
+}
+
+export async function generateObjectWithRaw<T>({
+  model,
+  prompt,
+  schema
+}: {
+  model: string;
+  prompt: string;
+  schema: ZodSchema<T>;
+}) {
   const client = getGeminiClient();
   const response = await client.models.generateContent({
     model,
@@ -39,8 +69,16 @@ export async function generateObject<T>({
     }
   });
 
-  const parsed = schema.parse(JSON.parse(response.text ?? "{}"));
-  return parsed;
+  const rawText = response.text ?? "{}";
+
+  try {
+    return {
+      object: schema.parse(JSON.parse(rawText)),
+      rawText
+    };
+  } catch (error) {
+    throw new StructuredOutputError("Structured output parsing failed.", rawText, error);
+  }
 }
 
 export async function generateText({

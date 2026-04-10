@@ -16,11 +16,8 @@ const decomposerSchema = z.object({
 export async function decomposerNode(state: GraphState, config?: LangGraphRunnableConfig) {
   const startedAt = Date.now();
   emitStreamEvent(config, {
-    type: "phase",
-    phase: "Preparing sources",
-    node: "decomposer",
-    status: "running",
-    detail: "Breaking the question into grounded sub-questions."
+    event: "phase",
+    data: { label: "Preparing sources" }
   });
 
   const env = getServerEnv();
@@ -34,15 +31,6 @@ export async function decomposerNode(state: GraphState, config?: LangGraphRunnab
     subQuestions: result.subQuestions,
     searchQueries: result.searchQueries,
     focusArticleNumbers: [...new Set([...state.focusArticleNumbers, ...result.focusArticleNumbers])],
-    reasoningSteps: [
-      ...state.reasoningSteps,
-      {
-        key: "sub_questions" as const,
-        label: "Sub-question Decomposition",
-        summary: `Expanded into ${result.subQuestions.length} sub-questions.`,
-        details: result.subQuestions
-      }
-    ],
     ...withTiming(state, "decomposer", startedAt)
   };
 }

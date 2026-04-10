@@ -4,6 +4,7 @@ import { hasRuntimeSecrets } from "@/lib/config/env";
 import { healthcareGraph } from "@/lib/langgraph/graph";
 import { createInitialGraphState } from "@/lib/langgraph/state";
 import { loadManifest } from "@/lib/retrieval/store";
+import type { GraphStreamEvent } from "@/lib/types/agent";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
@@ -47,18 +48,13 @@ export async function POST(request: Request) {
         controller.enqueue(encoder.encode(sseEvent(event, payload)));
 
       try {
-        send("ready", {
-          route: "starting",
-          timestamp: new Date().toISOString()
-        });
-
         const finalState = (await healthcareGraph.invoke(createInitialGraphState(body) as never, {
-          writer: (chunk: unknown) => {
-            send("stream", chunk);
+          writer: (chunk: GraphStreamEvent) => {
+            send(chunk.event, chunk.data);
           }
         } as never)) as Record<string, any>;
 
-        send("complete", finalState.finalResponse ?? finalState);
+        send("complete", finalState.finalArtifact ?? finalState);
       } catch (error) {
         const message = error instanceof Error ? error.message : "Unknown server error";
         send("error", { message });

@@ -3,39 +3,39 @@
 @tailwind utilities;
 
 :root {
-  --background: 32 38% 96%;
-  --foreground: 262 39% 15%;
+  --background: 30 33% 97%;
+  --foreground: 255 20% 14%;
   --panel: 0 0% 100%;
-  --panel-foreground: 262 39% 15%;
-  --primary: 8 93% 65%;
+  --panel-foreground: 255 20% 14%;
+  --primary: 10 85% 61%;
   --primary-foreground: 0 0% 100%;
-  --secondary: 34 38% 92%;
-  --secondary-foreground: 262 39% 18%;
-  --accent: 14 84% 64%;
+  --secondary: 34 30% 93%;
+  --secondary-foreground: 255 20% 18%;
+  --accent: 10 82% 62%;
   --accent-foreground: 0 0% 100%;
-  --muted: 30 23% 93%;
-  --muted-foreground: 262 15% 40%;
-  --border: 28 18% 84%;
-  --input: 28 18% 84%;
-  --ring: 8 93% 65%;
+  --muted: 32 17% 94%;
+  --muted-foreground: 252 11% 42%;
+  --border: 28 16% 85%;
+  --input: 28 16% 85%;
+  --ring: 10 85% 61%;
 }
 
 .dark {
-  --background: 252 24% 10%;
-  --foreground: 30 33% 94%;
-  --panel: 250 19% 14%;
-  --panel-foreground: 30 33% 94%;
-  --primary: 8 93% 67%;
+  --background: 248 18% 10%;
+  --foreground: 30 25% 94%;
+  --panel: 248 17% 13%;
+  --panel-foreground: 30 25% 94%;
+  --primary: 10 83% 66%;
   --primary-foreground: 0 0% 100%;
-  --secondary: 250 17% 19%;
-  --secondary-foreground: 30 33% 94%;
-  --accent: 10 86% 66%;
+  --secondary: 248 14% 18%;
+  --secondary-foreground: 30 25% 94%;
+  --accent: 10 83% 66%;
   --accent-foreground: 0 0% 100%;
-  --muted: 251 14% 18%;
-  --muted-foreground: 25 16% 76%;
-  --border: 251 13% 24%;
-  --input: 251 13% 24%;
-  --ring: 8 93% 67%;
+  --muted: 248 10% 18%;
+  --muted-foreground: 28 12% 76%;
+  --border: 248 11% 24%;
+  --input: 248 11% 24%;
+  --ring: 10 83% 66%;
 }
 
 html {
@@ -45,8 +45,7 @@ html {
 body {
   min-height: 100vh;
   background:
-    radial-gradient(circle at top left, rgba(255, 105, 82, 0.08), transparent 28%),
-    radial-gradient(circle at bottom right, rgba(73, 44, 112, 0.08), transparent 28%),
+    radial-gradient(circle at top, rgba(244, 111, 83, 0.06), transparent 24%),
     hsl(var(--background));
   color: hsl(var(--foreground));
   font-family: var(--font-sans), system-ui, sans-serif;
@@ -54,6 +53,12 @@ body {
 
 a {
   color: inherit;
+}
+
+.allow-text-selection,
+.allow-text-selection * {
+  user-select: text;
+  -webkit-user-select: text;
 }
 
 ::selection {

@@ -26,7 +26,7 @@ async function main() {
   assert.ok(manifest.articleCount >= 1, "Manifest should contain at least one indexed article.");
   assert.ok(chunks.length >= 1, "Chunk store should not be empty.");
   assert.ok(
-    manifest.indexedArticles.some((article) => article.articleNumber === 21),
+    manifest.article21Present || manifest.indexedArticles.some((article) => article.articleNumber === 21),
     "Article 21 must be present in the local index manifest."
   );
 

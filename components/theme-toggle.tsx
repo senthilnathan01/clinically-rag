@@ -21,7 +21,7 @@ export function ThemeToggle() {
       type="button"
       variant="ghost"
       size="icon"
-      className="rounded-full border border-border/60 bg-panel/80 backdrop-blur"
+      className="rounded-full border border-border/60 bg-panel/80"
       onClick={() => setTheme(isDark ? "light" : "dark")}
       aria-label="Toggle dark mode"
     >

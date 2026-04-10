@@ -1,19 +1,22 @@
 import type { LangGraphRunnableConfig } from "@langchain/langgraph";
 
 import { getServerEnv } from "@/lib/config/env";
-import { buildSynthesizerPrompt } from "@/lib/gemini/prompts";
 import { streamText } from "@/lib/gemini/client";
+import { buildSynthesizerPrompt } from "@/lib/gemini/prompts";
 import { emitStreamEvent, withTiming } from "@/lib/langgraph/helpers";
 import type { GraphState } from "@/lib/langgraph/state";
+
+function summarizeAnswer(text: string) {
+  const stripped = text.replace(/\[Art\.[^\]]+\]/g, "").replace(/\s+/g, " ").trim();
+  if (!stripped) return "No grounded answer was produced.";
+  return stripped.slice(0, 220);
+}
 
 export async function synthesizerNode(state: GraphState, config?: LangGraphRunnableConfig) {
   const startedAt = Date.now();
   emitStreamEvent(config, {
-    type: "phase",
-    phase: "Reasoning across articles",
-    node: "synthesizer",
-    status: "running",
-    detail: "Drafting a grounded answer with inline article citations."
+    event: "phase",
+    data: { label: "Reasoning across articles" }
   });
 
   const env = getServerEnv();
@@ -23,9 +26,8 @@ export async function synthesizerNode(state: GraphState, config?: LangGraphRunna
     onChunk: (chunk) => {
       if (chunk.text) {
         emitStreamEvent(config, {
-          type: "answer_token",
-          node: "synthesizer",
-          text: chunk.text
+          event: "token",
+          data: { text: chunk.text }
         });
       }
     }
@@ -33,15 +35,7 @@ export async function synthesizerNode(state: GraphState, config?: LangGraphRunna
 
   return {
     answerMarkdown,
-    reasoningSteps: [
-      ...state.reasoningSteps,
-      {
-        key: "synthesis" as const,
-        label: "Synthesis Summary",
-        summary: `Drafted the final response using ${state.retrievedSources.length} article bundles.`,
-        details: state.subQuestions.length ? state.subQuestions : [state.question]
-      }
-    ],
+    synthesisSummary: summarizeAnswer(answerMarkdown),
     ...withTiming(state, "synthesizer", startedAt)
   };
 }

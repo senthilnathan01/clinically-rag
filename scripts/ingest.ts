@@ -131,6 +131,7 @@ async function main() {
     generatedAt: new Date().toISOString(),
     articleCount: indexedArticles.length,
     chunkCount: chunks.length,
+    article21Present: indexedArticles.some((article) => article.articleNumber === 21),
     indexedArticles,
     failedArticles
   };
@@ -144,14 +145,13 @@ async function main() {
   clearChunkStoreCache();
   await upsertChunksToPinecone(chunks);
 
-  const article21Present = indexedArticles.some((article) => article.articleNumber === 21);
   console.log(
     JSON.stringify(
       {
         indexedArticles: indexedArticles.length,
         failedArticles: failedArticles.length,
         chunkCount: chunks.length,
-        article21Present
+        article21Present: manifest.article21Present
       },
       null,
       2

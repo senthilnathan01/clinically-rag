@@ -1,11 +1,29 @@
 import type { GraphState } from "@/lib/langgraph/state";
-import type { RetrievalCandidate } from "@/lib/types/agent";
+import type { RetrievalCandidate, SourceDetail } from "@/lib/types/agent";
 
 function formatConversation(state: GraphState) {
   return state.conversation
-    .slice(-6)
+    .slice(-8)
     .map((message) => `${message.role.toUpperCase()}: ${message.content}`)
     .join("\n");
+}
+
+function formatEvidence(candidates: RetrievalCandidate[]) {
+  return candidates
+    .slice(0, 10)
+    .map(
+      (candidate, index) => `
+Evidence ${index + 1}
+Article ${candidate.article.articleNumber}: ${candidate.article.title}
+Publication: ${candidate.article.publication}
+Cluster: ${candidate.article.cluster}
+Chunk ID: ${candidate.id}
+Chunk Index: ${candidate.chunkIndex}
+Summary: ${candidate.articleSummary}
+Snippet: ${candidate.chunkText}
+      `.trim()
+    )
+    .join("\n\n");
 }
 
 export function buildRouterPrompt(state: GraphState) {
@@ -13,15 +31,15 @@ export function buildRouterPrompt(state: GraphState) {
 You are the routing agent for a healthcare AI research assistant.
 
 Classify the user query into one route:
-- simple_factual: one-hop lookup or direct statistic
-- multi_hop: synthesis across multiple articles
-- live: explicitly asks about breaking news, recent events, or article 21
-- follow_up: depends on prior conversation context
+- simple_factual: direct lookup, single statistic, or one-article question
+- multi_hop: synthesis or comparison across multiple articles
+- live: explicitly asks about recent or live reporting, especially Article 21
+- follow_up: depends on the existing conversation
 
 Return JSON with:
 - routeTaken
 - routeRationale
-- focusArticleNumbers (array of article numbers you believe are likely relevant)
+- focusArticleNumbers (likely article numbers if you can infer them)
 
 Conversation:
 ${formatConversation(state) || "No previous context."}
@@ -35,10 +53,10 @@ export function buildDecomposerPrompt(state: GraphState) {
   return `
 You are the decomposition agent for a reviewer-facing healthcare research assistant.
 
-Generate:
-- subQuestions: 1 to 4 precise research sub-questions
-- searchQueries: 2 to 5 search-friendly retrieval queries
-- focusArticleNumbers: likely article numbers if the question implies them
+Return JSON with:
+- subQuestions: 1 to 4 precise sub-questions
+- searchQueries: 2 to 5 retrieval queries
+- focusArticleNumbers: likely article numbers if the prompt hints at them
 
 Conversation:
 ${formatConversation(state) || "No previous context."}
@@ -52,29 +70,18 @@ ${state.question}
 }
 
 export function buildSynthesizerPrompt(state: GraphState, candidates: RetrievalCandidate[]) {
-  const evidence = candidates
-    .slice(0, 8)
-    .map(
-      (candidate) => `
-Article ${candidate.article.articleNumber}: ${candidate.article.title}
-Publication: ${candidate.article.publication}
-Cluster: ${candidate.article.cluster}
-Summary: ${candidate.articleSummary}
-Snippet: ${candidate.chunkText}
-      `.trim()
-    )
-    .join("\n\n");
-
   return `
-You are the synthesis agent in an agentic RAG system built for a healthcare AI evaluation.
+You are the synthesis agent in a healthcare AI evaluation app.
 
 Instructions:
 - Answer only from the provided evidence.
-- Use precise reviewer-friendly prose.
-- Add inline article citations after factual claims using this exact format:
+- Use calm, direct prose that reads well in a chat UI.
+- Keep the answer concise but complete.
+- After each factual claim, add an inline citation using this exact format:
   [Art. 15 · ML-Enabled Medical Devices Authorized by the FDA in 2024]
-- If evidence is incomplete, say so explicitly.
+- If evidence is weak, incomplete, or missing, say so clearly instead of guessing.
 - Preserve follow-up context when relevant.
+- Do not cite articles that are not in the provided evidence.
 
 Conversation:
 ${formatConversation(state) || "No previous context."}
@@ -83,37 +90,64 @@ Sub-questions:
 ${state.subQuestions.join("\n") || state.question}
 
 Evidence:
-${evidence}
+${formatEvidence(candidates)}
 
 User question:
 ${state.question}
   `.trim();
 }
 
-export function buildCriticPrompt(state: GraphState, candidates: RetrievalCandidate[]) {
-  const evidence = candidates
-    .slice(0, 8)
+export function buildCriticPrompt({
+  answerMarkdown,
+  claimCandidates,
+  evidence,
+  retry = false
+}: {
+  answerMarkdown: string;
+  claimCandidates: string[];
+  evidence: SourceDetail[];
+  retry?: boolean;
+}) {
+  const claimsBlock = claimCandidates.map((claim, index) => `${index + 1}. ${claim}`).join("\n");
+  const evidenceBlock = evidence
     .map(
-      (candidate) =>
-        `Article ${candidate.article.articleNumber}: ${candidate.article.title}\nSnippet: ${candidate.chunkText}`
+      (detail, index) => `
+Evidence ${index + 1}
+Article ${detail.articleNumber}: ${detail.title}
+Chunk ID: ${detail.chunkId}
+Snippet: ${detail.snippet}
+      `.trim()
     )
     .join("\n\n");
 
   return `
 You are the critic agent.
 
-Review the drafted answer against the retrieved evidence. Return JSON with a "checks" array. Each check must contain:
-- claim
-- status: supported | weak | unsupported
-- citations: [{ articleNumber, title }]
-- note
+Verify the answer using only the claims and evidence below.
+Return strict JSON only.
 
-Keep the list concise and focused on the main factual claims.
+Schema:
+- overall: pass | weak | fail
+- summary: short reviewer-facing sentence
+- checks: array of up to 5 items, each with:
+  - claim: string
+  - status: supported | weak | unsupported
+  - citationNumbers: number[]
+
+Rules:
+- Verify each claim separately.
+- Use only article numbers present in the evidence.
+- If a claim is unsupported, use an empty citationNumbers array.
+- Do not add any prose outside the JSON object.
+${retry ? "- This is a repair retry. Return only exact JSON matching the schema." : ""}
 
 Draft answer:
-${state.answerMarkdown}
+${answerMarkdown}
+
+Claims to verify:
+${claimsBlock || "1. No explicit claim candidates were extracted."}
 
 Evidence:
-${evidence}
+${evidenceBlock || "No evidence provided."}
   `.trim();
 }

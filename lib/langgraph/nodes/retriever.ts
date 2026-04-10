@@ -7,15 +7,16 @@ import type { GraphState } from "@/lib/langgraph/state";
 export async function retrieverNode(state: GraphState, config?: LangGraphRunnableConfig) {
   const startedAt = Date.now();
   emitStreamEvent(config, {
-    type: "phase",
-    phase: "Searching the corpus",
-    node: "retriever",
-    status: "running",
-    detail: "Running dense and sparse retrieval across indexed chunks."
+    event: "phase",
+    data: { label: "Searching the corpus" }
   });
 
   const searchQueries =
-    state.routeTaken === "simple_factual" ? [state.question] : state.searchQueries.length ? state.searchQueries : [state.question];
+    state.routeTaken === "simple_factual"
+      ? [state.question]
+      : state.searchQueries.length
+        ? state.searchQueries
+        : [state.question];
 
   const candidateMap = new Map<string, Awaited<ReturnType<typeof hybridRetrieve>>[number]>();
 
@@ -42,18 +43,6 @@ export async function retrieverNode(state: GraphState, config?: LangGraphRunnabl
   return {
     searchQueries,
     retrievalCandidates,
-    reasoningSteps: [
-      ...state.reasoningSteps,
-      {
-        key: "retrieval" as const,
-        label: "Retrieval",
-        summary: `Selected ${retrievalCandidates.length} candidate chunks using hybrid retrieval.`,
-        details: retrievalCandidates.map(
-          (candidate) =>
-            `Art. ${candidate.article.articleNumber} · ${candidate.article.title} (dense ${candidate.denseScore.toFixed(2)}, sparse ${candidate.sparseScore.toFixed(2)})`
-        )
-      }
-    ],
     ...withTiming(state, "retriever", startedAt)
   };
 }

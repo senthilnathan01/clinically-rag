@@ -2,69 +2,60 @@
 
 ## Overview
 
-I built a single-repo Next.js App Router application that ingests the provided healthcare AI corpus, stores chunked evidence in a vector index, and answers reviewer questions through a LangGraph-based multi-agent workflow. The design prioritizes the assignment rubric: retrieval quality, reasoning transparency, citation accuracy, meaningful agent structure, and reviewer usability.
+This rebuild prioritizes the reviewer experience first. Instead of a dashboard-style RAG demo, the product is a minimal chat-first application: centered composer on first load, a smooth transition into standard chat after the first question, inline citations, and structured reasoning only when expanded.
 
 ## Why this architecture
 
-- Next.js + Vercel keeps the deploy path simple and reviewer-friendly.
-- LangGraph provides a real graph with routing and separate agent responsibilities instead of a linear chain.
-- Gemini is used for routing, decomposition, synthesis, and critic verification, with environment-configurable model IDs so the same code works with the exact Gemini aliases available in the deployment account.
-- Pinecone is the primary vector layer because it is straightforward to deploy and matches the rubric's expectation for a production-style hosted system.
+- Next.js App Router + Vercel keeps the deployment path simple.
+- LangGraph provides a real multi-agent workflow instead of a thin chain.
+- Gemini is used for routing, decomposition, synthesis, critic review, and embeddings.
+- Pinecone is the production vector store because it is straightforward to host and works cleanly with Vercel.
+
+## What changed in this rebuild
+
+- Replaced the previous split-screen workspace with a single conversation column
+- Moved system progress into a tiny left-aligned status line beneath the latest user prompt
+- Replaced the permanent source panel with citation-triggered inline source reveals
+- Rebuilt the answer contract around one canonical artifact shared by graph, API, and UI
 
 ## Retrieval design
 
-The retrieval layer combines:
+The retrieval layer remains hybrid and evaluator-focused:
 
-- dense retrieval over embedded chunks in Pinecone
-- sparse BM25-style scoring over locally persisted chunk text
-- title/article-number boosts when the query hints at specific sources
-- article-level summaries persisted alongside chunk records
+- dense similarity from Gemini embeddings stored in Pinecone
+- sparse BM25-style scoring over local chunk text
+- title and article-number boosting when queries hint at specific sources
+- chunk-level metadata preserved through to the final source reveal
 
-This produces a hybrid candidate set that is more robust than naive vector search alone, especially for eval questions that mix numeric facts, named entities, and cross-article synthesis.
+This helps especially on cross-source numeric questions and the inference-heavy eval items.
 
-## Agent design
+## Reasoning and citation design
 
-The graph uses:
+The assignment asks for visible reasoning, but this implementation avoids dumping raw chain-of-thought. Each assistant answer exposes a structured reasoning trace with:
 
-1. `router`
-2. `decomposer`
-3. `retriever`
-4. `evidenceAssembler`
-5. `synthesizer`
-6. `critic`
-7. `formatter`
-
-The router enables a fast path for simple factual questions while preserving a full path for multi-hop, live, and follow-up queries. The critic agent provides bonus-point coverage and helps keep unsupported claims visible instead of silently leaking into final answers.
-
-## Reasoning transparency and citations
-
-The assignment asks for visible chain-of-thought. I translated that into a safer structured reasoning trace:
-
-- query type
-- sub-question decomposition
-- retrieved articles
-- evidence assembly
+- route taken
+- sub-questions
+- retrieved sources
+- evidence snippets
 - synthesis summary
-- critic verification
+- critic summary
 
-The UI keeps this trace visible and collapsible. Final prose answers are required to cite specific articles in-line with reviewer-friendly chips like `[Art. 15 · ...]`.
+Citation tokens are generated in the answer text, then transformed into exact answer-span anchors so each citation can reveal the corresponding source details inline.
 
-## Live ingestion handling
+## Live article handling
 
-Article 21 is treated as a mandatory live source and is checked in the smoke script. During local validation, the ingestion pipeline successfully indexed Article 21 and confirmed its presence in the local manifest.
-
-Two publisher-hosted drug discovery sources returned `403` in clean fetches, so I added documented manual fallback notes under `data/overrides/` to keep the local index complete without hiding the fetch constraint.
+Article 21 is treated as mandatory live content. The ingestion manifest records whether it is present, the smoke test enforces that check, and the eval harness uses special handling for Q11 so the system either answers from Article 21 or refuses cleanly if the article is missing.
 
 ## What I optimized for
 
-- dependable retrieval over the assignment corpus
-- clarity for a non-technical reviewer
-- explicit traceability from answer to evidence
-- low-friction Vercel deployment
+- immediate usability for a non-technical reviewer
+- reliable retrieval and citation mapping
+- graceful failure when evidence or critic output is weak
+- minimal, calm product feel rather than a feature-heavy demo
 
 ## What I would improve next
 
-- add richer source extraction for publisher-blocked content through optional authenticated or exported-PDF workflows
-- add a stronger automatic judge for eval scoring instead of purely heuristic scoring
-- add persisted chat sessions and richer trace visualizations
-- tighten the evidence-to-claim critic granularity further for sentence-level coverage
+- stronger deterministic citation-to-claim validation
+- persisted client-side chat history across reloads
+- richer handling for publisher-blocked source text on articles 11 and 12
+- a more nuanced automatic judge for eval scoring beyond heuristics

@@ -16,11 +16,8 @@ const routerSchema = z.object({
 export async function routerNode(state: GraphState, config?: LangGraphRunnableConfig) {
   const startedAt = Date.now();
   emitStreamEvent(config, {
-    type: "phase",
-    phase: "Preparing sources",
-    node: "router",
-    status: "running",
-    detail: "Classifying the query and deciding whether to use the fast path."
+    event: "phase",
+    data: { label: "Preparing sources" }
   });
 
   const env = getServerEnv();
@@ -34,20 +31,6 @@ export async function routerNode(state: GraphState, config?: LangGraphRunnableCo
     routeTaken: routed.routeTaken,
     routeRationale: routed.routeRationale,
     focusArticleNumbers: routed.focusArticleNumbers,
-    reasoningSteps: [
-      ...state.reasoningSteps,
-      {
-        key: "query_type" as const,
-        label: "Query Type",
-        summary: routed.routeRationale,
-        details: [
-          `Route selected: ${routed.routeTaken}`,
-          routed.focusArticleNumbers.length
-            ? `Likely articles: ${routed.focusArticleNumbers.join(", ")}`
-            : "No explicit article hints inferred."
-        ]
-      }
-    ],
     ...withTiming(state, "router", startedAt)
   };
 }

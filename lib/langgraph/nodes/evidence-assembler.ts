@@ -2,70 +2,90 @@ import type { LangGraphRunnableConfig } from "@langchain/langgraph";
 
 import { emitStreamEvent, withTiming } from "@/lib/langgraph/helpers";
 import type { GraphState } from "@/lib/langgraph/state";
-import type { CitationChip } from "@/lib/types/agent";
+import type { RetrievedSourceSummary, SourceDetail } from "@/lib/types/agent";
+
+function buildRationale(titleOverlap: number) {
+  return titleOverlap > 0
+    ? "Ranked highly because the title and metadata align closely with the request."
+    : "Ranked highly from the combined semantic and lexical retrieval score.";
+}
 
 export async function evidenceAssemblerNode(state: GraphState, config?: LangGraphRunnableConfig) {
   const startedAt = Date.now();
   emitStreamEvent(config, {
-    type: "phase",
-    phase: "Linking evidence",
-    node: "evidence_assembler",
-    status: "running",
-    detail: "Grouping retrieved chunks into article-level evidence bundles."
+    event: "phase",
+    data: { label: "Linking evidence" }
   });
 
-  const sourceMap = new Map<number, GraphState["retrievedSources"][number]>();
-  const citationMap = new Map<string, CitationChip>();
+  const retrievedSourceMap = new Map<number, RetrievedSourceSummary>();
+  const sourceDetails: SourceDetail[] = [];
+  const perArticleDetailCount = new Map<number, number>();
 
   for (const candidate of state.retrievalCandidates) {
-    const key = candidate.article.articleNumber;
-    const existing = sourceMap.get(key);
+    const rationale = buildRationale(candidate.titleOverlap);
     const snippet = candidate.chunkText.slice(0, 320).trim();
+    const existingSource = retrievedSourceMap.get(candidate.article.articleNumber);
 
-    if (!existing) {
-      sourceMap.set(key, {
+    if (!existingSource || existingSource.score < candidate.combinedScore) {
+      retrievedSourceMap.set(candidate.article.articleNumber, {
         articleNumber: candidate.article.articleNumber,
         title: candidate.article.title,
-        cluster: candidate.article.cluster,
         publication: candidate.article.publication,
         url: candidate.article.url,
-        rationale:
-          candidate.titleOverlap > 0
-            ? "Title and metadata strongly overlap with the query."
-            : "Hybrid retrieval ranked this article highly based on semantic and lexical evidence.",
+        chunkId: candidate.id,
+        chunkIndex: candidate.chunkIndex,
         score: candidate.combinedScore,
-        snippets: [snippet]
+        rationale
       });
-    } else {
-      existing.score = Math.max(existing.score, candidate.combinedScore);
-      if (existing.snippets.length < 2 && !existing.snippets.includes(snippet)) {
-        existing.snippets.push(snippet);
-      }
     }
 
-    citationMap.set(String(key), {
-      articleNumber: candidate.article.articleNumber,
-      title: candidate.article.title
-    });
+    const detailCount = perArticleDetailCount.get(candidate.article.articleNumber) ?? 0;
+    if (detailCount < 2) {
+      sourceDetails.push({
+        citationId: "",
+        articleNumber: candidate.article.articleNumber,
+        title: candidate.article.title,
+        publication: candidate.article.publication,
+        url: candidate.article.url,
+        rationale,
+        snippet,
+        chunkId: candidate.id,
+        chunkIndex: candidate.chunkIndex
+      });
+      perArticleDetailCount.set(candidate.article.articleNumber, detailCount + 1);
+    }
   }
 
-  const retrievedSources = [...sourceMap.values()].sort((left, right) => right.score - left.score);
-  const citations = [...citationMap.values()];
+  const retrievedSources = [...retrievedSourceMap.values()].sort((left, right) => right.score - left.score);
+  const evidenceSnippets = sourceDetails.slice(0, 8).map((detail) => ({
+    articleNumber: detail.articleNumber,
+    title: detail.title,
+    snippet: detail.snippet,
+    chunkId: detail.chunkId,
+    chunkIndex: detail.chunkIndex
+  }));
+
+  emitStreamEvent(config, {
+    event: "artifact",
+    data: {
+      routeTaken: state.routeTaken,
+      reasoningTrace: {
+        routeTaken: state.routeTaken,
+        routeRationale: state.routeRationale,
+        subQuestions: state.subQuestions,
+        retrievedSources,
+        evidenceSnippets,
+        synthesisSummary: "",
+        criticSummary: state.criticSummary
+      },
+      sourceDetails
+    }
+  });
 
   return {
     retrievedSources,
-    citations,
-    reasoningSteps: [
-      ...state.reasoningSteps,
-      {
-        key: "evidence" as const,
-        label: "Evidence Assembly",
-        summary: `Grouped evidence into ${retrievedSources.length} article bundles.`,
-        details: retrievedSources.map(
-          (source) => `Art. ${source.articleNumber} · ${source.title}`
-        )
-      }
-    ],
+    evidenceSnippets,
+    sourceDetails,
     ...withTiming(state, "evidence_assembler", startedAt)
   };
 }

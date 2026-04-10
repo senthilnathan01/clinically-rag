@@ -1,15 +1,14 @@
-import { Workspace } from "@/components/chat/workspace";
+import { ChatShell } from "@/components/chat/chat-shell";
 import { getEvalDataset } from "@/lib/data/load-data";
 
 export default function HomePage() {
   const evalSet = getEvalDataset();
 
   return (
-    <Workspace
+    <ChatShell
       sampleQuestions={evalSet.questions.map((question) => ({
         id: question.id,
-        prompt: question.prompt,
-        difficulty: question.difficulty
+        prompt: question.prompt
       }))}
     />
   );
