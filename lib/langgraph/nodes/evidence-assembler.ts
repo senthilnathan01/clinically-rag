@@ -28,6 +28,7 @@ export async function evidenceAssemblerNode(state: GraphState, config?: LangGrap
   for (const candidate of state.retrievalCandidates) {
     const rationale = buildRationale(candidate.titleOverlap, candidate.matchedQueries);
     const snippet = candidate.chunkText.slice(0, 320).trim();
+    const verificationText = candidate.chunkText.trim();
     const existingSource = retrievedSourceMap.get(candidate.article.articleNumber);
 
     if (!existingSource || existingSource.score < candidate.combinedScore) {
@@ -56,6 +57,7 @@ export async function evidenceAssemblerNode(state: GraphState, config?: LangGrap
         url: candidate.article.url,
         rationale,
         snippet,
+        verificationText,
         chunkId: candidate.id,
         chunkIndex: candidate.chunkIndex
       });
@@ -80,6 +82,7 @@ export async function evidenceAssemblerNode(state: GraphState, config?: LangGrap
         routeTaken: state.routeTaken,
         routeRationale: state.routeRationale,
         subQuestions: state.subQuestions,
+        querySourceMappings: state.querySourceMappings,
         retrievedSources,
         evidenceSnippets,
         synthesisSummary: "",

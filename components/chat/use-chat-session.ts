@@ -29,6 +29,9 @@ function mergeArtifact(
           routeRationale:
             patch.reasoningTrace.routeRationale ?? current?.reasoningTrace?.routeRationale ?? "",
           subQuestions: patch.reasoningTrace.subQuestions ?? current?.reasoningTrace?.subQuestions ?? [],
+          querySourceMappings:
+            patch.reasoningTrace.querySourceMappings ??
+            current?.reasoningTrace?.querySourceMappings ?? [],
           retrievedSources:
             patch.reasoningTrace.retrievedSources ?? current?.reasoningTrace?.retrievedSources ?? [],
           evidenceSnippets:

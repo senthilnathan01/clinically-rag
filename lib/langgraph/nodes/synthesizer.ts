@@ -1,5 +1,6 @@
 import type { LangGraphRunnableConfig } from "@langchain/langgraph";
 
+import { verifyAnswerCitations } from "@/lib/citations/verify";
 import { getServerEnv } from "@/lib/config/env";
 import { generateText, streamText } from "@/lib/vertex/client";
 import { buildAnswerRepairPrompt, buildSynthesizerPrompt } from "@/lib/gemini/prompts";
@@ -33,9 +34,16 @@ export async function synthesizerNode(state: GraphState, config?: LangGraphRunna
     }
   });
 
+  const draftVerification = verifyAnswerCitations({
+    answerMarkdown,
+    sourceTemplates: state.retrievedSources,
+    sourceDetails: state.sourceDetails
+  });
   const shouldRepair =
     state.retrievalCandidates.length > 0 &&
-    (state.routeTaken !== "simple_factual" || state.subQuestions.length > 1);
+    (draftVerification.criticSummary.overall === "fail" ||
+      (draftVerification.criticSummary.overall === "weak" &&
+        (state.routeTaken !== "simple_factual" || state.subQuestions.length > 1)));
 
   if (shouldRepair) {
     const repairedAnswer = await generateText({

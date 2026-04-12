@@ -3,6 +3,7 @@ import type { LangGraphRunnableConfig } from "@langchain/langgraph";
 import { hybridRetrieve } from "@/lib/retrieval/hybrid";
 import { emitStreamEvent, withTiming } from "@/lib/langgraph/helpers";
 import type { GraphState } from "@/lib/langgraph/state";
+import type { QuerySourceMapping } from "@/lib/types/agent";
 
 type RetrievedCandidate = Awaited<ReturnType<typeof hybridRetrieve>>[number];
 
@@ -33,6 +34,38 @@ function mergeCandidate(
   };
 }
 
+function buildQuerySourceMappings(
+  perQueryCandidates: Array<{ query: string; candidates: RetrievedCandidate[] }>
+): QuerySourceMapping[] {
+  return perQueryCandidates.map(({ query, candidates }) => {
+    const seen = new Set<number>();
+    const sources: QuerySourceMapping["sources"] = [];
+
+    for (const candidate of candidates) {
+      const articleNumber = candidate.article.articleNumber;
+
+      if (seen.has(articleNumber)) {
+        continue;
+      }
+
+      seen.add(articleNumber);
+      sources.push({
+        articleNumber,
+        title: candidate.article.title
+      });
+
+      if (sources.length >= 3) {
+        break;
+      }
+    }
+
+    return {
+      query,
+      sources
+    };
+  });
+}
+
 export async function retrieverNode(state: GraphState, config?: LangGraphRunnableConfig) {
   const startedAt = Date.now();
   emitStreamEvent(config, {
@@ -48,18 +81,23 @@ export async function retrieverNode(state: GraphState, config?: LangGraphRunnabl
         : [state.question];
 
   const candidateMap = new Map<string, RetrievedCandidate>();
-  const perQueryCandidates: Array<{ query: string; candidates: RetrievedCandidate[] }> = [];
-
-  for (const query of searchQueries) {
-    const candidates = await hybridRetrieve({
+  const perQueryCandidates = await Promise.all(
+    searchQueries.map(async (query) => ({
       query,
-      focusArticleNumbers: state.focusArticleNumbers,
-      limit: 10
-    });
-    perQueryCandidates.push({ query, candidates });
+      candidates: await hybridRetrieve({
+        query,
+        focusArticleNumbers: state.focusArticleNumbers,
+        limit: 10
+      })
+    }))
+  );
 
+  for (const { query, candidates } of perQueryCandidates) {
     for (const candidate of candidates) {
-      candidateMap.set(candidate.id, mergeCandidate(candidateMap.get(candidate.id), candidate, query));
+      candidateMap.set(
+        candidate.id,
+        mergeCandidate(candidateMap.get(candidate.id), candidate, query)
+      );
     }
   }
 
@@ -147,6 +185,7 @@ export async function retrieverNode(state: GraphState, config?: LangGraphRunnabl
 
   return {
     searchQueries,
+    querySourceMappings: buildQuerySourceMappings(perQueryCandidates),
     retrievalCandidates,
     ...withTiming(state, "retriever", startedAt)
   };

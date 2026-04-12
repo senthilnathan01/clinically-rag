@@ -33,7 +33,6 @@ export function SourceReveal({ details }: SourceRevealProps) {
             </a>
           </p>
           <p className="mt-3 text-sm leading-7 text-foreground/90">{detail.snippet}</p>
-          <p className="mt-2 text-xs text-muted-foreground">{detail.rationale}</p>
         </div>
       ))}
     </div>

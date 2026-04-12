@@ -1,6 +1,6 @@
 import type { RetrievalCandidate } from "@/lib/types/agent";
 
-import { getArticleByNumber, getCorpusDataset, getEvalDataset } from "@/lib/data/load-data";
+import { getArticleByNumber, getCorpusDataset } from "@/lib/data/load-data";
 import { getServerEnv } from "@/lib/config/env";
 import { embedTexts } from "@/lib/vertex/client";
 import { scoreSparseQuery } from "@/lib/retrieval/bm25";
@@ -62,20 +62,6 @@ function inferMetadataHintArticles(query: string) {
   return hinted;
 }
 
-function inferEvalHintArticles(query: string) {
-  const hinted = new Set<number>();
-
-  for (const item of getEvalDataset().questions) {
-    if (scoreTokenOverlap(query, item.prompt) >= 0.55) {
-      for (const source of item.sources) {
-        hinted.add(source);
-      }
-    }
-  }
-
-  return hinted;
-}
-
 export async function hybridRetrieve({
   query,
   focusArticleNumbers = [],
@@ -87,13 +73,8 @@ export async function hybridRetrieve({
 }) {
   const chunks = await loadChunkStore();
   const hintedArticles = inferMetadataHintArticles(query);
-  const evalHintArticles = inferEvalHintArticles(query);
 
   for (const articleNumber of focusArticleNumbers) {
-    hintedArticles.add(articleNumber);
-  }
-
-  for (const articleNumber of evalHintArticles) {
     hintedArticles.add(articleNumber);
   }
 

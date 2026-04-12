@@ -49,7 +49,10 @@ function scoreBaseAnswer({
     citationNumbers(artifact).includes(source)
   ).length;
   const traceReady = Boolean(artifact?.reasoningTrace?.synthesisSummary);
-  const criticReady = Boolean(artifact?.criticSummary?.summary);
+  const criticReady =
+    Boolean(artifact?.criticSummary?.checks.length) &&
+    artifact?.criticSummary?.summary !== "Critic review did not run yet.";
+  const verificationPassed = artifact?.criticSummary?.overall !== "fail";
   const sentenceHits = expectedAnswer
     .split(/[.]/)
     .map((sentence) => sentence.trim())
@@ -61,7 +64,7 @@ function scoreBaseAnswer({
     factualAccuracy: Math.min(4, shortHit ? 2 + sentenceHits : sentenceHits),
     citationQuality: Math.min(3, citationHits),
     reasoningQuality: traceReady ? 2 : 0,
-    verificationQuality: criticReady ? 1 : 0
+    verificationQuality: criticReady && verificationPassed ? 1 : 0
   };
 }
 
@@ -135,7 +138,7 @@ function renderReport(results: Array<Record<string, unknown>>) {
     lines.push(`- Route: ${result.route}`);
     lines.push(`- Citation articles: ${result.citations}`);
     lines.push(`- Trap check: ${result.trapPassed ? "pass" : "fail"} — ${result.trapNote}`);
-    lines.push(`- Critic: ${result.criticSummary}`);
+    lines.push(`- Critic: ${result.criticOverall} — ${result.criticSummary}`);
     lines.push("");
   }
 
@@ -173,6 +176,7 @@ async function main() {
       prompt: question.prompt,
       route: artifact?.routeTaken ?? finalState.routeTaken,
       citations: citationNumbers(artifact).join(", "),
+      criticOverall: artifact?.criticSummary?.overall ?? "",
       criticSummary: artifact?.criticSummary?.summary ?? "",
       total,
       trapPassed: trapCheck.passed,

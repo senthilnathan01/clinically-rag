@@ -53,10 +53,16 @@ export interface CriticSummary {
   checks: CriticCheck[];
 }
 
+export interface QuerySourceMapping {
+  query: string;
+  sources: CitationChip[];
+}
+
 export interface ReasoningTrace {
   routeTaken: QueryRoute;
   routeRationale: string;
   subQuestions: string[];
+  querySourceMappings: QuerySourceMapping[];
   retrievedSources: RetrievedSourceSummary[];
   evidenceSnippets: EvidenceSnippet[];
   synthesisSummary: string;
@@ -89,6 +95,7 @@ export interface SourceDetail {
   url: string;
   rationale: string;
   snippet: string;
+  verificationText: string;
   chunkId: string;
   chunkIndex: number;
 }

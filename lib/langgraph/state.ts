@@ -6,6 +6,7 @@ import type {
   CriticCheck,
   CriticSummary,
   EvidenceSnippet,
+  QuerySourceMapping,
   RetrievedSourceSummary,
   SourceDetail
 } from "@/lib/types/agent";
@@ -49,8 +50,19 @@ const sourceDetailSchema = z.object({
   url: z.string(),
   rationale: z.string(),
   snippet: z.string(),
+  verificationText: z.string(),
   chunkId: z.string(),
   chunkIndex: z.number()
+});
+
+const citationChipSchema = z.object({
+  articleNumber: z.number(),
+  title: z.string()
+});
+
+const querySourceMappingSchema = z.object({
+  query: z.string(),
+  sources: z.array(citationChipSchema)
 });
 
 const chatMessageSchema = z.object({
@@ -67,6 +79,7 @@ export const graphStateSchema = z.object({
   routeRationale: z.string().default(""),
   subQuestions: z.array(z.string()).default([]),
   searchQueries: z.array(z.string()).default([]),
+  querySourceMappings: z.array(querySourceMappingSchema).default([]),
   focusArticleNumbers: z.array(z.number()).default([]),
   retrievalCandidates: z.array(z.any()).default([]),
   retrievedSources: z.array(retrievedSourceSchema).default([]),
@@ -85,6 +98,7 @@ export const graphStateSchema = z.object({
 });
 
 export type GraphState = z.infer<typeof graphStateSchema> & {
+  querySourceMappings: QuerySourceMapping[];
   retrievedSources: RetrievedSourceSummary[];
   evidenceSnippets: EvidenceSnippet[];
   sourceDetails: SourceDetail[];
@@ -106,6 +120,7 @@ export function createInitialGraphState({
     routeRationale: "",
     subQuestions: [],
     searchQueries: [],
+    querySourceMappings: [],
     focusArticleNumbers: [],
     retrievalCandidates: [],
     retrievedSources: [],

@@ -1,353 +1,264 @@
 import type { LangGraphRunnableConfig } from "@langchain/langgraph";
 import { z } from "zod";
 
+import {
+  prepareClaimVerification,
+  summarizeCriticChecks,
+  verifyAnswerCitations,
+  type ClaimSegment
+} from "@/lib/citations/verify";
 import { getServerEnv } from "@/lib/config/env";
-import { StructuredOutputError, generateObjectWithRaw } from "@/lib/vertex/client";
-import { buildCriticPrompt } from "@/lib/gemini/prompts";
 import { emitStreamEvent, withTiming } from "@/lib/langgraph/helpers";
 import type { GraphState } from "@/lib/langgraph/state";
-import type { CriticCheck, CriticSummary, SourceDetail } from "@/lib/types/agent";
+import type { CriticCheck, RetrievalCandidate, SourceDetail } from "@/lib/types/agent";
+import {
+  StructuredOutputError,
+  generateObjectWithRaw
+} from "@/lib/vertex/client";
+import { scoreTokenOverlap } from "@/lib/utils/text";
 
-const criticCheckSchema = z.object({
-  claim: z.string(),
-  status: z.enum(["supported", "weak", "unsupported"]),
-  citationNumbers: z.array(z.number()).max(5)
+const semanticCriticSchema = z.object({
+  checks: z
+    .array(
+      z.object({
+        claimIndex: z.number().int().positive(),
+        status: z.enum(["supported", "weak", "unsupported"]),
+        citationNumbers: z.array(z.number()).default([])
+      })
+    )
+    .max(8)
+    .default([])
 });
 
-const criticSchema = z.object({
-  overall: z.enum(["pass", "weak", "fail"]),
-  summary: z.string(),
-  checks: z.array(criticCheckSchema).max(5).default([])
-});
-
-type CriticReview = z.infer<typeof criticSchema>;
-
-const criticStatuses = ["supported", "weak", "unsupported"] as const;
-const criticOveralls = ["pass", "weak", "fail"] as const;
-
-function coerceCriticStatus(value: unknown): CriticCheck["status"] | null {
-  if (typeof value !== "string") return null;
-
-  return (criticStatuses as readonly string[]).includes(value)
-    ? (value as CriticCheck["status"])
-    : null;
+interface SemanticEvidence {
+  articleNumber: number;
+  title: string;
+  chunkId: string;
+  chunkIndex: number;
+  text: string;
 }
 
-function coerceCriticOverall(value: unknown): CriticSummary["overall"] | null {
-  if (typeof value !== "string") return null;
-
-  return (criticOveralls as readonly string[]).includes(value)
-    ? (value as CriticSummary["overall"])
-    : null;
+interface ClaimEvidenceBundle {
+  claimIndex: number;
+  claim: string;
+  citationNumbers: number[];
+  evidence: SemanticEvidence[];
 }
 
-function coerceCitationNumbers(value: unknown): number[] {
-  if (Array.isArray(value)) {
-    return value
-      .flatMap((entry) => coerceCitationNumbers(entry))
-      .slice(0, 5);
-  }
-
-  if (typeof value === "number" && Number.isFinite(value)) {
-    return [value];
-  }
-
-  if (typeof value !== "string") {
-    return [];
-  }
-
-  return [...value.matchAll(/\d+/g)]
-    .map((match) => Number(match[0]))
-    .filter((entry) => Number.isFinite(entry))
-    .slice(0, 5);
-}
-
-function parseCriticCheck(value: unknown): CriticCheck | null {
-  if (typeof value === "string" && value.trim().startsWith("{")) {
-    try {
-      return parseCriticCheck(JSON.parse(value));
-    } catch {
-      return null;
-    }
-  }
-
-  const parsed = criticCheckSchema.safeParse(value);
-  if (parsed.success) {
-    return parsed.data;
-  }
-
-  if (!value || typeof value !== "object" || Array.isArray(value)) {
-    return null;
-  }
-
-  const candidate = value as Record<string, unknown>;
-  const status = coerceCriticStatus(candidate.status);
-
-  if (typeof candidate.claim !== "string" || !status) {
-    return null;
-  }
-
-  return {
-    claim: candidate.claim.trim(),
-    status,
-    citationNumbers: coerceCitationNumbers(candidate.citationNumbers)
-  };
-}
-
-function parseFlattenedCriticChecks(values: unknown[]): CriticCheck[] {
-  const checks: CriticCheck[] = [];
-  let current: Partial<CriticCheck> = {};
-
-  const pushCurrent = () => {
-    if (!current.claim || !current.status) return;
-
-    checks.push({
-      claim: current.claim.trim(),
-      status: current.status,
-      citationNumbers: current.citationNumbers ?? []
-    });
-    current = {};
-  };
-
-  for (let index = 0; index < values.length && checks.length < 5; index += 1) {
-    const entry = values[index];
-    const parsedObject = parseCriticCheck(entry);
-
-    if (parsedObject) {
-      pushCurrent();
-      checks.push(parsedObject);
-      continue;
-    }
-
-    if (typeof entry !== "string" && typeof entry !== "number") {
-      continue;
-    }
-
-    const token = String(entry).trim();
-
-    if (!token) {
-      continue;
-    }
-
-    switch (token) {
-      case "claim": {
-        const next = values[index + 1];
-        if (typeof next === "string" || typeof next === "number") {
-          if (current.claim && current.status) {
-            pushCurrent();
-          }
-
-          current.claim = String(next).trim();
-          index += 1;
-        }
-        break;
-      }
-      case "status": {
-        const next = values[index + 1];
-        const status = coerceCriticStatus(next);
-        if (status) {
-          current.status = status;
-          index += 1;
-        }
-        break;
-      }
-      case "citationNumbers": {
-        const next = values[index + 1];
-        current.citationNumbers = coerceCitationNumbers(next);
-        index += 1;
-        break;
-      }
-      default: {
-        if (!current.claim) {
-          current.claim = token;
-        } else if (current.status) {
-          pushCurrent();
-          current.claim = token;
-        }
-      }
-    }
-  }
-
-  pushCurrent();
-
-  return checks.slice(0, 5);
-}
-
-function repairCriticReview(rawText: string): CriticReview | null {
-  let parsedJson: unknown;
+function repairSemanticCriticChecks(rawText: string) {
+  let parsed: unknown;
 
   try {
-    parsedJson = JSON.parse(rawText);
+    parsed = JSON.parse(rawText);
   } catch {
     return null;
   }
 
-  const direct = criticSchema.safeParse(parsedJson);
-  if (direct.success) {
-    return direct.data;
-  }
-
-  if (!parsedJson || typeof parsedJson !== "object" || Array.isArray(parsedJson)) {
+  if (!parsed || typeof parsed !== "object" || Array.isArray(parsed)) {
     return null;
   }
 
-  const candidate = parsedJson as Record<string, unknown>;
-  const checks = Array.isArray(candidate.checks)
-    ? parseFlattenedCriticChecks(candidate.checks)
-    : [];
+  const candidate = parsed as { checks?: unknown };
+  if (!Array.isArray(candidate.checks)) {
+    return null;
+  }
 
-  const repaired = criticSchema.safeParse({
-    overall: coerceCriticOverall(candidate.overall) ?? "weak",
-    summary:
-      typeof candidate.summary === "string" && candidate.summary.trim().length > 0
-        ? candidate.summary.trim()
-        : "Critic review degraded, so the answer is shown with a conservative verification note.",
-    checks
+  const repairedChecks = candidate.checks
+    .flatMap((entry) => {
+      if (!entry) {
+        return [];
+      }
+
+      if (typeof entry === "string" && entry.trim().startsWith("{")) {
+        try {
+          return [JSON.parse(entry)];
+        } catch {
+          return [];
+        }
+      }
+
+      return [entry];
+    })
+    .filter((entry) => entry && typeof entry === "object");
+
+  const repaired = semanticCriticSchema.safeParse({
+    checks: repairedChecks
   });
 
   return repaired.success ? repaired.data : null;
 }
 
-function extractCitationNumbersFromAnswer(answerMarkdown: string) {
-  return [...answerMarkdown.matchAll(/\[Art\.\s*(\d{1,2})\s*·/g)].map((match) =>
-    Number(match[1])
-  );
+function buildSemanticCriticPrompt(bundles: ClaimEvidenceBundle[]) {
+  const bundleText = bundles
+    .map((bundle) => {
+      const evidenceText = bundle.evidence.length
+        ? bundle.evidence
+            .map(
+              (entry, index) => `
+Evidence ${index + 1}
+Article ${entry.articleNumber}: ${entry.title}
+Chunk ID: ${entry.chunkId}
+Chunk Index: ${entry.chunkIndex}
+Text: ${entry.text}
+              `.trim()
+            )
+            .join("\n\n")
+        : "No evidence was retrieved for these citations.";
+
+      return `
+Claim ${bundle.claimIndex}
+Text: ${bundle.claim}
+Inline citations: ${bundle.citationNumbers.map((value) => `Art. ${value}`).join(", ") || "None"}
+
+Evidence from the cited articles:
+${evidenceText}
+      `.trim();
+    })
+    .join("\n\n");
+
+  return `
+You are the critic agent for a corpus-grounded research assistant.
+
+Judge whether each claim is supported by the cited evidence.
+
+Rules:
+- Support is semantic, not lexical. Do not require exact wording.
+- A claim may be supported by combining multiple evidence snippets from the cited articles.
+- If the cited evidence supports only part of the claim, mark it as weak.
+- Mark unsupported only if the claim is materially absent from the cited evidence, contradicted by it, or has no usable inline citation.
+- Use only the evidence shown for each claim.
+- citationNumbers must be a subset of the inline citations that actually support the claim.
+- Return strict JSON only.
+
+Schema:
+- checks: array of objects with:
+  - claimIndex: number
+  - status: supported | weak | unsupported
+  - citationNumbers: number[]
+
+Claims and cited evidence:
+${bundleText}
+  `.trim();
 }
 
-function extractClaimCandidates(answerMarkdown: string) {
-  return answerMarkdown
-    .replace(/\[Art\.[^\]]+\]/g, "")
-    .split(/(?<=[.!?])\s+/)
-    .map((sentence) => sentence.trim())
-    .filter((sentence) => sentence.length >= 28)
-    .slice(0, 5);
-}
+function rankRetrievalCandidates(claim: string, candidates: RetrievalCandidate[]) {
+  return [...candidates].sort((left, right) => {
+    const leftScore =
+      scoreTokenOverlap(claim, `${left.article.title} ${left.articleSummary} ${left.chunkText}`) +
+      left.combinedScore * 0.2;
+    const rightScore =
+      scoreTokenOverlap(claim, `${right.article.title} ${right.articleSummary} ${right.chunkText}`) +
+      right.combinedScore * 0.2;
 
-function selectCriticEvidence(
-  state: GraphState,
-  citedArticleNumbers: number[],
-  maxEvidence: number
-) {
-  const seenChunkIds = new Set<string>();
-  const preferred = state.sourceDetails.filter((detail) =>
-    citedArticleNumbers.includes(detail.articleNumber)
-  );
-  const pool = preferred.length ? preferred : state.sourceDetails;
-  const evidence: SourceDetail[] = [];
-
-  for (const detail of pool) {
-    if (seenChunkIds.has(detail.chunkId)) continue;
-    seenChunkIds.add(detail.chunkId);
-    evidence.push(detail);
-    if (evidence.length >= maxEvidence) break;
-  }
-
-  return evidence;
-}
-
-function buildFallbackCriticReport(state: GraphState): CriticSummary {
-  return {
-    overall: "weak",
-    summary:
-      "Verification stayed conservative because the structured critic output was weak, so the answer is shown with grounded citations only.",
-    checks: [
-      {
-        claim:
-          "The answer was drafted from retrieved evidence, but the structured critic output was malformed.",
-        status: "weak",
-        citationNumbers: state.retrievedSources.slice(0, 3).map((source) => source.articleNumber)
-      }
-    ]
-  };
-}
-
-function normalizeCriticReview(review: CriticReview, allowedArticleNumbers: Set<number>): CriticSummary {
-  const checks: CriticCheck[] = review.checks.slice(0, 5).map((check) => ({
-    claim: check.claim,
-    status: check.status,
-    citationNumbers: [
-      ...new Set(check.citationNumbers.filter((value) => allowedArticleNumbers.has(value)))
-    ]
-  }));
-
-  if (!checks.length) {
-    return {
-      overall: "weak",
-      summary:
-        "Verification stayed conservative because the critic response was too thin to support a stronger judgment.",
-      checks: []
-    };
-  }
-
-  const containsUnsupportedClaim = checks.some((check) => check.status === "unsupported");
-  const overall =
-    review.overall === "fail" && !containsUnsupportedClaim ? "weak" : review.overall;
-
-  return {
-    overall,
-    summary:
-      overall === "weak" && review.overall === "fail" && !containsUnsupportedClaim
-        ? "Verification flagged uncertainty, but it did not identify a clearly unsupported cited claim."
-        : review.summary.trim(),
-    checks
-  };
-}
-
-async function runCriticAttempt({
-  state,
-  maxEvidence,
-  retry
-}: {
-  state: GraphState;
-  maxEvidence: number;
-  retry: boolean;
-}) {
-  const env = getServerEnv();
-  const citedArticleNumbers = extractCitationNumbersFromAnswer(state.answerMarkdown);
-  const claimCandidates = extractClaimCandidates(state.answerMarkdown);
-  const evidence = selectCriticEvidence(state, citedArticleNumbers, maxEvidence);
-
-  console.info("Critic attempt", {
-    retryUsed: retry,
-    evidenceCount: evidence.length,
-    citedArticleNumbers
+    return rightScore - leftScore;
   });
+}
 
-  try {
-    const result = await generateObjectWithRaw({
-      model: env.GEMINI_TOOLS_MODEL,
-      prompt: buildCriticPrompt({
-        answerMarkdown: state.answerMarkdown,
-        claimCandidates,
-        evidence,
-        retry
-      }),
-      schema: criticSchema
-    });
-
-    console.info("Critic raw text", result.rawText);
-
-    return normalizeCriticReview(
-      result.object,
-      new Set(evidence.map((detail) => detail.articleNumber))
+function rankSourceDetails(claim: string, details: SourceDetail[]) {
+  return [...details].sort((left, right) => {
+    const leftScore = scoreTokenOverlap(
+      claim,
+      `${left.title} ${left.verificationText || left.snippet}`
     );
-  } catch (error) {
-    if (error instanceof StructuredOutputError) {
-      const repairedReview = repairCriticReview(error.rawText);
+    const rightScore = scoreTokenOverlap(
+      claim,
+      `${right.title} ${right.verificationText || right.snippet}`
+    );
 
-      if (repairedReview) {
-        console.warn("Critic structured output repaired from raw text.");
-        console.info("Critic repaired raw text", error.rawText);
+    return rightScore - leftScore;
+  });
+}
 
-        return normalizeCriticReview(
-          repairedReview,
-          new Set(evidence.map((detail) => detail.articleNumber))
-        );
+function buildClaimEvidenceBundles(state: GraphState, claims: ClaimSegment[]) {
+  const retrievalCandidates = state.retrievalCandidates as RetrievalCandidate[];
+
+  return claims.slice(0, 8).map((claim, index) => {
+    const evidence: SemanticEvidence[] = [];
+    const seenChunkIds = new Set<string>();
+
+    for (const articleNumber of claim.citationNumbers) {
+      const articleCandidates = rankRetrievalCandidates(
+        claim.claim,
+        retrievalCandidates.filter((candidate) => candidate.article.articleNumber === articleNumber)
+      ).slice(0, 3);
+
+      if (articleCandidates.length) {
+        for (const candidate of articleCandidates) {
+          if (seenChunkIds.has(candidate.id)) continue;
+          seenChunkIds.add(candidate.id);
+          evidence.push({
+            articleNumber,
+            title: candidate.article.title,
+            chunkId: candidate.id,
+            chunkIndex: candidate.chunkIndex,
+            text: candidate.chunkText.trim()
+          });
+        }
+        continue;
+      }
+
+      const fallbackDetails = rankSourceDetails(
+        claim.claim,
+        state.sourceDetails.filter((detail) => detail.articleNumber === articleNumber)
+      ).slice(0, 2);
+
+      for (const detail of fallbackDetails) {
+        if (seenChunkIds.has(detail.chunkId)) continue;
+        seenChunkIds.add(detail.chunkId);
+        evidence.push({
+          articleNumber,
+          title: detail.title,
+          chunkId: detail.chunkId,
+          chunkIndex: detail.chunkIndex,
+          text: (detail.verificationText || detail.snippet).trim()
+        });
       }
     }
 
-    throw error;
-  }
+    return {
+      claimIndex: index + 1,
+      claim: claim.claim,
+      citationNumbers: claim.citationNumbers,
+      evidence
+    } satisfies ClaimEvidenceBundle;
+  });
+}
+
+function mergeSemanticChecks({
+  claims,
+  localChecks,
+  semanticChecks
+}: {
+  claims: ClaimSegment[];
+  localChecks: CriticCheck[];
+  semanticChecks: z.infer<typeof semanticCriticSchema>["checks"];
+}) {
+  const semanticByIndex = new Map(semanticChecks.map((check) => [check.claimIndex, check]));
+
+  return localChecks.map((localCheck, index) => {
+    const claim = claims[index];
+    const semantic = semanticByIndex.get(index + 1);
+
+    if (!claim || !claim.citationNumbers.length || !semantic) {
+      return localCheck;
+    }
+
+    const allowedCitations = new Set(claim.citationNumbers);
+    const citationNumbers = [
+      ...new Set(semantic.citationNumbers.filter((value) => allowedCitations.has(value)))
+    ];
+
+    return {
+      claim: claim.claim,
+      status: semantic.status,
+      citationNumbers:
+        semantic.status === "unsupported"
+          ? []
+          : citationNumbers.length
+            ? citationNumbers
+            : claim.citationNumbers
+    } satisfies CriticCheck;
+  });
 }
 
 export async function criticNode(state: GraphState, config?: LangGraphRunnableConfig) {
@@ -357,42 +268,71 @@ export async function criticNode(state: GraphState, config?: LangGraphRunnableCo
     data: { label: "Verifying citations" }
   });
 
-  let criticSummary: CriticSummary = buildFallbackCriticReport(state);
+  const localVerification = verifyAnswerCitations({
+    answerMarkdown: state.answerMarkdown,
+    sourceTemplates: state.retrievedSources,
+    sourceDetails: state.sourceDetails
+  });
+  const { preparedAnswerMarkdown, claims } = prepareClaimVerification({
+    answerMarkdown: localVerification.answerMarkdown,
+    sourceTemplates: state.retrievedSources,
+    sourceDetails: state.sourceDetails
+  });
+  const claimBundles = buildClaimEvidenceBundles(state, claims).filter(
+    (bundle) => bundle.citationNumbers.length > 0
+  );
+
+  if (!claimBundles.length) {
+    return {
+      answerMarkdown: localVerification.answerMarkdown,
+      criticSummary: localVerification.criticSummary,
+      ...withTiming(state, "critic", startedAt)
+    };
+  }
 
   try {
-    criticSummary = await runCriticAttempt({
-      state,
-      maxEvidence: 5,
-      retry: false
+    const env = getServerEnv();
+    const semanticResult = await generateObjectWithRaw({
+      model: env.GEMINI_TOOLS_MODEL,
+      prompt: buildSemanticCriticPrompt(claimBundles),
+      schema: semanticCriticSchema
     });
+    const mergedChecks = mergeSemanticChecks({
+      claims,
+      localChecks: localVerification.criticSummary.checks,
+      semanticChecks: semanticResult.object.checks
+    });
+
+    return {
+      answerMarkdown: preparedAnswerMarkdown,
+      criticSummary: summarizeCriticChecks(mergedChecks),
+      ...withTiming(state, "critic", startedAt)
+    };
   } catch (error) {
     if (error instanceof StructuredOutputError) {
-      console.error("Critic parse error", error.cause);
-      console.error("Critic raw text", error.rawText);
-    } else {
-      console.error("Critic failure", error);
-    }
+      const repaired = repairSemanticCriticChecks(error.rawText);
 
-    try {
-      criticSummary = await runCriticAttempt({
-        state,
-        maxEvidence: 3,
-        retry: true
-      });
-    } catch (retryError) {
-      if (retryError instanceof StructuredOutputError) {
-        console.error("Critic retry parse error", retryError.cause);
-        console.error("Critic retry raw text", retryError.rawText);
-      } else {
-        console.error("Critic retry failure", retryError);
+      if (repaired) {
+        const mergedChecks = mergeSemanticChecks({
+          claims,
+          localChecks: localVerification.criticSummary.checks,
+          semanticChecks: repaired.checks
+        });
+
+        return {
+          answerMarkdown: preparedAnswerMarkdown,
+          criticSummary: summarizeCriticChecks(mergedChecks),
+          ...withTiming(state, "critic", startedAt)
+        };
       }
-
-      criticSummary = buildFallbackCriticReport(state);
     }
+
+    console.error("Semantic critic fallback", error);
   }
 
   return {
-    criticSummary,
+    answerMarkdown: localVerification.answerMarkdown,
+    criticSummary: localVerification.criticSummary,
     ...withTiming(state, "critic", startedAt)
   };
 }

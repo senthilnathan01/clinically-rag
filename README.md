@@ -60,14 +60,15 @@ Key behavior:
 - citation anchors are mapped to exact answer spans
 - source details preserve chunk-level evidence metadata
 - follow-up context is passed explicitly in each request
-- critic degradation never erases the answer
+- citation verification normalizes the final answer locally, then checks claim meaning against bundled evidence from the cited chunks
+- the formatter never invents missing citations; it only normalizes supported citations and links them into anchors
 
 ## Ingestion and retrieval
 
 - The provided PDFs are normalized into structured JSON under `data/generated`
 - The ingest script fetches all 21 article URLs, extracts content, chunks text, stores metadata, and optionally upserts to Pinecone
 - Article 21 is mandatory live content and is explicitly checked in the ingest manifest and smoke script
-- Retrieval merges dense Pinecone scores with sparse BM25-style scores, query-specific coverage, and metadata-based article boosts
+- Retrieval merges dense Pinecone scores with sparse BM25-style scores, query-specific coverage, and metadata-based article boosts, and it fans out multi-query retrieval in parallel
 - Manual override notes currently supplement articles 9, 10, 11, and 12 when direct extraction does not expose enough evaluation-critical detail
 
 ## Local run
@@ -86,7 +87,6 @@ Optional checks:
 npm run smoke
 npm run typecheck
 npm run build
-npm run eval
 ```
 
 ## Environment variables

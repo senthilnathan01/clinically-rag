@@ -3,9 +3,9 @@ import type {
   RetrievedSourceSummary,
   SourceDetail
 } from "@/lib/types/agent";
-import { scoreTokenOverlap } from "@/lib/utils/text";
+import { normalizeText, scoreTokenOverlap } from "@/lib/utils/text";
 
-const CITATION_PATTERN = /\[Art\.\s*(\d{1,2})\s*·\s*([^\]]+)\]/g;
+export const CITATION_PATTERN = /\[Art\.\s*(\d{1,2})\s*·\s*([^\]]+)\]/g;
 const LOOSE_CITATION_PATTERN = /\[(?:Article|Art(?:icle)?\.?)\s*(\d{1,2})(?:\s*[·:-]\s*([^\]]+))?\]/gi;
 
 function buildCitationLabel(
@@ -24,6 +24,21 @@ function buildCitationLabel(
   }
 
   return null;
+}
+
+function buildFallbackDetail(source: RetrievedSourceSummary): SourceDetail {
+  return {
+    citationId: "",
+    articleNumber: source.articleNumber,
+    title: source.title,
+    publication: source.publication,
+    url: source.url,
+    rationale: source.rationale,
+    snippet: "",
+    verificationText: "",
+    chunkId: source.chunkId,
+    chunkIndex: source.chunkIndex
+  };
 }
 
 function findCitationContext(answerMarkdown: string, offset: number) {
@@ -74,79 +89,46 @@ function stripUnsupportedCitations(
   });
 }
 
-function ensureSentenceCitations(
+export function prepareAnswerCitations(
   answerMarkdown: string,
   sourceTemplates: RetrievedSourceSummary[],
   sourceDetails: SourceDetail[]
 ) {
-  const uniqueDetails = sourceDetails.length
-    ? sourceDetails
-    : sourceTemplates.map((source) => ({
-        citationId: "",
-        articleNumber: source.articleNumber,
-        title: source.title,
-        publication: source.publication,
-        url: source.url,
-        rationale: source.rationale,
-        snippet: "",
-        chunkId: source.chunkId,
-        chunkIndex: source.chunkIndex
-      }));
-
-  const uniqueArticleNumbers = [...new Set(uniqueDetails.map((detail) => detail.articleNumber))];
-
-  return answerMarkdown
-    .split("\n")
-    .map((line) => {
-      const trimmed = line.trim();
-
-      if (!trimmed || /\[Art\./.test(trimmed) || trimmed.endsWith(":") || uniqueArticleNumbers.length === 0) {
-        return line;
-      }
-
-      const bestDetail = uniqueDetails
-        .map((detail) => ({
-          detail,
-          score: scoreTokenOverlap(trimmed, `${detail.title} ${detail.snippet}`)
-        }))
-        .sort((left, right) => right.score - left.score)[0];
-
-      if (!bestDetail) {
-        return line;
-      }
-
-      if (uniqueArticleNumbers.length > 1 && bestDetail.score < 0.14) {
-        return line;
-      }
-
-      const citationLabel =
-        buildCitationLabel(bestDetail.detail.articleNumber, sourceTemplates, sourceDetails) ??
-        `Art. ${bestDetail.detail.articleNumber}`;
-
-      return `${line.trimEnd()} [${citationLabel}]`;
-    })
-    .join("\n");
+  return normalizeText(
+    stripUnsupportedCitations(
+      normalizeLooseCitations(answerMarkdown, sourceTemplates, sourceDetails),
+      sourceTemplates,
+      sourceDetails
+    )
+  );
 }
 
-function selectSourceDetail(
-  articleNumber: number,
-  answerMarkdown: string,
-  offset: number,
-  sourceTemplates: RetrievedSourceSummary[],
-  sourceDetails: SourceDetail[]
-) {
+export function selectSourceDetailForContext({
+  articleNumber,
+  contextText,
+  sourceTemplates,
+  sourceDetails
+}: {
+  articleNumber: number;
+  contextText: string;
+  sourceTemplates: RetrievedSourceSummary[];
+  sourceDetails: SourceDetail[];
+}) {
+  const normalizedContext = normalizeText(contextText);
   const matchingDetails = sourceDetails.filter((detail) => detail.articleNumber === articleNumber);
+
   if (matchingDetails.length) {
     if (matchingDetails.length === 1) {
       return matchingDetails[0];
     }
 
-    const citationContext = findCitationContext(answerMarkdown, offset);
-
     return matchingDetails
       .map((detail) => ({
         detail,
-        score: scoreTokenOverlap(citationContext, `${detail.title} ${detail.snippet}`)
+        score: scoreTokenOverlap(
+          normalizedContext,
+          `${detail.title} ${detail.verificationText || detail.snippet}`
+        )
       }))
       .sort((left, right) => right.score - left.score)[0]?.detail;
   }
@@ -154,17 +136,7 @@ function selectSourceDetail(
   const matchingSource = sourceTemplates.find((source) => source.articleNumber === articleNumber);
   if (!matchingSource) return null;
 
-  return {
-    citationId: "",
-    articleNumber: matchingSource.articleNumber,
-    title: matchingSource.title,
-    publication: matchingSource.publication,
-    url: matchingSource.url,
-    rationale: matchingSource.rationale,
-    snippet: "",
-    chunkId: matchingSource.chunkId,
-    chunkIndex: matchingSource.chunkIndex
-  } satisfies SourceDetail;
+  return buildFallbackDetail(matchingSource);
 }
 
 export function attachCitationAnchors({
@@ -176,12 +148,8 @@ export function attachCitationAnchors({
   sourceTemplates: RetrievedSourceSummary[];
   sourceDetails: SourceDetail[];
 }) {
-  const normalizedAnswerMarkdown = ensureSentenceCitations(
-    stripUnsupportedCitations(
-      normalizeLooseCitations(answerMarkdown, sourceTemplates, sourceDetails),
-      sourceTemplates,
-      sourceDetails
-    ),
+  const normalizedAnswerMarkdown = prepareAnswerCitations(
+    answerMarkdown,
     sourceTemplates,
     sourceDetails
   );
@@ -195,13 +163,12 @@ export function attachCitationAnchors({
       const articleNumber = Number(articleNumberRaw);
       const anchorId = `citation-${articleNumber}-${anchorIndex}`;
       anchorIndex += 1;
-      const detail = selectSourceDetail(
+      const detail = selectSourceDetailForContext({
         articleNumber,
-        normalizedAnswerMarkdown,
-        offset,
+        contextText: findCitationContext(normalizedAnswerMarkdown, offset),
         sourceTemplates,
         sourceDetails
-      );
+      });
 
       citationAnchors.push({
         id: anchorId,

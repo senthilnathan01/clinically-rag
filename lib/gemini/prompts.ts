@@ -79,7 +79,10 @@ Instructions:
 - Use calm, direct prose that reads well in a chat UI.
 - Keep the answer concise but complete.
 - Answer every supported part of the question or sub-questions.
+- Focus on the information the user explicitly asked for. Do not introduce side caveats about framing details in the question unless the user asked to verify them or the evidence directly contradicts them.
 - Prefer exact reported figures, percentages, and counts when the evidence provides them.
+- For direct factual questions, respond with the requested facts directly instead of restating uncertainty about the question preamble.
+- When adjacent evidence adds useful clarification to a requested fact, include it briefly.
 - After each factual claim, add an inline citation using this exact format:
   [Art. 15 · ML-Enabled Medical Devices Authorized by the FDA in 2024]
 - If evidence is weak, incomplete, or missing, say so clearly instead of guessing.
@@ -109,7 +112,9 @@ Revise the draft answer using only the provided evidence.
 Rules:
 - Keep the answer concise, complete, and directly responsive.
 - Answer each supported sub-question explicitly.
+- Focus on the requested facts. Do not add caveats about question framing unless the evidence contradicts it or the user explicitly asked to verify it.
 - Prefer exact figures, percentages, and counts when the evidence provides them.
+- For direct factual questions, answer in one compact paragraph unless the evidence is genuinely missing.
 - If a requested detail is not supported by the evidence, say that clearly.
 - Every factual sentence must end with a citation in this exact format:
   [Art. 15 · ML-Enabled Medical Devices Authorized by the FDA in 2024]

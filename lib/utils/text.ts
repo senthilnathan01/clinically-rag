@@ -21,6 +21,22 @@ const STOPWORDS = new Set([
   "with"
 ]);
 
+const SENTENCE_DOT_SENTINEL = "<DOT>";
+const ABBREVIATION_PATTERN = /\b(?:[A-Z]\.){2,}(?=\s|$)/g;
+const TITLE_ABBREVIATION_PATTERN = /\b(?:Mr|Mrs|Ms|Dr|Prof|Sr|Jr|vs|etc)\.(?=\s)/g;
+
+function protectSentenceDots(text: string) {
+  return text
+    .replace(ABBREVIATION_PATTERN, (match) => match.replaceAll(".", SENTENCE_DOT_SENTINEL))
+    .replace(TITLE_ABBREVIATION_PATTERN, (match) =>
+      match.replace(".", SENTENCE_DOT_SENTINEL)
+    );
+}
+
+function restoreSentenceDots(text: string) {
+  return text.replaceAll(SENTENCE_DOT_SENTINEL, ".");
+}
+
 export function normalizeText(text: string) {
   return text
     .replace(/\u00a0/g, " ")
@@ -66,8 +82,9 @@ export function dedupeParagraphs(text: string) {
 }
 
 export function summarizeExtractively(text: string, sentenceCount = 3) {
-  const sentences = normalizeText(text)
+  const sentences = protectSentenceDots(normalizeText(text))
     .split(/(?<=[.!?])\s+/)
+    .map((sentence) => restoreSentenceDots(sentence))
     .filter((sentence) => sentence.length > 40);
 
   return sentences.slice(0, sentenceCount).join(" ").trim();
@@ -165,8 +182,9 @@ export function scoreTokenOverlap(left: string, right: string) {
 }
 
 export function splitSentences(text: string) {
-  return normalizeText(text)
+  return protectSentenceDots(normalizeText(text))
     .split(/(?<=[.!?])\s+/)
+    .map((sentence) => restoreSentenceDots(sentence))
     .map((sentence) => sentence.trim())
     .filter(Boolean);
 }
