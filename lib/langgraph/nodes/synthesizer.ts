@@ -1,8 +1,8 @@
 import type { LangGraphRunnableConfig } from "@langchain/langgraph";
 
 import { getServerEnv } from "@/lib/config/env";
-import { streamText } from "@/lib/vertex/client";
-import { buildSynthesizerPrompt } from "@/lib/gemini/prompts";
+import { generateText, streamText } from "@/lib/vertex/client";
+import { buildAnswerRepairPrompt, buildSynthesizerPrompt } from "@/lib/gemini/prompts";
 import { emitStreamEvent, withTiming } from "@/lib/langgraph/helpers";
 import type { GraphState } from "@/lib/langgraph/state";
 
@@ -20,7 +20,7 @@ export async function synthesizerNode(state: GraphState, config?: LangGraphRunna
   });
 
   const env = getServerEnv();
-  const answerMarkdown = await streamText({
+  let answerMarkdown = await streamText({
     model: env.GEMINI_MODEL,
     prompt: buildSynthesizerPrompt(state, state.retrievalCandidates),
     onChunk: (chunk) => {
@@ -32,6 +32,22 @@ export async function synthesizerNode(state: GraphState, config?: LangGraphRunna
       }
     }
   });
+
+  const shouldRepair =
+    state.retrievalCandidates.length > 0 &&
+    (state.routeTaken !== "simple_factual" || state.subQuestions.length > 1);
+
+  if (shouldRepair) {
+    const repairedAnswer = await generateText({
+      model: env.GEMINI_MODEL,
+      prompt: buildAnswerRepairPrompt(state, answerMarkdown, state.retrievalCandidates),
+      temperature: 0.1
+    });
+
+    if (repairedAnswer.trim()) {
+      answerMarkdown = repairedAnswer.trim();
+    }
+  }
 
   return {
     answerMarkdown,

@@ -37,6 +37,10 @@ export function tokenize(text: string) {
     .filter((token) => token && !STOPWORDS.has(token));
 }
 
+export function uniqueTokens(text: string) {
+  return [...new Set(tokenize(text))];
+}
+
 export function countTerms(tokens: string[]) {
   return tokens.reduce<Record<string, number>>((accumulator, token) => {
     accumulator[token] = (accumulator[token] ?? 0) + 1;
@@ -67,6 +71,39 @@ export function summarizeExtractively(text: string, sentenceCount = 3) {
     .filter((sentence) => sentence.length > 40);
 
   return sentences.slice(0, sentenceCount).join(" ").trim();
+}
+
+const FACT_CUE_PATTERN =
+  /\b(?:fda|device|devices|approval|approvals|radiology|imaging|deploy|deployment|success|demographic|bias|worker|workers|strike|limbic|phase|trial|merger|agentic|chatrwd)\b/i;
+
+export function extractKeyFactHighlights(text: string, maxHighlights = 3) {
+  return splitSentences(text)
+    .map((sentence) => {
+      const compact = sentence.replace(/\s+/g, " ").trim();
+      const score =
+        Number(/\d/.test(compact)) * 3 +
+        Number(/%|percent|ratio|vs\.?/i.test(compact)) * 2 +
+        Number(FACT_CUE_PATTERN.test(compact));
+
+      return {
+        sentence: compact,
+        score
+      };
+    })
+    .filter((entry) => entry.score > 0)
+    .sort((left, right) => right.score - left.score || left.sentence.length - right.sentence.length)
+    .slice(0, maxHighlights)
+    .map((entry) => entry.sentence);
+}
+
+export function summarizeForRetrieval(text: string, sentenceCount = 2) {
+  const highlights = extractKeyFactHighlights(text, sentenceCount);
+
+  if (highlights.length) {
+    return highlights.join(" ");
+  }
+
+  return summarizeExtractively(text, sentenceCount);
 }
 
 export function splitIntoChunks(text: string, targetWords = 220, overlapWords = 40) {
@@ -112,4 +149,24 @@ export function detectArticleHints(text: string) {
   return [...text.matchAll(/(?:art(?:icle)?\.?\s*)(\d{1,2})/gi)].map((match) =>
     Number(match[1])
   );
+}
+
+export function scoreTokenOverlap(left: string, right: string) {
+  const leftTokens = uniqueTokens(left);
+  const rightTokenSet = new Set(uniqueTokens(right));
+
+  if (!leftTokens.length || !rightTokenSet.size) {
+    return 0;
+  }
+
+  const shared = leftTokens.reduce((count, token) => count + Number(rightTokenSet.has(token)), 0);
+
+  return shared / leftTokens.length;
+}
+
+export function splitSentences(text: string) {
+  return normalizeText(text)
+    .split(/(?<=[.!?])\s+/)
+    .map((sentence) => sentence.trim())
+    .filter(Boolean);
 }

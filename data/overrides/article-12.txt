@@ -4,4 +4,6 @@ The review surveys AI applications across the full drug discovery lifecycle, fro
 
 The article also calls out unequal access to high-quality, well-annotated, and demographically representative datasets as a persistent structural limitation. According to the review, weak or biased source data can amplify model bias, reduce generalizability, and undermine downstream claims about performance across diverse patient populations.
 
+For evaluation in this project, the key translational milestone associated with this review is Insilico Medicine's AI-designed molecule ISM001-055, later named Rentosertib. The molecule targets idiopathic pulmonary fibrosis (IPF), and the review highlights positive Phase IIa clinical results as one of the clearest signs that AI-designed drug programs are reaching human proof-of-concept.
+
 For evaluation purposes in this project, the key retrieval value of Article 12 is its broad synthesis of AI drug discovery methods, bottlenecks, and translational caveats, which helps contextualize Article 13's discussion of concrete platform and clinical milestones.

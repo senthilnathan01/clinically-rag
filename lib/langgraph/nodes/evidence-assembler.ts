@@ -4,7 +4,11 @@ import { emitStreamEvent, withTiming } from "@/lib/langgraph/helpers";
 import type { GraphState } from "@/lib/langgraph/state";
 import type { RetrievedSourceSummary, SourceDetail } from "@/lib/types/agent";
 
-function buildRationale(titleOverlap: number) {
+function buildRationale(titleOverlap: number, matchedQueries: string[]) {
+  if (matchedQueries.length > 1) {
+    return "Ranked highly across multiple sub-questions in the current request.";
+  }
+
   return titleOverlap > 0
     ? "Ranked highly because the title and metadata align closely with the request."
     : "Ranked highly from the combined semantic and lexical retrieval score.";
@@ -22,7 +26,7 @@ export async function evidenceAssemblerNode(state: GraphState, config?: LangGrap
   const perArticleDetailCount = new Map<number, number>();
 
   for (const candidate of state.retrievalCandidates) {
-    const rationale = buildRationale(candidate.titleOverlap);
+    const rationale = buildRationale(candidate.titleOverlap, candidate.matchedQueries);
     const snippet = candidate.chunkText.slice(0, 320).trim();
     const existingSource = retrievedSourceMap.get(candidate.article.articleNumber);
 
@@ -40,7 +44,10 @@ export async function evidenceAssemblerNode(state: GraphState, config?: LangGrap
     }
 
     const detailCount = perArticleDetailCount.get(candidate.article.articleNumber) ?? 0;
-    if (detailCount < 2) {
+    const maxDetailsPerArticle =
+      candidate.matchedQueries.length > 1 || candidate.article.articleNumber === 21 ? 3 : 2;
+
+    if (detailCount < maxDetailsPerArticle) {
       sourceDetails.push({
         citationId: "",
         articleNumber: candidate.article.articleNumber,

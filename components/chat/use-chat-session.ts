@@ -19,6 +19,7 @@ function mergeArtifact(
   return {
     ...current,
     ...patch,
+    intent: patch.intent ?? current?.intent,
     citationAnchors: patch.citationAnchors ?? current?.citationAnchors ?? [],
     sourceDetails: patch.sourceDetails ?? current?.sourceDetails ?? [],
     criticSummary: patch.criticSummary ?? current?.criticSummary,

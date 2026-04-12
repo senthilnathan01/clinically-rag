@@ -48,9 +48,13 @@ async function upsertChunksToPinecone(chunks: ArticleChunkRecord[]) {
 
   const index = getPineconeIndex();
   const batchSize = 8;
+  const totalBatches = Math.ceil(chunks.length / batchSize);
 
   for (let cursor = 0; cursor < chunks.length; cursor += batchSize) {
     const batch = chunks.slice(cursor, cursor + batchSize);
+    const batchNumber = Math.floor(cursor / batchSize) + 1;
+
+    console.log(`Embedding/upserting Pinecone batch ${batchNumber}/${totalBatches}`);
     const vectors = await embedTexts(batch.map((chunk) => chunk.embeddingInput));
 
     await index.upsert({
@@ -89,10 +93,7 @@ async function main() {
       let extractedText = "";
       const overrideText = await readManualOverride(article.articleNumber);
 
-      if (overrideText) {
-        extractionMethod = "manual-override";
-        extractedText = overrideText;
-      } else {
+      try {
         const fetched = await fetchSource(article.url);
 
         if (fetched.contentType.includes("pdf") || article.url.endsWith(".pdf")) {
@@ -102,6 +103,19 @@ async function main() {
           const extracted = extractArticleFromHtml(fetched.text, article.url);
           extractionMethod = extracted.method;
           extractedText = extracted.text;
+        }
+      } catch (error) {
+        if (!overrideText) {
+          throw error;
+        }
+      }
+
+      if (overrideText) {
+        if (extractedText.length >= 500) {
+          extractedText = `${extractedText.trim()}\n\n${overrideText.trim()}`;
+        } else {
+          extractionMethod = "manual-override";
+          extractedText = overrideText;
         }
       }
 

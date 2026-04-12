@@ -1,5 +1,6 @@
 import { z } from "zod";
 
+import { classifyAssistantIntent, createDirectArtifact } from "@/lib/chat/intent";
 import { hasRuntimeSecrets } from "@/lib/config/env";
 import { healthcareGraph } from "@/lib/langgraph/graph";
 import { createInitialGraphState } from "@/lib/langgraph/state";
@@ -11,7 +12,10 @@ export const dynamic = "force-dynamic";
 export const maxDuration = 60;
 
 const requestSchema = z.object({
-  question: z.string().min(3),
+  question: z
+    .string()
+    .transform((value) => value.trim())
+    .refine((value) => value.length > 0, "Question cannot be empty."),
   conversation: z
     .array(
       z.object({
@@ -28,6 +32,22 @@ function sseEvent(event: string, payload: unknown) {
 
 export async function POST(request: Request) {
   const body = requestSchema.parse(await request.json());
+  const intent = classifyAssistantIntent({
+    question: body.question,
+    conversation: body.conversation
+  });
+
+  if (intent !== "grounded_query") {
+    const artifact = createDirectArtifact(intent);
+
+    return new Response(sseEvent("complete", artifact), {
+      headers: {
+        "Content-Type": "text/event-stream; charset=utf-8",
+        "Cache-Control": "no-cache, no-transform",
+        Connection: "keep-alive"
+      }
+    });
+  }
 
   if (!hasRuntimeSecrets()) {
     return Response.json(

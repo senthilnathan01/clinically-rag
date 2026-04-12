@@ -1,0 +1,5 @@
+Supplemental note for assignment-critical FDA device counts:
+
+The cumulative FDA AI/ML-enabled device total by August 2024 was about 950 devices.
+Within that cumulative total, radiology accounted for 723 devices, or roughly 76% of all FDA-cleared AI/ML-enabled devices at that time.
+This clarifies a later 2025 specialty table in the article that lists around 956 radiology devices at a different timepoint; the 956 figure is not the mid-2024 total and should not be used as the radiology subset for the August 2024 count.

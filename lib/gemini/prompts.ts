@@ -19,7 +19,8 @@ Publication: ${candidate.article.publication}
 Cluster: ${candidate.article.cluster}
 Chunk ID: ${candidate.id}
 Chunk Index: ${candidate.chunkIndex}
-Summary: ${candidate.articleSummary}
+Matched queries: ${candidate.matchedQueries.join(" | ") || "Primary question"}
+Chunk summary: ${candidate.articleSummary}
 Snippet: ${candidate.chunkText}
       `.trim()
     )
@@ -77,6 +78,8 @@ Instructions:
 - Answer only from the provided evidence.
 - Use calm, direct prose that reads well in a chat UI.
 - Keep the answer concise but complete.
+- Answer every supported part of the question or sub-questions.
+- Prefer exact reported figures, percentages, and counts when the evidence provides them.
 - After each factual claim, add an inline citation using this exact format:
   [Art. 15 · ML-Enabled Medical Devices Authorized by the FDA in 2024]
 - If evidence is weak, incomplete, or missing, say so clearly instead of guessing.
@@ -88,6 +91,39 @@ ${formatConversation(state) || "No previous context."}
 
 Sub-questions:
 ${state.subQuestions.join("\n") || state.question}
+
+Evidence:
+${formatEvidence(candidates)}
+
+User question:
+${state.question}
+  `.trim();
+}
+
+export function buildAnswerRepairPrompt(state: GraphState, draftAnswer: string, candidates: RetrievalCandidate[]) {
+  return `
+You are revising a grounded healthcare AI answer for a reviewer-facing evaluation app.
+
+Revise the draft answer using only the provided evidence.
+
+Rules:
+- Keep the answer concise, complete, and directly responsive.
+- Answer each supported sub-question explicitly.
+- Prefer exact figures, percentages, and counts when the evidence provides them.
+- If a requested detail is not supported by the evidence, say that clearly.
+- Every factual sentence must end with a citation in this exact format:
+  [Art. 15 · ML-Enabled Medical Devices Authorized by the FDA in 2024]
+- Do not cite articles that are not present in the evidence.
+- Do not mention internal chain-of-thought.
+
+Conversation:
+${formatConversation(state) || "No previous context."}
+
+Sub-questions:
+${state.subQuestions.join("\n") || state.question}
+
+Draft answer:
+${draftAnswer}
 
 Evidence:
 ${formatEvidence(candidates)}

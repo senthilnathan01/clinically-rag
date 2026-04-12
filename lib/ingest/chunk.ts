@@ -1,7 +1,14 @@
 import type { CorpusArticle } from "@/lib/types/corpus";
 import type { ArticleChunkRecord, IndexedArticleRecord } from "@/lib/types/agent";
 
-import { countTerms, splitIntoChunks, summarizeExtractively, tokenize } from "@/lib/utils/text";
+import {
+  countTerms,
+  extractKeyFactHighlights,
+  splitIntoChunks,
+  summarizeExtractively,
+  summarizeForRetrieval,
+  tokenize
+} from "@/lib/utils/text";
 
 export function createIndexedArticle(
   article: CorpusArticle,
@@ -21,12 +28,18 @@ export function createChunkRecords(article: IndexedArticleRecord, text: string):
   const chunks = splitIntoChunks(text);
 
   return chunks.map((chunkText, chunkIndex) => {
+    const chunkSummary = summarizeForRetrieval(chunkText, 2) || chunkText.slice(0, 280).trim();
+    const keyFactHighlights = extractKeyFactHighlights(chunkText, 2);
     const embeddingInput = [
       `Article ${article.articleNumber}: ${article.title}`,
+      `Publication: ${article.publication}`,
       `Cluster: ${article.cluster}`,
-      `Summary: ${article.summary}`,
+      `Chunk summary: ${chunkSummary}`,
+      keyFactHighlights.length ? `Key facts: ${keyFactHighlights.join(" | ")}` : "",
       chunkText
-    ].join("\n");
+    ]
+      .filter(Boolean)
+      .join("\n");
     const tokens = tokenize(embeddingInput);
 
     return {
@@ -38,7 +51,7 @@ export function createChunkRecords(article: IndexedArticleRecord, text: string):
       url: article.url,
       chunkIndex,
       text: chunkText,
-      summary: article.summary,
+      summary: chunkSummary,
       embeddingInput,
       sparseTerms: countTerms(tokens),
       wordCount: chunkText.split(/\s+/).filter(Boolean).length

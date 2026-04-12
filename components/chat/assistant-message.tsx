@@ -23,6 +23,7 @@ export function AssistantMessage({ turn }: AssistantMessageProps) {
   const [activeCitationId, setActiveCitationId] = useState<string | null>(null);
   const [copyState, setCopyState] = useState<"idle" | "copied" | "error">("idle");
   const isAnswerComplete = turn.status === "complete";
+  const isGroundedReply = artifact?.intent === "grounded_query";
   const showReasoning = openPanel === "reasoning";
   const isSourcesOpen = openPanel === "sources";
 
@@ -106,7 +107,7 @@ export function AssistantMessage({ turn }: AssistantMessageProps) {
         </ReactMarkdown>
       </div>
 
-      {isAnswerComplete ? (
+      {isAnswerComplete && isGroundedReply ? (
         <div className="flex flex-wrap items-center gap-2">
           <Button
             type="button"
@@ -169,12 +170,47 @@ export function AssistantMessage({ turn }: AssistantMessageProps) {
                 : "Copy"}
           </Button>
         </div>
+      ) : isAnswerComplete ? (
+        <div className="flex flex-wrap items-center gap-2">
+          <Button
+            type="button"
+            variant="ghost"
+            size="sm"
+            className={cn(
+              "rounded-full",
+              copyState === "copied" &&
+                "border-border/70 bg-foreground/8 text-foreground shadow-sm hover:bg-foreground/10 dark:border-border dark:bg-foreground/10 dark:hover:bg-foreground/14"
+            )}
+            onClick={async () => {
+              try {
+                await navigator.clipboard.writeText(turn.content);
+                setCopyState("copied");
+              } catch {
+                setCopyState("error");
+              }
+            }}
+            aria-live="polite"
+          >
+            {copyState === "copied" ? (
+              <Check className="size-3.5" />
+            ) : (
+              <Copy className="size-3.5" />
+            )}
+            {copyState === "copied"
+              ? "Copied"
+              : copyState === "error"
+                ? "Copy failed"
+                : "Copy"}
+          </Button>
+        </div>
       ) : null}
 
-      {isAnswerComplete && showReasoning && artifact?.reasoningTrace ? (
+      {isAnswerComplete && isGroundedReply && showReasoning && artifact?.reasoningTrace ? (
         <ReasoningTrace trace={artifact.reasoningTrace} />
       ) : null}
-      {isAnswerComplete && isSourcesOpen ? <SourceReveal details={visibleSourceDetails} /> : null}
+      {isAnswerComplete && isGroundedReply && isSourcesOpen ? (
+        <SourceReveal details={visibleSourceDetails} />
+      ) : null}
       {turn.status === "error" && turn.error ? (
         <div className="rounded-3xl border border-amber-400/40 bg-amber-500/10 px-4 py-3 text-sm text-amber-700 dark:text-amber-300">
           {turn.error}

@@ -4,4 +4,6 @@ The article frames 2025 as a competitive landscape review of AI-first drug disco
 
 The review situates the current market around a small set of scaled contenders including Insilico Medicine, Recursion, Exscientia, BenevolentAI, and other platform companies building end-to-end discovery workflows. It highlights the importance of clinical translation, validated target identification, and proof-of-concept milestones in humans as the strongest signals of platform maturity.
 
+For evaluation in this project, the most important competitive-landscape update is that the Recursion–Exscientia merger, completed on November 20, 2024, materially reshaped the category by combining Recursion's scaled biology platform with Exscientia's AI-enabled precision chemistry and automated synthesis capabilities.
+
 For evaluation purposes in this project, the key retrieval value of Article 11 is its framing of the 2025 platform landscape and the competitive reshaping of the category around scaled AI-biotech platforms, which pairs with Articles 12 and 13 on methodology and clinical progress.

@@ -1,6 +1,11 @@
 import type { CorpusArticle } from "@/lib/types/corpus";
 
 export type QueryRoute = "simple_factual" | "multi_hop" | "live" | "follow_up";
+export type AssistantIntent =
+  | "greeting"
+  | "product_help"
+  | "grounded_query"
+  | "out_of_scope";
 export type ChatRole = "user" | "assistant";
 export type ChatTurnStatus = "idle" | "streaming" | "complete" | "error";
 
@@ -89,11 +94,12 @@ export interface SourceDetail {
 }
 
 export interface AssistantArtifact {
+  intent: AssistantIntent;
   answerMarkdown: string;
-  routeTaken: QueryRoute;
+  routeTaken?: QueryRoute;
   citationAnchors: CitationAnchor[];
-  reasoningTrace: ReasoningTrace;
-  criticSummary: CriticSummary;
+  reasoningTrace?: ReasoningTrace;
+  criticSummary?: CriticSummary;
   sourceDetails: SourceDetail[];
 }
 
@@ -109,6 +115,7 @@ export interface RetrievalCandidate {
   sparseScore: number;
   combinedScore: number;
   titleOverlap: number;
+  matchedQueries: string[];
 }
 
 export interface ArticleChunkRecord {

@@ -4,6 +4,35 @@ import { hybridRetrieve } from "@/lib/retrieval/hybrid";
 import { emitStreamEvent, withTiming } from "@/lib/langgraph/helpers";
 import type { GraphState } from "@/lib/langgraph/state";
 
+type RetrievedCandidate = Awaited<ReturnType<typeof hybridRetrieve>>[number];
+
+function mergeCandidate(
+  current: RetrievedCandidate | undefined,
+  incoming: RetrievedCandidate,
+  query: string
+) {
+  if (!current) {
+    return {
+      ...incoming,
+      matchedQueries: [query]
+    };
+  }
+
+  const matchedQueries = [...new Set([...current.matchedQueries, query])];
+
+  if (incoming.combinedScore > current.combinedScore) {
+    return {
+      ...incoming,
+      matchedQueries
+    };
+  }
+
+  return {
+    ...current,
+    matchedQueries
+  };
+}
+
 export async function retrieverNode(state: GraphState, config?: LangGraphRunnableConfig) {
   const startedAt = Date.now();
   emitStreamEvent(config, {
@@ -18,27 +47,103 @@ export async function retrieverNode(state: GraphState, config?: LangGraphRunnabl
         ? state.searchQueries
         : [state.question];
 
-  const candidateMap = new Map<string, Awaited<ReturnType<typeof hybridRetrieve>>[number]>();
+  const candidateMap = new Map<string, RetrievedCandidate>();
+  const perQueryCandidates: Array<{ query: string; candidates: RetrievedCandidate[] }> = [];
 
   for (const query of searchQueries) {
     const candidates = await hybridRetrieve({
       query,
       focusArticleNumbers: state.focusArticleNumbers,
-      limit: 8
+      limit: 10
     });
+    perQueryCandidates.push({ query, candidates });
 
     for (const candidate of candidates) {
-      const existing = candidateMap.get(candidate.id);
+      candidateMap.set(candidate.id, mergeCandidate(candidateMap.get(candidate.id), candidate, query));
+    }
+  }
 
-      if (!existing || candidate.combinedScore > existing.combinedScore) {
-        candidateMap.set(candidate.id, candidate);
+  const retrievalCandidates: RetrievedCandidate[] = [];
+  const selectedIds = new Set<string>();
+  const articleCounts = new Map<number, number>();
+
+  const addCandidate = (candidate: RetrievedCandidate, maxPerArticle: number) => {
+    if (retrievalCandidates.length >= 10) {
+      return false;
+    }
+
+    if (selectedIds.has(candidate.id)) {
+      return false;
+    }
+
+    const articleNumber = candidate.article.articleNumber;
+    const currentArticleCount = articleCounts.get(articleNumber) ?? 0;
+
+    if (currentArticleCount >= maxPerArticle) {
+      return false;
+    }
+
+    retrievalCandidates.push(candidate);
+    selectedIds.add(candidate.id);
+    articleCounts.set(articleNumber, currentArticleCount + 1);
+
+    return true;
+  };
+
+  for (const { candidates } of perQueryCandidates) {
+    let addedForQuery = 0;
+    let topArticleNumber: number | null = null;
+    let topScore = 0;
+
+    for (const candidate of candidates) {
+      const mergedCandidate = candidateMap.get(candidate.id) ?? candidate;
+      const articleNumber = mergedCandidate.article.articleNumber;
+
+      if (addedForQuery === 1 && topArticleNumber !== null && articleNumber === topArticleNumber) {
+        const diverseAlternative = candidates.find((alternative) => {
+          const mergedAlternative = candidateMap.get(alternative.id) ?? alternative;
+
+          return (
+            mergedAlternative.article.articleNumber !== topArticleNumber &&
+            mergedAlternative.combinedScore >= topScore * 0.8 &&
+            !selectedIds.has(mergedAlternative.id)
+          );
+        });
+
+        if (diverseAlternative) {
+          const mergedAlternative = candidateMap.get(diverseAlternative.id) ?? diverseAlternative;
+
+          if (addCandidate(mergedAlternative, 3)) {
+            addedForQuery += 1;
+          }
+
+          break;
+        }
+      }
+
+      if (addCandidate(mergedCandidate, 3)) {
+        if (addedForQuery === 0) {
+          topArticleNumber = articleNumber;
+          topScore = mergedCandidate.combinedScore;
+        }
+        addedForQuery += 1;
+      }
+
+      if (addedForQuery >= 2) {
+        break;
       }
     }
   }
 
-  const retrievalCandidates = [...candidateMap.values()]
-    .sort((left, right) => right.combinedScore - left.combinedScore)
-    .slice(0, 10);
+  for (const candidate of [...candidateMap.values()].sort((left, right) => right.combinedScore - left.combinedScore)) {
+    const maxPerArticle = candidate.matchedQueries.length > 1 ? 3 : 2;
+
+    addCandidate(candidate, maxPerArticle);
+
+    if (retrievalCandidates.length >= 10) {
+      break;
+    }
+  }
 
   return {
     searchQueries,

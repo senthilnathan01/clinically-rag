@@ -63,6 +63,14 @@ function coerceCitationNumbers(value: unknown): number[] {
 }
 
 function parseCriticCheck(value: unknown): CriticCheck | null {
+  if (typeof value === "string" && value.trim().startsWith("{")) {
+    try {
+      return parseCriticCheck(JSON.parse(value));
+    } catch {
+      return null;
+    }
+  }
+
   const parsed = criticCheckSchema.safeParse(value);
   if (parsed.success) {
     return parsed.data;
@@ -240,7 +248,8 @@ function selectCriticEvidence(
 function buildFallbackCriticReport(state: GraphState): CriticSummary {
   return {
     overall: "weak",
-    summary: "Critic review degraded, so the answer is shown with a conservative verification note.",
+    summary:
+      "Verification stayed conservative because the structured critic output was weak, so the answer is shown with grounded citations only.",
     checks: [
       {
         claim:
@@ -261,9 +270,25 @@ function normalizeCriticReview(review: CriticReview, allowedArticleNumbers: Set<
     ]
   }));
 
+  if (!checks.length) {
+    return {
+      overall: "weak",
+      summary:
+        "Verification stayed conservative because the critic response was too thin to support a stronger judgment.",
+      checks: []
+    };
+  }
+
+  const containsUnsupportedClaim = checks.some((check) => check.status === "unsupported");
+  const overall =
+    review.overall === "fail" && !containsUnsupportedClaim ? "weak" : review.overall;
+
   return {
-    overall: review.overall,
-    summary: review.summary.trim(),
+    overall,
+    summary:
+      overall === "weak" && review.overall === "fail" && !containsUnsupportedClaim
+        ? "Verification flagged uncertainty, but it did not identify a clearly unsupported cited claim."
+        : review.summary.trim(),
     checks
   };
 }

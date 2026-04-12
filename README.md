@@ -2,6 +2,16 @@
 
 Clinically Rag is a minimal, chat-first healthcare AI research app built for the Together Fund take-home. It ingests the provided 21-article corpus, routes each query through a real LangGraph workflow, retrieves chunk-level evidence with hybrid search, streams answers into a calm chat UI, and lets reviewers inspect reasoning and sources only when they want to.
 
+Live app: [clinically-rag.vercel.app](https://clinically-rag.vercel.app/)
+
+![Alt text](data/image.png)
+
+The product runs in assignment-first mode:
+
+- greetings and product-help turns are answered directly
+- healthcare AI answers must be grounded in the indexed corpus
+- unsupported or unrelated questions are refused instead of answered from model memory
+
 ## Product shape
 
 - Empty state: almost empty screen, centered composer, subtle example prompts
@@ -12,7 +22,7 @@ Clinically Rag is a minimal, chat-first healthcare AI research app built for the
 ## Architecture
 
 - Frontend: Next.js App Router, TypeScript, Tailwind, `next-themes`
-- Backend: custom SSE chat route, LangGraph JS/TS orchestration, Vertex AI Gemini model calls
+- Backend: custom SSE chat route, lightweight intent pre-router, LangGraph JS/TS orchestration, Vertex AI Gemini model calls
 - Retrieval: Vertex AI Gemini embeddings + Pinecone dense search + local BM25-style sparse scoring
 - Data: PDF-derived corpus/eval metadata, local chunk manifest, live Article 21 ingest
 
@@ -35,6 +45,7 @@ Routing:
 
 The graph, API, and UI all share one assistant artifact:
 
+- `intent`
 - `answerMarkdown`
 - `routeTaken`
 - `citationAnchors[]`
@@ -44,6 +55,8 @@ The graph, API, and UI all share one assistant artifact:
 
 Key behavior:
 
+- direct greeting/help/out-of-scope replies skip retrieval and citations
+- corpus-grounded replies preserve citations, reasoning trace, and source details
 - citation anchors are mapped to exact answer spans
 - source details preserve chunk-level evidence metadata
 - follow-up context is passed explicitly in each request
@@ -54,7 +67,8 @@ Key behavior:
 - The provided PDFs are normalized into structured JSON under `data/generated`
 - The ingest script fetches all 21 article URLs, extracts content, chunks text, stores metadata, and optionally upserts to Pinecone
 - Article 21 is mandatory live content and is explicitly checked in the ingest manifest and smoke script
-- Retrieval merges dense Pinecone scores with sparse BM25-style scores and article-number/title boosts
+- Retrieval merges dense Pinecone scores with sparse BM25-style scores, query-specific coverage, and metadata-based article boosts
+- Manual override notes currently supplement articles 9, 10, 11, and 12 when direct extraction does not expose enough evaluation-critical detail
 
 ## Local run
 
@@ -99,11 +113,7 @@ Usually required:
 - `PINECONE_HOST`
 - `NEXT_PUBLIC_APP_URL`
 
-Optional for deployments without ADC:
-
-- `GOOGLE_CLOUD_CREDENTIALS_JSON`
-
-See [SETUP.md](/Users/tsn/projects/Together/SETUP.md) and [DEPLOY_VERCEL.md](/Users/tsn/projects/Together/DEPLOY_VERCEL.md) for exact steps.
+See [SETUP.md](./SETUP.md) and [DEPLOY_VERCEL.md](./DEPLOY_VERCEL.md) for exact steps.
 
 ## Validation status
 

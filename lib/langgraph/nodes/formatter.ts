@@ -18,6 +18,7 @@ export async function formatterNode(state: GraphState, config?: LangGraphRunnabl
   });
 
   const finalArtifact = {
+    intent: "grounded_query" as const,
     answerMarkdown: anchored.answerMarkdown,
     routeTaken: state.routeTaken,
     citationAnchors: anchored.citationAnchors,

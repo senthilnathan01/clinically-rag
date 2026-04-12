@@ -25,8 +25,8 @@ If both paths are populated, the app prefers `GOOGLE_API_KEY` and skips project/
 
 ```bash
 GOOGLE_API_KEY=...
-GEMINI_MODEL=gemini-3-flash-preview
-GEMINI_TOOLS_MODEL=gemini-3-flash-preview
+GEMINI_MODEL=gemini-3.1-pro-preview
+GEMINI_TOOLS_MODEL=gemini-3.1-pro-preview
 GEMINI_EMBEDDING_MODEL=gemini-embedding-001
 ```
 
@@ -43,8 +43,8 @@ Then set:
 ```bash
 GOOGLE_CLOUD_PROJECT=your-project-id
 GOOGLE_CLOUD_LOCATION=global
-GEMINI_MODEL=gemini-3-flash-preview
-GEMINI_TOOLS_MODEL=gemini-3-flash-preview
+GEMINI_MODEL=gemini-3.1-pro-preview
+GEMINI_TOOLS_MODEL=gemini-3.1-pro-preview
 GEMINI_EMBEDDING_MODEL=gemini-embedding-001
 ```
 
@@ -92,7 +92,7 @@ This:
 
 Note:
 
-- articles 11 and 12 currently rely on documented override text under `data/overrides/` because direct publisher fetches returned `403`
+- articles 9, 10, 11, and 12 currently rely on documented override text under `data/overrides/` to supplement or replace weak publisher extraction during local ingest
 - if you later migrate retrieval to Vertex AI RAG Engine, use a supported regional location instead of relying on the `global` default used here for model calls
 
 ## 5. Run local checks

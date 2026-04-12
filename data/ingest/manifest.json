@@ -1,7 +1,8 @@
 {
-  "generatedAt": "2026-04-09T21:04:01.649Z",
+  "generatedAt": "2026-04-12T18:13:18.923Z",
   "articleCount": 21,
-  "chunkCount": 808,
+  "chunkCount": 809,
+  "article21Present": true,
   "indexedArticles": [
     {
       "articleNumber": 1,
@@ -142,7 +143,7 @@
       "isLive": false,
       "summary": "Abstract\nThe administrative burden of clinical documentation contributes to health care practitioner burnout and diverts valuable time away from direct patient care. Ambient artificial intelligence (AI) scribes—also called “digital scribes” or “AI scribes”—are emerging as a promising solution, given their potential to automate clinical note generation and reduce clinician workload, and those specifically built on a large language model (LLM) are emerging as technologies for facilitating real-time clinical documentation tasks. This potentially transformative development has a foundation on longer-standing, AI-based transcription software, which uses automated speech recognition and/or natural language processing.",
       "extractionMethod": "html-readability",
-      "extractedTextLength": 32091,
+      "extractedTextLength": 33218,
       "status": "indexed"
     },
     {
@@ -159,7 +160,7 @@
       "isLive": false,
       "summary": "Executive Summary\nThe field of AI-enabled medical devices has expanded dramatically in recent years, transforming many areas of healthcare while raising regulatory, technical, and ethical challenges. By late 2025, sensing and imaging systems powered by machine learning (from radiology scanners to wearable monitors) and intelligent clinical software (from diagnostic tools to decision support) are widely used in practice. Tens of thousands of AI-driven devices have been cleared worldwide – for example, the US Food and Drug Administration (FDA) reports on the order of ~950 FDA-cleared AI/ML devices by mid-2024 ([1]) (with roughly 100 new approvals each year), spanning hundreds of companies and clinical specialties.",
       "extractionMethod": "html-readability",
-      "extractedTextLength": 65300,
+      "extractedTextLength": 65824,
       "status": "indexed"
     },
     {
@@ -174,7 +175,7 @@
       "isLive": false,
       "summary": "This manual fallback note covers Article 11, \"Leading AI-Driven Drug Discovery Platforms: 2025 Landscape,\" and is used only when the publisher blocks direct extraction. The article frames 2025 as a competitive landscape review of AI-first drug discovery platforms. It emphasizes that leading platforms are differentiating through proprietary wet-lab feedback loops, multimodal biological data, and increasingly integrated chemistry plus automation stacks rather than standalone model performance claims.",
       "extractionMethod": "manual-override",
-      "extractedTextLength": 1179,
+      "extractedTextLength": 1502,
       "status": "indexed"
     },
     {
@@ -189,7 +190,7 @@
       "isLive": false,
       "summary": "This manual fallback note covers Article 12, \"AI-Driven Drug Discovery: A Comprehensive Review (2019–2024),\" and is used only when the publisher blocks direct extraction. The review surveys AI applications across the full drug discovery lifecycle, from target identification and screening through lead optimization, toxicity prediction, and translational validation. It presents the field as meaningfully faster and more selective than traditional purely manual workflows, but repeatedly warns that real-world progress remains bottlenecked by data quality, reproducibility, and the gap between in silico promise and clinical validation.",
       "extractionMethod": "manual-override",
-      "extractedTextLength": 1253,
+      "extractedTextLength": 1644,
       "status": "indexed"
     },
     {

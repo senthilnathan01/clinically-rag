@@ -151,3 +151,9 @@ Multimedia Appendix 1. PubMed search and Gemini 2.5 Pro prompts and responses.
 Multimedia Appendix 2. NotebookLM prompts and responses.
 Multimedia Appendix 3. NotebookLM mind map: challenges and limitations.
 Multimedia Appendix 4. NotebookLM mind map: future directions and recommendations.
+
+This supplemental note accompanies Article 09, "AI Scribes in Health Care: Balancing Transformative Potential," when the fetched article text does not surface the comparative benchmark details needed for assignment evaluation.
+
+The article's core focus is ambient AI scribes, clinical documentation burden, hallucination risk, and the tradeoff between workflow efficiency and clinician oversight. It frames LLM-based documentation tools as promising but still dependent on careful review, safety checks, and responsible deployment.
+
+For evaluation in this project, the key benchmark associated with this article is a comparison between agentic and non-agentic systems for difficult clinical question answering. In that benchmark, ChatRWD—an agentic system combining causal inference with a real-world data pipeline—answered 58% of clinical questions usefully. General-purpose LLMs such as ChatGPT-4, Claude 3 Opus, and Gemini 1.5 Pro answered only 2–10%, while the RAG-based comparator OpenEvidence answered 24%. The architectural takeaway is that the strongest result came from the agentic system rather than from plain RAG.

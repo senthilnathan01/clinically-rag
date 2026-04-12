@@ -68,11 +68,7 @@ vercel --prod
 npm run ingest
 ```
 
-6. Ask these in production:
-   - `Q01`
-   - `Q05`
-   - `Q09`
-   - `Q11`
+6. Ask questions in production:
 
 You should see:
 
