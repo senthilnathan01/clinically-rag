@@ -2,7 +2,7 @@
 
 Clinically Rag is a minimal, chat-first healthcare AI research app built for the Together Fund take-home. It ingests the provided 21-article corpus, routes each query through a real LangGraph workflow, retrieves chunk-level evidence with hybrid search, streams answers into a calm chat UI, and lets reviewers inspect reasoning and sources only when they want to.
 
-Live app: [clinically-rag.vercel.app](https://clinically-rag.vercel.app/)
+Below is the screenshot of the live app that was deployed. Now, it is taken down :) obviously.
 
 ![Alt text](data/image.png)
 
